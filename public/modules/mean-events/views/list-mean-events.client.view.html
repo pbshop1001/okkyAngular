@@ -1,0 +1,20 @@
+<section data-ng-controller="MeanEventsController" data-ng-init="find()">
+    <div style="background-color: #c6c8c8"> Version: 0.0.1</div>
+    <div class="meanT-event-title">
+        Mean Tutorial Events
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="meanEvent in meanEvents" data-ng-href="#!/mean-events/{{meanEvent._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="meanEvent.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="meanEvent.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="meanEvent.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!meanEvents.$resolved || meanEvents.length">
+    	No Mean events yet, why don't you <a href="/#!/mean-events/create">create one</a>?
+    </div>
+</section>

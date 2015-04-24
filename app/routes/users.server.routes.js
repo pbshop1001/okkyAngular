@@ -12,6 +12,7 @@ module.exports = function(app) {
 	// Setting up the users profile api
 	app.route('/users/me').get(users.me);
 	app.route('/users').put(users.update);
+	app.route('/users/role').put(users.updateRole);
 	app.route('/users/accounts').delete(users.removeOAuthProvider);
 
 	// Setting up the users password api
@@ -37,9 +38,14 @@ module.exports = function(app) {
 
 	// Setting the google oauth routes
 	app.route('/auth/google').get(passport.authenticate('google', {
+		accessType: 'offline', approvalPrompt: 'force',
+		//approvalPrompt: 'force',
 		scope: [
 			'https://www.googleapis.com/auth/userinfo.profile',
-			'https://www.googleapis.com/auth/userinfo.email'
+			'https://www.googleapis.com/auth/userinfo.email',
+			'https://www.googleapis.com/auth/plus.me',
+			'https://www.googleapis.com/auth/drive',
+			'https://www.googleapis.com/auth/drive.file'
 		]
 	}));
 	app.route('/auth/google/callback').get(users.oauthCallback('google'));
@@ -52,6 +58,9 @@ module.exports = function(app) {
 	app.route('/auth/github').get(passport.authenticate('github'));
 	app.route('/auth/github/callback').get(users.oauthCallback('github'));
 
+
 	// Finish by binding the user middleware
+
+
 	app.param('userId', users.userByID);
 };

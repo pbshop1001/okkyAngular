@@ -1,0 +1,110 @@
+<md-content id="fileCreator" class="md-padding">
+    You can generate an assignment.<br/><br/>
+    <form name="projectForm" data-ng-submit="create()">
+        <md-content class="md-padding ins-container" layout="row" layout-sm="column" style="font-size:1.2em">
+            <md-input-container flex>
+                <label>Title</label>
+                <input md-maxlength="30" required name="title" ng-model="project.title">
+                <div ng-messages="projectForm.title.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container flex>
+                <label>description</label>
+                <input md-maxlength="130" required name="desc" ng-model="project.desc">
+                <div ng-messages="projectForm.desc.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                </div>
+            </md-input-container>
+        </md-content>
+
+        <md-content class="md-padding" layout="row" layout-sm="column" style="font-size:1.2em">
+            <md-input-container flex>
+                <label>Due Date</label>
+                <input type="date" required name="dDate" ng-model="project.dDate">
+                <div ng-messages="projectForm.dDate.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container flex>
+                <label>Contents</label>
+                <textarea ng-model="project.content" columns="1" md-maxlength="650"></textarea>
+            </md-input-container>
+        </md-content>
+
+        <!--<md-input-container>-->
+            <!--<label>Hourly Rate (USD)</label>-->
+            <!--<input required type="number" step="any" name="rate" ng-model="project.rate" min="800" max="4999">-->
+            <!--<div ng-messages="projectForm.rate.$error">-->
+                <!--<div ng-message="required">You've got to charge something! You can't just <b>give away</b> a Missile Defense System.</div>-->
+                <!--<div ng-message="min">You should charge at least $800 an hour. This job is a big deal... if you mess up, everyone dies!</div>-->
+                <!--<div ng-message="max">$5,000 an hour? That's a little ridiculous. I doubt event Bill Clinton could afford that.</div>-->
+            <!--</div>-->
+        <!--</md-input-container>-->
+        <div layout="row" style="margin-top:12px; margin-left:20px; margin-bottom: 10px;">
+            <md-button type="submit" class="md-fab md-primary md-hue-2" aria-label="Profile">
+                <md-icon md-svg-src="modules/d2l/svg/ic_play_arrow_24px.svg"></md-icon>
+                <md-tooltip>
+                    Submit
+                </md-tooltip>
+            </md-button>
+
+            <md-button class="md-fab md-warn" aria-label="Publish">
+                <md-icon md-svg-src="modules/d2l/svg/gdoc.svg"></md-icon>
+                <md-tooltip>
+                    Publish
+                </md-tooltip>
+            </md-button>
+
+            <md-button class="md-fab" aria-label="Comment">
+                <md-icon style="font-size:40px; height:40px;" md-svg-src="modules/d2l/svg/ic_menu_24px.svg"></md-icon>
+                <md-tooltip>
+                    Cancel
+                </md-tooltip>
+            </md-button>
+        </div>
+    </form>
+    <div class="label">Create Assignment UI</div>
+</md-content>
+
+
+
+
+
+<!--<div id="fileCreator" class="ins-container">-->
+    <!--<div layout layout-sm="column">-->
+        <!--<md-input-container flex>-->
+            <!--<label>Class Name</label>-->
+            <!--<input ng-model="assignment.firstName" placeholder="Placeholder text">-->
+        <!--</md-input-container>-->
+        <!--<md-input-container flex>-->
+            <!--<label>Course #</label>-->
+            <!--<input ng-model="assignment.dirName">-->
+        <!--</md-input-container>-->
+    <!--</div>-->
+    <!--<div layout layout-sm="column">-->
+        <!--<md-input-container flex>-->
+            <!--<label>Start Date</label>-->
+            <!--<input type="date" ng-model="assignment.dDate">-->
+        <!--</md-input-container>-->
+        <!--<md-input-container flex>-->
+            <!--<label>Due Date</label>-->
+            <!--<input type="date" ng-model="assignment.dDate">-->
+        <!--</md-input-container>-->
+    <!--</div>-->
+    <!--<div layout="column" layout-align="center center" style="min-height: 200px;">-->
+        <!--<p>Select Type of File</p>-->
+        <!--<md-select ng-model="neighborhood" placeholder="Document Type" flex>-->
+            <!--<md-option ng-value="opt" ng-repeat="opt in docTypes">{{ opt }}</md-option>-->
+        <!--</md-select>-->
+    <!--</div>-->
+    <!--<div layout layout-sm="column">-->
+        <!--<md-button class="md-raised md-primary" style="margin-bottom:20px;" ng-click="showCustomToast()">Publish</md-button>-->
+        <!--<md-button class="md-raised md-primary" style="margin-bottom:20px;" ng-click="showCustomToast()">Save</md-button></div>-->
+
+    <!--<div class="label">Create Assignment UI</div>-->
+<!--</div>-->

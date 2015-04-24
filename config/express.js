@@ -23,6 +23,8 @@ var fs = require('fs'),
 	consolidate = require('consolidate'),
 	path = require('path');
 
+	//cors = require('cors');
+
 module.exports = function(db) {
 	// Initialize express app
 	var app = express();

@@ -23,6 +23,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 
 		// Remove a user social account
 		$scope.removeUserSocialAccount = function(provider) {
+
 			$scope.success = $scope.error = null;
 
 			$http.delete('/users/accounts', {

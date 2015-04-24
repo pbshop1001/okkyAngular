@@ -1,10 +1,22 @@
-'use strict';
+"use strict";
 
 // Init the application configuration module for AngularJS application
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
-	var applicationModuleName = 'okkyangulr';
-	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils'];
+	var applicationModuleName = 'mean';
+	var applicationModuleVendorDependencies =
+        [
+            'ngResource',
+            'ngCookies',  'ngAnimate',  'ngTouch',
+	          'ngMessages',
+	          'ngSanitize',  'ui.router',
+            'ui.bootstrap', //'ui.utils',
+            'ngMaterial', /*'ng-context-menu', 'uiGmapgoogle-maps',*/
+            'smart-table',
+            //'oc.lazyLoad',
+            'nvd3',
+            'braintree-angular'
+        ];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {

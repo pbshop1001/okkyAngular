@@ -1,0 +1,19 @@
+<section data-ng-controller="D2lHwsSubmitsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>D2l hws submits</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="d2lHwsSubmit in d2lHwsSubmits" data-ng-href="#!/d2l-hws-submits/{{d2lHwsSubmit._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="d2lHwsSubmit.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="d2lHwsSubmit.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="d2lHwsSubmit.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!d2lHwsSubmits.$resolved || d2lHwsSubmits.length">
+    	No D2l hws submits yet, why don't you <a href="/#!/d2l-hws-submits/create">create one</a>?
+    </div>
+</section>

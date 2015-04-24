@@ -1,0 +1,155 @@
+<section style="background-color:#EBECED" data-ng-controller="DetailProductController" ng-init="findOne()" >
+	<style>
+		md-whiteframe {
+			background: #fff;
+			margin: 2px;
+			padding: 2px; }
+		md-tabs{
+			margin: 2px;
+			padding: 2px;
+		}
+	</style>
+	<div layout="horizontal" layout-sm="horizontal" layout-padding>
+		<md-whiteframe flex class="md-whiteframe-z1 " layout layout-align="center center">
+			<span style="font-family: 'Nanum Brush Script', serif;">
+				<h2><b>{{product.name}}</b></h2>
+			</span>
+		</md-whiteframe>
+	</div>
+
+	<div layout="horizontal" layout-sm="horizontal" style="margin:5px;" layout-padding>
+		<md-whiteframe flex class="md-whiteframe-z1 " layout layout-align="center center">
+			<img style="max-width:380px" ng-src="{{product.mainimg}}"/>
+		</md-whiteframe>
+		<md-whiteframe flex class="md-whiteframe-z2" layout layout-padding>
+			<span>
+				<h4><b>{{product.price}}원</b></h4>
+				<h5>무료배송</h5>
+				<h5>{{product.description}}</h5>
+
+				<h5><b>수량</b></h5>
+				<select style="width:64px;" ng-model="quantity" class="form-control">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+				<hr>
+
+				<md-button class="md-raised md-primary" ng-click="purchaseProduct(product._id, quantity)">
+					빠른구매
+				</md-button>
+
+				<!--
+				<md-button class="md-raised md-primary" ng-click="authenticateWithGoogle()">
+					Add new payment history (Dev)
+				</md-button>
+				-->
+				<div id="wallet-button-holder"></div>
+
+			</span>
+		</md-whiteframe>
+	</div>
+	<!--
+	<textarea data-ui-tinymce id="tinymce1" data-ng-model="from_one.from_one"></textarea>
+	<div  ng-bind-html="from_one.from_one"></div>
+	-->
+
+	</div>
+	<div style="margin:14px;">
+		<md-tabs selected="selectedIndex">
+			<md-tab style="font-weight:bold; font-size:medium "
+					ng-repeat="tab in tabs"
+					on-select="announceSelected(tab)"
+					on-deselect="announceDeselected(tab)"
+					ng-disabled="tab.disabled"
+					label="{{tab.title}}">
+
+				<div class="demo-tab tab{{$index%4}}" layout="vertical" layout-fill layout-align="space-around center">
+					<md-whiteframe flex class="md-whiteframe-z1 " layout-fill>
+						<div ng-bind-html="tab.content"></div>
+					</md-whiteframe>
+
+					<!--
+					<md-button class="md-warn" ng-click="removeTab( tab )">
+						Remove Tab
+					</md-button>
+					-->
+				</div>
+
+			</md-tab>
+		</md-tabs>
+		<!--
+		<form ng-submit="addTab(tTitle,tContent)" flex>
+		<div layout="vertical" layout-sm="horizontal" layout-padding layout-align="left center">
+			<md-text-float label="Active Index" ng-model="selectedIndex" disabled></md-text-float>
+			<md-text-float label="Active Title" ng-model="tabs[selectedIndex].title"></md-text-float>
+		</div>
+		<div layout="vertical" layout-sm="horizontal" layout-padding layout-align="left center">
+			<span class="title">Add a new Tab:</span>
+			<md-text-float label="Label" ng-model="tTitle"></md-text-float>
+			<md-text-float label="Content" ng-model="tContent"></md-text-float>
+			<md-button class="add-tab md-primary" type="submit" style="max-height: 40px">Add Tab</md-button>
+		</div>
+		</form>
+		-->
+	</div>
+	<!--
+	<div layout="vertical" layout-sm="horizontal" style="margin:5px;" layout-padding>
+		<md-whiteframe flex class="md-whiteframe-z3" layout layout-padding>
+			<span>
+				반품/배송/교환 문의 정보
+				<hr>
+				<h5>판매자 지정택배사</h5>
+				<h5>반품배송비</h5>
+				<h5>보내실곳</h5>
+			</span>
+		</md-whiteframe>
+		<md-whiteframe flex class="md-whiteframe-z4" layout layout-align="center center">
+			<span>
+			</span>
+		</md-whiteframe>
+	</div>
+	<div layout="vertical" layout-sm="horizontal" style="margin:5px;" layout-padding>
+		<md-whiteframe flex class="md-whiteframe-z5" layout layout-align="center center">
+			<span>이야 기분 딱! 좋다</span>
+		</md-whiteframe>
+		<md-whiteframe flex class="md-whiteframe-z5" layout layout-align="center center">
+				<span>
+				<h2>Hello World</h2>
+					<h3>Hello World</h3>
+			</span>
+		</md-whiteframe>
+		<md-whiteframe flex class="md-whiteframe-z5" layout layout-align="center center">
+				<span>
+				<h2>Hello World</h2>
+					<h3>Hello World</h3>
+			</span>
+		</md-whiteframe>
+	</div>
+	<div layout="vertical" layout-sm="horizontal" style="margin:5px;" layout-padding>
+		<md-whiteframe flex class="md-whiteframe-z3">
+			<h2>상세 상품설명</h2>
+			<h3>Hello World</h3>
+		</md-whiteframe>
+	</div>
+	-->
+	<div layout="vertical" layout-sm="horizontal" style="margin:5px;" layout-padding>
+		<md-whiteframe flex class="md-whiteframe-z1 " layout layout-padding>
+			<h5>판매자 정보</h5>
+			<span flex>
+				<h6>상호/대표자: 몰칸 / kevin</h6>
+				<h6>사업자번호: 201-22-12121</h6>
+				<h6>연락처: 123-123-2323</h6>
+			</span>
+			<span flex>
+				<h6>사업장 소재지: 서울 강북구 미아동 839-292 4층</h6>
+				<h6>통신판매 신고번호: 2008-서울강북-0183</h6>
+				<h6>e-mail: test@gmail.com</h6>
+			</span>
+		</md-whiteframe>
+	</div>
+
+
+</section>

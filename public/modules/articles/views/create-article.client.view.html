@@ -1,29 +1,44 @@
-<section data-ng-controller="ArticlesController">
+<section class="container" data-ng-controller="ArticlesController">
+    <style>
+        div.mce-fullscreen{  top:70px;  }
+    </style>
 	<div class="page-header">
 		<h1>New Article</h1>
 	</div>
-	<div class="col-md-12">
-		<form name="articleForm" class="form-horizontal" data-ng-submit="create()" novalidate>
-			<fieldset>
-				<div class="form-group" ng-class="{ 'has-error': articleForm.title.$dirty && articleForm.title.$invalid }">
-					<label class="control-label" for="title">Title</label>
-					<div class="controls">
-						<input name="title" type="text" data-ng-model="title" id="title" class="form-control" placeholder="Title" required>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label" for="content">Content</label>
-					<div class="controls">
-						<textarea name="content" data-ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
-					</div>
-				</div>
-				<div class="form-group">
-					<input type="submit" class="btn btn-default">
-				</div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-			</fieldset>
-		</form>
-	</div>
+    <p>You can write a article, project and plan of development</p>
+    <md-content class="md-padding" style="border-radius:0px 0px 15px 15px">
+        <div layout="column" layout-align="center">
+            <form data-ng-submit="create()" novalidate>
+                <fieldset>
+                    <div class="form-group">
+                        <label class="control-label" for="title">Title</label>
+                        <div class="controls">
+                            <input name="title" type="text" data-ng-model="title" id="title" class="form-control" placeholder="Title" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="type">Type of Document</label>
+                        <md-radio-group ng-model="docType">
+                            <md-radio-button id='type' ng-repeat="d in radioData" ng-value="d.value" ng-disabled=" d.isDisabled " aria-label="{{ d.label }}">
+                                {{ d.label }}
+                            </md-radio-button>
+                        </md-radio-group>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="content">Body</label>
+                        <div class="controls">
+                            <textarea ui-tinymce id="content" data-ng-model="content"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-default">
+                    </div>
+                    <div data-ng-show="error" class="text-danger">
+                        <strong data-ng-bind="error"></strong>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </md-content>
 </section>

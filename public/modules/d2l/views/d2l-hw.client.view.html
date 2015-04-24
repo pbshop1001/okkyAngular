@@ -1,0 +1,94 @@
+<!--
+Write a C++ program that will	print	out (nicely formatted) your
+
+Name
+Your Undergraduate Degree Information
+Your Undergraduate Degree year (year must	be an integer variable, not a string	or constant)
+Your Undergraduate Institution
+A short explanation	about why you are pursuing a Computer Science Masters
+Degree
+Your program must have the standard header block discussed in class.
+Submit your program (.cpp) to the D2L dropbox for CSC601 in the Assignment1
+folder. Name your program CSC601hw1-lastname.cpp.
+-->
+
+<section class="headerEnabled" data-ng-controller="D2lHwController">
+    <md-toolbar>
+        <h2 class="md-toolbar-tools">
+            <span><b>Assignment Wizard</b></span>
+            <span flex></span>
+            <span ng-if="authentication !== undefined">LogIn required</span>
+        </h2>
+    </md-toolbar>
+
+    <md-content class="md-padding">
+        You can generate an assignment.<br/><br/>
+        <form name="projectForm" data-ng-submit="create()">
+            <md-input-container>
+                <label>Title</label>
+                <input md-maxlength="30" required name="title" ng-model="project.title">
+                <div ng-messages="projectForm.description.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container>
+                <label>Grade</label>
+                <input type="number" name="title" ng-model="project.grade">
+                <div ng-messages="projectForm.grade.$error">
+                    <!--<div ng-message="required">This is required.</div>-->
+                    <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
+                </div>
+            </md-input-container>
+
+            <md-input-container>
+                <label>description</label>
+                <input md-maxlength="130" required name="desc" ng-model="project.desc">
+                <div ng-messages="projectForm.description.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container>
+                <label>Due Date</label>
+                <input md-maxlength="30" required name="dDate" ng-model="project.dDate">
+                <div ng-messages="projectForm.description.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container>
+                <label>Contents</label>
+                <textarea ng-model="project.content" columns="1" md-maxlength="650"></textarea>
+            </md-input-container>
+
+            <md-input-container>
+                <label>Hourly Rate (USD)</label>
+                <input required type="number" step="any" name="rate" ng-model="project.rate" min="800" max="4999">
+                <div ng-messages="projectForm.rate.$error">
+                    <div ng-message="required">You've got to charge something! You can't just <b>give away</b> a Missile Defense System.</div>
+                    <div ng-message="min">You should charge at least $800 an hour. This job is a big deal... if you mess up, everyone dies!</div>
+                    <div ng-message="max">$5,000 an hour? That's a little ridiculous. I doubt event Bill Clinton could afford that.</div>
+                </div>
+            </md-input-container>
+            <div style="margin-top:12px; margin-left:20px;">
+                <md-button type="submit" class="md-fab md-primary md-hue-2" aria-label="Profile">
+                    <md-icon md-svg-src="modules/d2l/svg/ic_play_arrow_24px.svg"></md-icon>
+                    <md-tooltip>
+                        Submit
+                    </md-tooltip>
+                </md-button>
+                <md-button class="md-fab" aria-label="Comment">
+                    <md-icon md-svg-src="modules/d2l/svg/ic_menu_24px.svg"></md-icon>
+                    <md-tooltip>
+                        Cancel
+                    </md-tooltip>
+                </md-button>
+            </div>
+        </form>
+    </md-content>
+
+</section>

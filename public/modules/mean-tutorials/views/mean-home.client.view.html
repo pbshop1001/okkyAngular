@@ -1,0 +1,144 @@
+<section class="headerEnabled" ng-controller="MeanHomeController" layout="column" layout-fill>
+    <!--<style>-->
+        <!--.md-dialog-container {-->
+            <!--z-index:1000;-->
+        <!--}-->
+    <!--</style>-->
+
+    <div ng-hide="false" class="meanT-headToolBar">
+        <div class="meanT-brandName">
+            <a href="/#!/versioning" target="_blank">Version: 0.0.1</a>
+            <span style="margin-left:20px;">{{notice}}</span>
+        </div>
+    </div>
+
+    <md-content layout="column" layout-align="center center">
+        <md-content class="meanT-homeFirstRow">
+            <div class="meanT-headTitle">
+                <strong>{{homeContents.mainTitle}}</strong>
+            </div>
+
+            <div class="meanT-headSubTitle md-body-1" hide-sm>
+                <strong>{{homeContents.mainTitle}}</strong> {{homeContents.subTitleText}}<br/><br/>
+                <div layout="row" layout-margin layout-align="center center">
+                    <md-button class="md-raised md-primary" ng-click="goTo('openboard')" style="margin-bottom: 10px;">Get Started</md-button>
+                    <div flex="5"></div>
+                    <md-button class="md-raised md-primary" ng-click="goTo('open-board-present')" style="margin-bottom: 10px;">Presentation</md-button>
+                </div>
+                <!--<a href="https://docs.google.com/document/d/1Q_CJwJftcL-zabVm0USc1px5HDfbpxu6Klav-XYOzNg/edit?usp=sharing" target="_blank">-->
+                    <!--<img title="Google Doc" class="meanT-googleDocImg" ng-src="modules/mean-tutorials/img/google_docs.png">-->
+                <!--</a>-->
+            </div>
+        </md-content>
+
+        <md-content class="md-padding meanT-homeSecondRow" style="overflow:hidden">
+            <div class="meanT-headSubTitle md-body-1" show-sm hide-gt-sm>
+                <strong>{{homeContents.mainTitle}}</strong> {{homeContents.subTitleText}}<br/><br/>
+                <div layout="row" layout-margin layout-align="center center">
+                    <md-button class="md-raised md-primary" ng-click="goTo('openboard')" style="margin-bottom: 10px;">Get Started</md-button>
+                    <div flex="5"></div>
+                    <md-button class="md-raised md-primary" ng-click="goTo('open-board-present')" style="margin-bottom: 10px;">Presentation</md-button>
+                    <!--<md-button class="md-raised md-primary" ng-click="goTo('watch-game')" style="margin-bottom: 10px;">Watch Game</md-button>-->
+                </div>
+                <!--<a href="https://docs.google.com/document/d/1Q_CJwJftcL-zabVm0USc1px5HDfbpxu6Klav-XYOzNg/edit?usp=sharing" target="_blank">-->
+                    <!--<img title="Google Doc" class="meanT-googleDocImg" ng-src="modules/mean-tutorials/img/google_docs.png">-->
+                <!--</a>-->
+            </div>
+
+
+            <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-base"
+                           layout="column" layout-align="space-around start">
+                <h3 class="md-title">Write Modern Web Apps with the MEAN Stack: Mongo, Express, AngularJS, and Node.js</h3>
+                <p class="md-body-1"> Traditionally, web applications have been architected so that the back-end houses all the front-end code. This has resulted in heavy projects that are difficult to manage and scale. This book will explain a new way to write web applications by treating the front-end as if it were a third-party (such as a mobile client). This book, written by a practicing MEAN developer, will take a holistic approach to using the MEAN JavaScript platform for creating modern web applications and lay out how to use the MEAN (Mongo, Express, AngularJS, and Node.js) set of tools to create a web application, from installation and setup of the tools to debugging and deploying your app. After an introduction to how web development is changing and the advantages of using the MEAN stack, the author jumps into an introduction to each tool and then dives into using the complete JavaScript-based application stack to build, test, and deploy apps.</p>
+            </md-whiteframe>
+            <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-base"
+                           layout="column" layout-align="space-around start">
+                <h3 class="docs-title-card-not-Center md-title">앵귤러 강의를 시작하면서</h3>
+                <div class="md-body-1">
+                    앵귤러를 이용해서 Front-End 개발을 한지 3년이 되어 가고 있습니다. 처음 앵귤러가 들어 났을때 개발자들의 폭발적인 관심과
+                    새로운 형태의 Front-End개발 컨셉에 개발자들은 하루 하루 흥분을 감추지 못하면서 서로 피드백을 주고 받으며 이렇게 성장하게 되었습니다.
+                </div>
+            </md-whiteframe>
+
+            <openboard-ani1></openboard-ani1>
+
+            <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-green"
+                           layout="column" layout-align="space-around start">
+                <h3 class="docs-title-card-not-Center md-title">기초부터 고급까지 차근 차근</h3>
+                <p class="md-body-1">
+                    여러 개발자들이 개발중에 닥치게 되는 문제점들 그리고 대부분의 리소스가 영문으로 되어 있어 리소스를 빠르게 접하지 못하시는 분들이 주 타겟입니다.
+                </p>
+
+                <ul class="md-body-2">
+                    <li>어떤걸 배워야 할까 망설여 지시는분</li>
+                    <li>웹기술은 아직도 구닥다리다라는 편견을 가지신분</li>
+                </ul>
+            </md-whiteframe>
+            <!--<div style="max-width:700px; margin-bottom: 20px; margin-left:auto; margin-right:auto;">-->
+                <!--<div class="video-container">-->
+                    <!--<iframe width="640" height="390" src="https://www.youtube.com/embed/eN9cygvhByg" frameborder="0" allowfullscreen></iframe>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
+                           layout="column" layout-align="space-around start">
+                <h3 class="docs-title-card-not-Center md-title">짧은 강의에 많은 내용을</h3>
+                <p class="md-body-1">지루한 강의는 가라 짧은 강의에 많은 여운을 남길수 있는 강의를 제공 하는 것이 ng-sKorea의 목표 입니다</p>
+
+                <h3 class="docs-title-card-not-Center md-title"><b>Problem Solving에 대해서</b></h3>
+                <p class="md-body-1">어떤 문제가 닥치셔서 그 문제를 해결 하시려면 전체를 아셔야 문제가되는 곳을 빠르게 찾으시고 대처 방안을 찾으실수 있습니다.</p>
+
+            </md-whiteframe>
+
+            <openboard-ani1></openboard-ani1>
+
+            <!--<md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"-->
+                           <!--layout="column" layout-align="space-around start">-->
+                <!--<h3 class="docs-title-card-not-Center md-title">Upcoming Project</h3>-->
+
+                <!--<p class="md-body-1"><b>Watch Game e-Learning for kids</b></p>-->
+                <!--<md-chips>-->
+                    <!--<md-chip>Web Animation</md-chip>-->
+                    <!--<md-chip>Touch Control</md-chip>-->
+                    <!--<md-chip>Responsive Design</md-chip>-->
+                <!--</md-chips>-->
+                <!--<p class="md-body-1"><b>e-Commerce</b></p>-->
+                <!--<md-chips>-->
+                    <!--<md-chip>Payment Gateway Interaction</md-chip>-->
+                    <!--<md-chip>Admin & Customer Pages</md-chip>-->
+                    <!--<md-chip>High Performance Transition</md-chip>-->
+                    <!--<md-chip>Responsive Design</md-chip>-->
+                <!--</md-chips>-->
+                <!--<p class="md-body-1"><b>Scrapped Data Analysis </b></p>-->
+                <!--<md-chips>-->
+                    <!--<md-chip>NodeJS Crawler</md-chip>-->
+                    <!--<md-chip>Virtual browser</md-chip>-->
+                    <!--<md-chip>Handling Authentication</md-chip>-->
+                    <!--<md-chip>Visualization</md-chip>-->
+                <!--</md-chips>-->
+                <!--<p class="md-body-1"><b>Social Business Platform</b></p>-->
+                <!--<md-chips>-->
+                    <!--<md-chip>Social Network API</md-chip>-->
+                    <!--<md-chip>Order Management</md-chip>-->
+                    <!--<md-chip>Progress Notification</md-chip>-->
+                    <!--<md-chip>Geo Logical Analysis</md-chip>-->
+                <!--</md-chips>-->
+            <!--</md-whiteframe>-->
+            <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-base"
+                           layout="column" layout-align="center center">
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="QNARP3238KL9U">
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                </form>
+
+            </md-whiteframe>
+        </md-content>
+    </md-content>
+    <!--<div class="meanT-logo-bottom">-->
+        <!--<img alt="Add-on logo" class="meanT-logo" width="27" height="27"-->
+             <!--src="https://googledrive.com/host/0B0G1UdyJGrY6XzdjQWF4a1JYY1k/translate-logo-small.png">-->
+        <!--<span class="gray meanT-branding-text">Open Board Web App by Kevin S</span>-->
+    <!--</div>-->
+</section>

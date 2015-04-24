@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/okkyangulr-dev',
+	db: 'mongodb://localhost/okkyangular-dev',
 	app: {
-		title: 'OKKYAngulr - Development Environment'
+		title: 'Open Board'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
@@ -16,8 +16,8 @@ module.exports = {
 		callbackURL: '/auth/twitter/callback'
 	},
 	google: {
-		clientID: process.env.GOOGLE_ID || 'APP_ID',
-		clientSecret: process.env.GOOGLE_SECRET || 'APP_SECRET',
+		clientID: process.env.GOOGLE_ID || '574563539488-n0vrevgjp3606l20hfk4rqfk1dc8j3qb.apps.googleusercontent.com',
+		clientSecret: process.env.GOOGLE_SECRET || 'B0PEX0jbIkDCumhmpH-D9Sq0',
 		callbackURL: '/auth/google/callback'
 	},
 	linkedin: {

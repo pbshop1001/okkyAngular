@@ -1,0 +1,89 @@
+<div>
+    <div id="widgets" style="background-color:lightblue">
+        <div layout="row" layout-phone="column" layout-padding>
+            <div id="r1c1" class="draggable-target" flex>
+                <div>Uno [flex]</div>
+            </div>
+        </div>
+        <div layout="vertical" layout-sm="horizontal" layout-padding>
+            <div id="r2c1" flex class="draggable-target">
+                <div>Uno [flex]</div>
+            </div>
+            <div id="r2c2" flex class="draggable-target">
+                <div>Dos [flex]</div>
+            </div>
+            <div id="r2c3" flex class="draggable-target">
+                <div>Tres [flex]</div>
+            </div>
+            <div id="r2c4" flex class="draggable-target">
+                <div>Cuatro [flex]</div>
+            </div>
+        </div>
+        <div layout="vertical" layout-sm="horizontal" layout-padding>
+            <div id="r3c1" flex class="draggable-target">
+                <div>Uno [flex]</div>
+            </div>
+            <div id="r3c2" flex class="draggable-target">
+                <div>Dos [flex]</div>
+            </div>
+            <div id="r3c3" flex class="draggable-target">
+                <div>Tres [flex]</div>
+            </div>
+            <div id="r3c4" flex class="draggable-target">
+                <div>Cuatro [flex]</div>
+            </div>
+        </div>
+        <div layout="vertical" layout-sm="horizontal" layout-padding>
+            <div id="r4c1" flex class="draggable-target">
+                <div>Uno [flex]</div>
+            </div>
+            <div id="r4c2" flex class="draggable-target">
+                <div>Dos [flex]</div>
+            </div>
+        </div>
+    </div>
+
+    <br/><br/>
+    <div id="widget_menu" style="background-color:lightcoral; height:70px; position:relative">
+        <div id="box" style="background-color:white; position:absolute; margin:5px;">
+            <!--
+                action:{{clicked}}<br/>
+                action2:{{dragable}}</br>
+                hello world
+                -->
+            <h2>Article</h2>
+        </div>
+    </div>
+
+
+<!--
+    <div class="dropdown" id="menu-{{ $index }}" style="z-index:2000">
+        <ul class="dropdown-menu " role="menu">
+            <li>
+                <a class="pointer" role="menuitem" tabindex="1"
+                   ng-click="clicked=true">Select Panel {{ $index + 1 }}</a>
+            </li>
+            <li>
+                <a class="pointer" role="menuitem" tabindex="2"
+                   ng-click="clicked = false">
+                    Deselect Panel  {{ $index + 1 }}
+                </a>
+            </li>
+            <li>
+                <a class="pointer" role="menuitem" tabindex="3"
+                   ng-click="enableWidget()">Enable Draggable Panel {{ $index + 1 }}</a>
+            </li>
+            <li>
+                <a class="pointer" role="menuitem" tabindex="4"
+                   ng-click="disableWidget() ">
+                    Disable Draggable Panel {{ $index + 1 }}
+                </a>
+            </li>
+            <li>
+                <a class="pointer" role="menuitem" tabindex="5"
+                   ng-click="addPanel()">Add a panel</a>
+            </li>
+        </ul>
+    </div>
+    -->
+</div>

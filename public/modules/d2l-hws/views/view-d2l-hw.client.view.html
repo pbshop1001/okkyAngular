@@ -1,0 +1,84 @@
+<section class="headerEnabled" data-ng-controller="D2lHwsController" data-ng-init="findOne()">
+    <md-toolbar>
+        <h2 class="md-toolbar-tools">
+            <span><b>Assignment Wizard</b></span>
+            <span flex></span>
+            <span ng-if="authentication !== undefined">LogIn required</span>
+        </h2>
+    </md-toolbar>
+
+    <div class="page-header">
+		<h1 data-ng-bind="d2lHw.title"></h1>
+	</div>
+
+	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == d2lHw.user._id))">
+		<a class="btn btn-primary" href="/#!/d2l-hws/{{d2lHw._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+	<small>
+		<em class="text-muted">
+			Posted on
+			<span data-ng-bind="d2lHw.created | date:'mediumDate'"></span>
+			by
+			<span data-ng-bind="d2lHw.user.displayName"></span>
+		</em>
+	</small>
+
+    <md-content class="md-padding" layout="column">
+        <md-input-container>
+            <label>Title</label>
+            <input disabled md-maxlength="30" required name="title" ng-model="d2lHw.title">
+            <div ng-messages="projectForm.description.$error">
+                <div ng-message="required">This is required.</div>
+                <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+            </div>
+        </md-input-container>
+
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>Total Grade</label>
+                <input disabled type="number" name="title" ng-model="d2lHw.totalGrade">
+                <div ng-messages="projectForm.totalGrade.$error">
+                    <!--<div ng-message="required">This is required.</div>-->
+                    <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
+                </div>
+            </md-input-container>
+            <md-input-container flex>
+                <label>Percent</label>
+                <input disabled type="number" name="percent" ng-model="d2lHw.percent">
+                <div ng-messages="projectForm.totalGrade.$error">
+                    <!--<div ng-message="required">This is required.</div>-->
+                    <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
+                </div>
+            </md-input-container>
+        </div>
+
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>Due Date</label>
+                <input disabled type="date" required name="dDate" ng-model="d2lHw.dDate">
+            </md-input-container>
+
+            <md-input-container flex>
+                <label>description</label>
+                <input disabled md-maxlength="130" required name="desc" ng-model="d2lHw.desc">
+                <div ng-messages="projectForm.description.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                </div>
+            </md-input-container>
+        </div>
+
+        <md-input-container>
+            <label>Contents</label>
+            <textarea disabled ng-model="d2lHw.content" columns="1" md-maxlength="650"></textarea>
+        </md-input-container>
+
+
+    </md-content>
+
+</section>

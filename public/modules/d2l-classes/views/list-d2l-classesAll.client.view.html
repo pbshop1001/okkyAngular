@@ -1,0 +1,29 @@
+<section class="headerEnabled openboard-background" data-ng-controller="D2lClassesController" data-ng-init="findAll()">
+
+    <md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
+                   layout="column" layout-align="space-around start">
+        <h1>All classes</h1>
+    </md-whiteframe>
+    <md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-yellow"
+                   layout="column" layout-align="space-around start">
+
+        <h4 class="md-title">{{d2lClasses.length}} Classes</h4>
+
+        <div class="list-group md-body-1">
+
+            <a data-ng-repeat="d2lClass in d2lClasses" data-ng-href="#!/d2l-classes/{{d2lClass._id}}" class="list-group-item">
+                <!--<small class="list-group-item-text">-->
+                <!--Posted on-->
+                <!--<span data-ng-bind="d2lClass.created | date:'medium'"></span>-->
+                <!--by-->
+                <!--<span data-ng-bind="d2lClass.user.displayName"></span>-->
+                <!--</small>-->
+                <h4 class="list-group-item-heading"><b>[{{d2lClass.prefix}}]</b> {{d2lClass.name}}</h4>
+                <!--<h4 class="list-group-item-heading" data-ng-bind="d2lClass.name"></h4>-->
+            </a>
+        </div>
+        <div class="alert alert-warning text-center" data-ng-hide="!d2lClasses.$resolved || d2lClasses.length">
+            No D2l classes yet, why don't you <a href="/#!/d2l-classes/create">create one</a>?
+        </div>
+    </md-whiteframe>
+</section>

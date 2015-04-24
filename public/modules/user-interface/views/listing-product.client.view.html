@@ -1,0 +1,59 @@
+<section data-ng-controller="ListingProductController" ng-init="find()">
+
+	<style>
+		img[ lazy-img ] {
+			background-image: url( "modules/img-utility/img/photo_default.png" ) ;
+		}
+	</style>
+
+	<!-- start Sorting Bar-->
+	<div class="container" style="height:100%" layout="vertical">
+		<div class="top-menu" style="margin:10px;">
+			<div class="dropdown">
+				<button class="dropdownbtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+					Everyting
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">음식</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">식당</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">화장품</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">물건</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">서비스</a></li>
+				</ul>
+				<div style="display:inline;">
+					<md-button  style="height:50px; float: right; margin-right: 5px; vertical-align: middle;" aria-label="Time" ng-click="testColumnSystem(2)">
+						<i class="fa fa-th-large"></i>
+					</md-button>
+					<md-button  style="height:50px; float: right; margin-right: 5px; vertical-align: middle;" aria-label="Time" ng-click="testColumnSystem(3)">
+						<i class="fa fa-th" ></i>
+					</md-button>
+				</div>
+			</div>
+		</div>
+		<!-- end Sorting Bar-->
+
+		<md-content class="md-padding" style="background-color:#EBECED;">
+
+			<div layout="horizontal" layout-align="center center" ng-repeat="Partproducts in partitioned">
+				<md-card ng-repeat="product in Partproducts"
+							   class="listing-product-mdCard" flex>
+					<img lazy-img="{{product.mainimg}}" class="md-card-image" alt="product img">
+					<div style="font-weight: bold; margin-top:5px">
+						<a href="/#!/detail-product/{{product._id}}">{{product.name}}</a>
+					</div>
+					<div style="display:inline">
+						<span style="font-weight: bold; font-size:smaller"> {{product.price}}원</span>
+						<span> <a>{{product.user.displayName}}</a></span>
+					</div>
+				</md-card>
+			</div>
+
+		</md-content>
+	</div>
+	<footer>
+		<div style="margin-left:20px">
+			<b>kevAngularJS --</b> Web Master : pbshop1001@gmail.com
+		</div>
+	</footer>
+</section>

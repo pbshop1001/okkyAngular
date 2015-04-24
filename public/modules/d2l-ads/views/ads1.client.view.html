@@ -1,0 +1,94 @@
+<section class="headerEnabled ad1-container" data-ng-controller="Ads1Controller" ng-init="init()">
+    <style>
+        md-grid-list {
+            margin: 8px; }
+        .gray {
+            background: #f5f5f5; }
+        .green {
+            background: #b9f6ca; }
+        .yellow {
+            background: #ffff8d; }
+        .blue {
+            background: #84ffff; }
+        .purple {
+            background: #b388ff; }
+        .red {
+            background: #ff8a80; }
+        md-grid-tile {
+            transition: all 400ms ease-out 50ms; }
+    </style>
+
+    <!-- START Date widget -->
+
+    <md-content>
+        <h2>E-Learning Web Application</h2>
+    </md-content>
+    <md-grid-list
+            md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
+            md-row-height="4:3"
+            >
+        <md-grid-tile class="green">
+            <md-grid-tile-header>
+                <h3>CalDate Directive</h3>
+            </md-grid-tile-header>
+            <cal-date></cal-date>
+            <div layout="column">
+                <div layout="row">
+                    <md-button class="md-primary" ng-click="animationC1()">Animatie</md-button>
+                    <md-button class="md-primary" ng-click="animationC2()">Animatie2</md-button>
+                </div>
+            </div>
+            <!--<md-grid-tile-footer>-->
+                <!--<h3>#2: (1r x 1c)</h3>-->
+            <!--</md-grid-tile-footer>-->
+        </md-grid-tile>
+        <md-grid-tile class="yellow">
+            <md-grid-tile-header>
+                <h3>Realtime Monitoring</h3>
+            </md-grid-tile-header>
+            <line-trasit></line-trasit>
+        </md-grid-tile>
+        <md-grid-tile class="purple">
+            <md-grid-tile-header>
+                <h3>Order UI</h3>
+            </md-grid-tile-header>
+            <span class="project-text">Open Order UI</span>
+        </md-grid-tile>
+        <md-grid-tile class="blue">
+            <md-grid-tile-header>
+                <h3>Slide Show</h3>
+            </md-grid-tile-header>
+            <span class="project-text">Ready to discuss your next Project?</span>
+            <span class="gf_tips">Ask to Kevin</span>
+        </md-grid-tile>
+
+        <md-grid-tile class="red">
+            <md-grid-tile-header>
+                <h3>Progress Bar</h3>
+            </md-grid-tile-header>
+            <tc-order-header>
+                <img src="https://drscdn.500px.org/photo/100649765/m=1170/da03c645e205f790ebc132f856ca9e12"
+                     style="width: 100%;">
+                <img src="https://drscdn.500px.org/photo/100659355/m=2048/00faa436fc79706d313156eeaba3e850"
+                     style="width: 100%;">
+                <img src="https://drscdn.500px.org/photo/100651913/m=2048/fffe68fa810512b8f0f5e8c763ae5cbf"
+                     style="width: 100%;">
+            </tc-order-header>
+        </md-grid-tile>
+
+
+    </md-grid-list>
+
+    <md-content>
+        <tc-order></tc-order>
+    </md-content>
+
+    <!--<div layout="column" layout-fill>-->
+        <!--<md-whiteframe class="md-whiteframe-z3 d2l-ins-whiteframe" layout layout-align="start center"-->
+                       <!--ng-repeat="menu in menus">-->
+            <!--<span><h3>{{menu.title}}</h3></span>-->
+            <!--<span><h4>{{menu.desc}}</h4></span>-->
+        <!--</md-whiteframe>-->
+    <!--</div>-->
+
+</section>

@@ -4,9 +4,10 @@
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);
 
 // Setting HTML5 Location Mode
-angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider',
-	function($locationProvider) {
+angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider','$compileProvider',
+	function($locationProvider,$compileProvider) {
 		$locationProvider.hashPrefix('!');
+        //$compileProvider.debugInfoEnabled(false);
 	}
 ]);
 

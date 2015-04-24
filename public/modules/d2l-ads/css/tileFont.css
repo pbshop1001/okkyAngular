@@ -1,0 +1,29 @@
+@import url('//fonts.googleapis.com/css?family=Shadows+Into+Light+Two');
+
+.gf_tips {
+    font-family: 'Shadows Into Light Two', helvetica, arial, sans-serif;
+    font-size: 26px;
+    color: #f25949;
+    /*color: #fff;*/
+    position: absolute;
+    
+    bottom: 30px;
+}
+
+span.project-text{
+    font-family: 'Shadows Into Light Two', helvetica, arial, sans-serif;
+    color: #f25949;
+    /*color: #fff;*/
+    display: block;
+    position: absolute;
+    line-height: 1.1em;
+    word-spacing: -0.1em;
+    text-align: center;
+    width: 400px;
+    top: 70px;
+    left: 5px;
+    font-size: 50px;
+    -webkit-transform: rotate(355deg);
+    -moz-transform: rotate(355deg);
+    -o-transform: rotate(355deg);
+}

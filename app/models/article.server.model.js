@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * Module dependencies.
@@ -20,6 +20,11 @@ var ArticleSchema = new Schema({
 		trim: true,
 		required: 'Title cannot be blank'
 	},
+    docType: {
+        type: String,
+        default: '',
+        trim: true
+    },
 	content: {
 		type: String,
 		default: '',

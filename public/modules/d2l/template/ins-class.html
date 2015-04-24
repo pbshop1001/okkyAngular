@@ -1,0 +1,43 @@
+<section ng-controller="InsClassController">
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <span><b>Add Assignment</b></span>
+        <span flex></span>
+        <md-button ng-click="toggleRight()" class="md-button md-warn md-raised md-hue-2" style="min-width: 72px; height:60%; font-size: 14px; padding:6px;">
+            My Page
+        </md-button>
+    </div>
+</md-toolbar>
+<md-content >
+<style>
+    section .md-button:not(.md-fab) {
+        min-width: 10em; }
+    section .md-button {
+        display: block;
+        margin: 1em;
+        line-height: 25px; }
+    .label {
+        position: absolute;
+        bottom: 5px;
+        left: 7px;
+        color: #717070;
+        font-size: 14px; }
+</style>
+    <section layout="row" layout-sm="column" layout-align="center center"
+             class="ins-container">
+        <md-button id="createFileBtn" class="md-raised md-primary" ng-click="createHWbtn()">Create HW</md-button>
+        <md-button id="createFolderBtn" class="md-raised md-primary" ng-click="createFolder()">Create Folder</md-button>
+        <md-button id="publishFileBtn" class="md-raised md-primary" ng-click="publishFile()">Publish HW</md-button>
+        <md-button class="md-raised md-primary" ng-click="listGPlus()">Get Your Google+</md-button>
+        <md-button class="md-raised md-primary">Create Discussion</md-button>
+        <div class="label">Google Drive</div>
+    </section>
+
+    <d2l-hw-generator color-border='red'></d2l-hw-generator>
+    <d2l-hw-publisher color-border='gery'></d2l-hw-publisher>
+
+    <pre ng-show="fileResult"><h3>Create Folder Result</h3>{{fileResult}}</pre>
+    <pre ng-show="userInfo"><h3>Google+ Profile Result</h3>Google Profile: {{userInfo.name.givenName}} {{userInfo.name.familyName}} ({{userInfo.gender}})</pre>
+
+</md-content >
+</section>

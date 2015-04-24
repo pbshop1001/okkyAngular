@@ -1,0 +1,24 @@
+<section data-ng-controller="D2lStuController">
+    <md-toolbar>
+        <h2 class="md-toolbar-tools"><span><b>Student</b></span></h2>
+    </md-toolbar>
+    <div layout="column" layout-fill>
+        <md-whiteframe class="md-whiteframe-z3 d2l-ins-whiteframe" layout layout-align="start center"
+                       ng-repeat="menu in menus">
+            <span><h3>{{menu.title}}</h3></span>
+            <span><h4>{{menu.desc}}</h4></span>
+        </md-whiteframe>
+    </div>
+    <md-content>
+        <md-card class="d2l-ins-md-card">
+            <img src="https://material.angularjs.org/img/washedout.png" alt="Washed Out">
+            <md-card-content>
+                <h2>Paracosm</h2>
+                <p>
+                    The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+                    two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+                </p>
+            </md-card-content>
+        </md-card>
+    </md-content>
+</section>

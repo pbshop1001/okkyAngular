@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * Module dependencies.
@@ -13,8 +13,8 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var article = new Article(req.body);
-	article.user = req.user;
 
+    article.user = req.user;
 	article.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -73,16 +73,35 @@ exports.delete = function(req, res) {
  * List of Articles
  */
 exports.list = function(req, res) {
-	Article.find().sort('-created').populate('user', 'displayName').exec(function(err, articles) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.json(articles);
-		}
+	Article.find().sort('-created')
+		.populate('user', 'displayName')
+		.exec(function(err, articles) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.json(articles);
+			}
 	});
 };
+
+/**
+ * Article middleware
+ */
+exports.articleByDocType = function(req, res) {
+    Article.find({docType:req.params.docType}).populate('user', 'displayName').exec(function(err, article) {
+        if (err) {
+            return res.send(400, {
+                message: getErrorMessage(err)
+            });
+        } else {
+            console.log('dd');
+            res.jsonp(article);
+        }
+    });
+};
+
 
 /**
  * Article middleware

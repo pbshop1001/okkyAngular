@@ -1,0 +1,44 @@
+<md-dialog >
+    <md-toolbar class="md-primary">
+        <h1 class="md-toolbar-tools">
+            Setting Role
+        </h1>
+    </md-toolbar>
+    <md-content>
+        <form name="projectForm" data-ng-submit="setRole()">
+            <p>Select role:</p>
+
+
+
+            <div layout="column" layout-align="center center" style="height: 100px;">
+                <!--<label for="roles">Role: </label>-->
+                <!--<md-select required name="roles" id="roles" placeholder="Select Role" ng-model="credentials.roles">-->
+                    <!--<md-option value="instructor">Instructor</md-option>-->
+                    <!--<md-option value="student">Student</md-option>-->
+                <!--</md-select>-->
+
+                <md-radio-group required ng-model="credentials.roles">
+                    <md-radio-button value="student">stuent</md-radio-button>
+                    <md-radio-button value="instructor"> instructor </md-radio-button>
+                </md-radio-group>
+            </div>
+
+            <div class="md-actions" layout="row">
+                <span flex></span>
+
+                <md-button ng-click="cancel()">
+                    Cancel
+                </md-button>
+                <md-button type="submit" class="md-primary">
+                    Update
+                </md-button>
+
+                <!--<md-button type="submit">-->
+                    <!--Done-->
+                <!--</md-button>-->
+            </div>
+
+        </form>
+    </md-content>
+
+</md-dialog>

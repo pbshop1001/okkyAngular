@@ -1,0 +1,17 @@
+
+#svg-line-transit {
+    font: 10px sans-serif;
+}
+
+.line {
+    fill: none;
+    stroke: #ee6c0a;
+    stroke-width: 1.5px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}

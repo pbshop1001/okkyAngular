@@ -1,0 +1,100 @@
+<section data-ng-controller="McmuController">
+	<audio id="audioTag" src="modules/user-interface/audio/ungiLetMeGo.mp3" controls></audio>
+	<div class="show-case">
+		<div id="content">
+			<section class="lone">
+				<div class="lyrics">
+					<div id="song_small">Small</div>
+					<div id="song_ah">Ah!</div>
+					<div id="song_hak">확!</div>
+					<div id="song_haak">화악~</div>
+					<div id="stats"></div>
+				</div>
+				<!--
+				<object id="muhyun" data="modules/user-interface/img/mcmu/mcmu.svg" type="image/svg+xml"></object>
+				-->
+				<div id="faceSvg"></div>
+			</section>
+				<div>duration: <span id="duration">0</span> 1 iteration</div>
+				<div>totalDuration: <span id="totalDuration">0</span> all iterations including repeatDelays</div>
+				<div>repeat: <span id="repeatCount">0</span> of <span id="totalRepeatCount"></span></div>
+				<div>time: <span id="time">1</span></div>
+				<div>totalTime: <span id="totalTime">{{totalTime}}</span></div>
+				<div>progress: <span id="progress">1</span></div>
+				<div>totalProgress: <span id="totalProgress">1</span></div>
+				<button id="restart">restart()</button>
+		</div>
+
+
+		</div>
+	</div>
+
+	<div style="width:2000px;height:1000px">
+			<svg id="grid" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+				<defs>
+					<pattern id="smallGrid" width="8" height="8" patternUnits="userSpaceOnUse">
+						<path d="M 8 0 L 0 0 0 8" fill="none" stroke="gray" stroke-width="1"/>
+					</pattern>
+					<pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+						<rect width="80" height="80" fill="url(#smallGrid)"/>
+						<path d="M 80 0 L 0 0 0 80" fill="none" stroke="gray" stroke-width="1"/>
+					</pattern>
+				</defs>
+				<rect width="100%" height="100%" fill="url(#grid)" />
+				<rect x="10" y="10" width="100" height="100" fill="#FFFFFF" stroke="gray" stroke-width="1"/>
+				<rect x="114" y="10" width="100" height="100" fill="#FFFFFF" stroke="gray" stroke-width="1"/>
+				<rect x="218" y="10" width="100" height="100" fill="#FFFFFF" stroke="gray" stroke-width="1"/>
+				<rect x="310" y="10" width="100" height="100" fill="#FFFFFF" stroke="gray" stroke-width="1"/>
+				<rect x="410" y="10" width="100" height="100" fill="#FFFFFF" stroke="gray" stroke-width="1"/>
+				<rect x="410" y="10" width="100" height="100" fill="#FFFFFF" stroke="gray" stroke-width="1"/>
+			</svg>
+	</div>
+
+	<div class="demoWrapper">
+		<div class="stage">
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+		</div>
+		<div class="stage">
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+		</div>
+	</div>
+
+</section>

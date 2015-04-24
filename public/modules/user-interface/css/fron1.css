@@ -1,0 +1,227 @@
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+
+@font-face{
+    font-family: 'font1';
+    src: url('font1.ttf') format('truetype');
+}
+
+.first-row {
+    padding: 10px;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width: 100%;
+    height:161px;
+    min-width:321px;
+    background: url(backSvg.svg);
+}
+
+.second-row {
+    margin-top: 10px;
+    background: #d4cfc8;
+}
+
+.third-row {
+    margin-top: 10px;
+    background: #EFEAE1;
+}
+
+.face-font {
+    color: #584B4F;
+    font-size: 3em;
+    text-align: center;
+}
+
+.face-font-test {
+    font-family: 'font1';
+    color: #584B4F;
+    font-size: 22px;
+    text-align: center;
+}
+
+.face:after {
+    content:'Uri[-_-]miuM';
+    font-family: 'Indie Flower';
+}
+.face:hover:after {
+    content:'Uri[^_^]miuM';
+}
+
+.testFont {
+    font-family: "bebas-neue",sans-serif;
+}
+
+
+#workspace {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width: 100%;
+    height:100%
+}
+
+.menuCard {
+    fill: rgb(255, 186, 30);
+    stroke-width:3;
+    stroke: rgb(204, 154, 48);
+}
+
+
+#gridSvg {
+    z-index: -1;
+}
+
+.front-menu{
+    background-color:#BBBBBB;
+}
+
+.show-case{
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    background-repeat:no-repeat;
+    background-size:cover;
+    color: #f2e086;
+    font-family: "Voltaire", helvetica, sans-serif;
+    background: rgb(120,114,114); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(248,161,170,1) 0%, rgba(239,107,114,1) 41%, rgba(241,116,124,1) 50%, rgba(241,116,124,1) 50%, rgba(255,151,142,1) 50%, rgba(255,151,142,1) 50%, rgba(142,132,133,1) 69%, rgba(120,114,114,1) 100%), rgba(120,114,114,1); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(248,161,170,1)), color-stop(41%,rgba(239,107,114,1)), color-stop(50%,rgba(241,116,124,1)), color-stop(50%,rgba(241,116,124,1)), color-stop(50%,rgba(255,151,142,1)), color-stop(50%,rgba(255,151,142,1)), color-stop(69%,rgba(142,132,133,1)), color-stop(100%,rgba(120,114,114,1))), rgba(120,114,114,1); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(248,161,170,1) 0%,rgba(239,107,114,1) 41%,rgba(241,116,124,1) 50%,rgba(241,116,124,1) 50%,rgba(255,151,142,1) 50%,rgba(255,151,142,1) 50%,rgba(142,132,133,1) 69%,rgba(120,114,114,1) 100%), rgba(120,114,114,1); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(248,161,170,1) 0%,rgba(239,107,114,1) 41%,rgba(241,116,124,1) 50%,rgba(241,116,124,1) 50%,rgba(255,151,142,1) 50%,rgba(255,151,142,1) 50%,rgba(142,132,133,1) 69%,rgba(120,114,114,1) 100%), rgba(120,114,114,1); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(248,161,170,1) 0%,rgba(239,107,114,1) 41%,rgba(241,116,124,1) 50%,rgba(241,116,124,1) 50%,rgba(255,151,142,1) 50%,rgba(255,151,142,1) 50%,rgba(142,132,133,1) 69%,rgba(120,114,114,1) 100%), rgba(120,114,114,1); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(248,161,170,1) 0%,rgba(239,107,114,1) 41%,rgba(241,116,124,1) 50%,rgba(241,116,124,1) 50%,rgba(255,151,142,1) 50%,rgba(255,151,142,1) 50%,rgba(142,132,133,1) 69%,rgba(120,114,114,1) 100%), rgba(120,114,114,1); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8a1aa', endColorstr='#787272',GradientType=0 );
+}
+
+.lone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/*.turn {
+  background: $darkest;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 200;
+  top: 0;
+  left: 0;
+}*/
+/*
+p .lyrics-p{
+    text-transform: uppercase;
+    font-size: 40px;
+    text-align: center;
+    letter-spacing: 0.17em;
+    width: 700px;
+    height: 190px;
+    position: absolute;
+    z-index:1000;
+    left: 50%;
+    top: 48%;
+    margin-left: -350px;
+    margin-top: -95px;
+    font-size: 40px;
+    text-align: center;
+    line-height: 46px;
+    visibility:hidden;
+}
+*/
+.starfield {
+    width: 800px;
+    height: 600px;
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    margin-left: -400px;
+    margin-top: -300px;
+    visibility: hidden;
+    z-index: 170;
+    transform: translateZ(0);
+}
+
+.stars {
+    transform: scale(1.4);
+    transform: translateZ(0);
+}
+
+.flare {
+    opacity: 0.7;
+    transform: translateZ(0);
+}
+
+.cons, .cons2 {
+    width: 590px;
+    height: 486px;
+    visibility: hidden;
+    position: absolute;
+    z-index: 400;
+    top: 300px;
+    left: 30px;
+    transform: translateZ(0);
+}
+
+.invisiblePath {
+    visibility: hidden;
+    fill: none;
+    stroke: #000;
+    stroke-width: 1px;
+}
+
+.lyrics div{
+    color: #003cb3;
+    visibility:hidden;
+    text-transform: uppercase;
+    font-size: 40px;
+    text-align: center;
+    letter-spacing: 0.17em;
+    width: 700px;
+    height: 190px;
+    position: absolute;
+    z-index:1000;
+    left: 50%;
+    top: 20%;
+    margin-left: -350px;
+    margin-top: -95px;
+    font-size: 40px;
+    text-align: center;
+    line-height: 46px;
+}
+
+.demoWrapper
+{
+    width:550px;
+    height:400px;
+    background-color:#000;
+    -webkit-font-smoothing:antialiased;
+    margin:-1px -1px 30px 10px;
+    padding:1px;
+}
+.stage
+{
+
+    height:325px;
+    margin-top:15px;
+    margin-left:15px;
+    color:#ddd;
+    margin-right:10px;
+    font-family:Arial, Helvetica, Verdana;
+}
+
+.box
+{
+    position:absolute;
+    width:50px;
+    height:50px;
+    background-color:#06f;
+    display:inline-block;
+    margin:10px 20px 20px 235px;
+    display:inline-block;
+}

@@ -1,6 +1,14 @@
-.content {
-	margin-top: 50px;
+body{
+	font-family: "RobotoDraft";
 }
+html {
+	font-size: 62.5%;
+	line-height: 1.4;
+}
+
+/*.content {*/
+	/*margin-top: 50px;*/
+/*}*/
 .undecorated-link:hover {
 	text-decoration: none;
 }
@@ -12,4 +20,13 @@
 }
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
+}
+
+/* Material Angular Issue*/
+input, button, textarea, select {
+    -webkit-transform: translate3d(0,0,0);
+}
+
+.without-container{
+/*	margin-top:51px;*/
 }

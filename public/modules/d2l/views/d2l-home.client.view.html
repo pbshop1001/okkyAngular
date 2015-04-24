@@ -1,0 +1,313 @@
+<section class="headerEnabled" data-ng-controller="D2lHomeController" style="background-color:whitesmoke;">
+    <!-- Debuging Purpose Start-->
+    <div ng-controller="SizeUtil.sizeOfWidthController" class="size-util-sizeOfWidth">{{width}}px<br/> {{screen}}</div>
+    <!-- Debuging Purpose End-->
+
+    <!--<md-toolbar>-->
+        <!--<h2 class="md-toolbar-tools">-->
+            <!--<span><b>LMS App</b></span>-->
+            <!--<span flex></span>-->
+            <!--<span><md-button class="md-warn" ng-click="openMenu=!openMenu">Menu</md-button></span>-->
+            <!--&lt;!&ndash;<span ng-if="authentication !== undefined">LogIn required</span>&ndash;&gt;-->
+        <!--</h2>-->
+    <!--</md-toolbar>-->
+
+    <!--<div ng-show="openMenu" class="gridListdemoDynamicTiles">-->
+        <!--<div ng-controller="gridListDemoCtrl as vm">-->
+            <!--<md-grid-list-->
+                    <!--md-cols-sm="3" md-cols-md="6" md-cols-gt-md="12"-->
+                    <!--md-row-height-gt-md="1:1" md-row-height="4:3"-->
+                    <!--md-gutter="8px" md-gutter-gt-sm="4px" >-->
+                <!--<md-grid-tile ng-repeat="tile in vm.tiles"-->
+                              <!--md-rowspan="{{tile.span.row}}"-->
+                              <!--md-colspan="{{tile.span.col}}"-->
+                              <!--ng-class="tile.background"-->
+                              <!--id="tile.title">-->
+                    <!--<md-icon md-svg-icon="{{tile.icon}}" ng-click="test($event, tile)"></md-icon>-->
+                    <!--<md-grid-tile-footer><h3>{{tile.title}}</h3></md-grid-tile-footer>-->
+                <!--</md-grid-tile>-->
+            <!--</md-grid-list>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <hr>
+    <!-- Important Date Class Board-->
+    <div layout="row" layout-sm="column">
+        <md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
+                       layout="column" layout-align="space-around start">
+            <h3> Important Date </h3>
+            <div layout="column" layout-fill>
+                <md-whiteframe class="class-board md-whiteframe-z2" layout layout-align="start center">
+                    <span class="class-board-desc">1/21: </span>
+                </md-whiteframe>
+                <md-whiteframe class="class-board md-whiteframe-z2" layout layout-align="start center">
+                    <span class="class-board-desc">2/1: New Assignment is updated</span>
+                </md-whiteframe>
+                <md-whiteframe class="class-board md-whiteframe-z2" layout layout-align="start center">
+                    <span class="class-board-desc">2/6: Exam1</span>
+                </md-whiteframe>
+            </div>
+        </md-whiteframe>
+        <md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
+                       layout="column" layout-align="space-around start">
+            <h3> Class Board </h3>
+            <div layout="column" layout-fill>
+                <md-whiteframe class="class-board md-whiteframe-z2" layout layout-align="start center">
+                    <span class="class-board-desc">Research Paper and Presentation Schedule (UPDATED)</span>
+                </md-whiteframe>
+                <md-whiteframe class="class-board md-whiteframe-z2" layout layout-align="start center">
+                    <span class="class-board-desc">Assignment - Spring 2015 COE Career Fair</span>
+                </md-whiteframe>
+                <md-whiteframe class="class-board md-whiteframe-z2" layout layout-align="start center">
+                    <span class="class-board-desc">Exam is coming SOON</span>
+                </md-whiteframe>
+            </div>
+        </md-whiteframe>
+    </div>
+
+    <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
+                   layout="column" layout-align="space-around start">
+        <h3> Contents </h3>
+
+
+
+        <div layout="row">
+            <md-card style="max-width:150px;">
+                <img ng-src="modules/d2l/img/intro.jpg">
+                <md-card-content>
+                    <div style="font-size:12px;">Lecture 1</div>
+                    <p style="font-size:12px;">Introduction</p>
+                </md-card-content>
+            </md-card>
+
+            <md-card style="max-width:150px;">
+                <img ng-src="modules/d2l/img/intro.jpg">
+                <md-card-content>
+                    <div style="font-size:12px;">Lecture 2</div>
+                    <p style="font-size:12px;">C++</p>
+                </md-card-content>
+            </md-card>
+
+            <md-card style="max-width:150px;">
+                <img ng-src="modules/d2l/img/intro.jpg">
+                <md-card-content>
+                    <div style="font-size:12px;">Lecture 3</div>
+                    <p style="font-size:12px;">Input/ Flow Control</p>
+                </md-card-content>
+            </md-card>
+
+            <md-card style="max-width:150px;">
+                <img ng-src="modules/d2l/img/intro.jpg">
+                <md-card-content>
+                    <div style="font-size:12px;">Lecture 4</div>
+                    <p style="font-size:12px;">Functions</p>
+                </md-card-content>
+            </md-card>
+
+            <md-card style="max-width:150px;">
+                <img ng-src="modules/d2l/img/intro.jpg">
+                <md-card-content>
+                    <div style="font-size:12px;">Lecture 5</div>
+                    <p style="font-size:12px;">Arrays</p>
+                </md-card-content>
+            </md-card>
+        </div>
+
+        <div layout="row">
+            <md-card style="max-width:150px;">
+                <img ng-src="modules/d2l/img/intro.jpg">
+                <md-card-content>
+                    <div style="font-size:12px;">Lecture 6</div>
+                    <p>File IO</p>
+                </md-card-content>
+            </md-card>
+
+            <md-card style="max-width:150px;">
+                <img ng-src="modules/d2l/img/intro.jpg">
+                <md-card-content>
+                    <div style="font-size:12px;">Lecture 7</div>
+                    <p>Structure</p>
+                </md-card-content>
+            </md-card>
+
+            <md-card style="max-width:150px;">
+                <img ng-src="modules/d2l/img/intro.jpg">
+                <md-card-content>
+                    <div style="font-size:12px;">Lecture 8</div>
+                    <p style="font-size:12px;">Strings</p>
+                </md-card-content>
+            </md-card>
+
+            <md-card style="max-width:150px;">
+                <img ng-src="modules/d2l/img/intro.jpg">
+                <md-card-content>
+                    <div style="font-size:12px;">Lecture 9</div>
+                    <p style="font-size:12px;">Object Oriented Programming</p>
+                </md-card-content>
+            </md-card>
+
+            <md-card style="max-width:150px;">
+                <img ng-src="modules/d2l/img/intro.jpg">
+                <md-card-content>
+                    <div style="font-size:12px;">Lecture 10</div>
+                    <p style="font-size:12px;">More Classes</p>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-whiteframe>
+
+
+
+    <div layout="row" layout-sm="column">
+        <!--Classes-->
+        <md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
+                       layout="column" layout-align="space-around start">
+            <div style="border-top: 5px solid #378fff; padding: 5px;">
+                <div class="tableTitle">Classes</div>
+                <p hide-sm>Check your registered classes</p>
+                <table st-table="HWCollection" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <!--<th></th>-->
+                        <th st-sort="title">Prefix</th>
+                        <th st-sort="class">Class Name</th>
+                        <th st-sort="dDate">Instructor</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="class in classes">
+                        <!--<td cs-select="HW"></td>-->
+                        <td>{{class.prefix}}</td>
+                        <td>{{class.name}}</td>
+                        <td>{{class.user.displayName}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </md-whiteframe>
+
+        <!-- List Grade -->
+        <md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
+                       layout="column" layout-align="start start">
+            <div style="border-top: 5px solid #ee6c0a; padding: 5px;">
+                <div class="tableTitle">Grade Board for Student</div>
+                <p hide-sm>Check your registered classes</p>
+                <table st-table="gradeCollection" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th st-sort="numAssignment">First name</th>
+                        <th st-sort="grade">Last name</th>
+                        <th st-sort="percent">%</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="row in gradeCollection">
+                        <td cs-select="row"></td>
+                        <td>{{row.numAssignment | uppercase}}</td>
+                        <td>{{row.grade}}</td>
+                        <td>{{row.grade / row.total * 100}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </md-whiteframe>
+    </div>
+
+
+    <!--List HW-->
+    <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
+                   layout="column" layout-align="space-around start">
+        <div style="border-top: 5px solid #ff60ad; padding: 5px;">
+            <div class="tableTitle">List HW</div>
+            <p hide-sm>Add, Edit, Udpate or Remove Homework</p>
+            <table st-table="hwsCopy" st-safe-src="hws" class="table table-striped">
+                <thead>
+                <tr>
+                    <!--<th></th>-->
+                    <th st-sort="title">Title</th>
+                    <th>Class</th>
+                    <th st-sort="dDate">Due Date</th>
+                    <th st-sort="totalGrade" hide-sm>Total</th>
+                    <th st-sort="percent" hide-sm>Total %</th>
+                    <th>Doc Link</th>
+                </tr>
+                <tr>
+                    <th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="HW in hwsCopy">
+                    <!--<td cs-select="HW"></td>-->
+                    <td>{{HW.title}}</td>
+                    <td hide-sm>{{HW.class.name}}</td>
+                    <td show-sm hide-gt-sm>{{HW.class.prefix}}</td>
+                    <td>{{HW.dDate |  date : format : timezone}}</td>
+                    <td>{{HW.totalGrade}}</td>
+                    <td hide-sm>{{HW.percent}}</td>
+                    <td> <md-button class="md-warn md-raised" style="font-size:0.8em" ng-click="linkHW(HW.gdocId)">Open</md-button></td>
+                </tr>
+                <tr>
+                    <td><b>Total</b></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{totalHwPoints}}</td>
+                    <td hide-sm>{{totalPercentages}}</td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </md-whiteframe>
+
+
+
+
+
+
+
+    <!-- Google Experimental Stuff
+    <div ng-controller="GDriveFilePickerController">
+        <h1>Google API List</h1>
+
+        <div class="profile">Profile</div>
+
+        <md-whiteframe class="md-whiteframe-z1 cntBox" layout="column">
+            Before Accessing this API,<br/>
+            you must accept OAuth2 Google API Service
+            <md-button class="md-raised md-warn" style="font-size:11px" ng-click="init()">{{authName}}</md-button>
+        </md-whiteframe>
+        <br/>
+        <md-whiteframe class="md-whiteframe-z1 cntBox" layout="column">
+            Check Google Drive<br/>
+            <md-button class="md-raised md-primary" ng-click="listingFolderInfo()">List Forlder</md-button>
+            <md-button class="md-primary" ng-click="findFolder()">findFolder Result  <div style="display: inline-flex; border-radius: 50%; background-color:#ffff00; width: 20px; color:red; text-align: center;">{{numFolder}}</div></md-button>
+            <md-button class="md-primary" ng-click="hideResult()">Hide Result</md-button>
+            <md-button class="md-primary" ng-click="showResult()">Show Result</md-button>
+            <div class="listFolder" ng-repeat="doc in gDocs">
+                <div ng-if="doc.id!==undefined"><b>ID:</b> {{doc.id}}</div>
+                <div ng-if="doc.title!==undefined"><b>TITLE:</b> {{doc.title}}</div>
+                <div ng-if="doc.webViewLink!==undefined"><b>Web View Link:</b> {{doc.webViewLink}}</div>
+                <div ng-if="doc.webContentLink!==undefined"><b>Web Content Link:</b>
+                    <a href="{{doc.webContentLink}}" target="_blank">Link</a>
+                </div>
+                <div ng-if="doc.thumbnailLink!==undefined"><b>Thumbnail Link:</b>
+                    <a href="{{doc.thumbnailLink}}" target="_blank">Link</a>
+                </div>
+                <img ng-src="{{doc.thumbnailLink}}"/>
+                <hr/>
+            </div>
+        </md-whiteframe>
+        <br/>
+
+        <md-whiteframe class="md-whiteframe-z1 cntBox" layout="column">
+            Check Your Google+ Account<br/>
+            <md-button class="md-raised md-primary" ng-click="plusTest()">Plus Test</md-button>
+            <md-checkbox ng-init="gPlusToggle=true" ng-model="gPlusToggle" aria-label="Checkbox 1">Show Result {{ gPlusToggle}}</md-checkbox>
+            <div ng-if="gPlusToggle" class="" ng-repeat="gp in gPlus">
+                <div>{{$index}}: {{gp.object.content}}</div>
+            </div>
+        </md-whiteframe>
+    </div>
+    -->
+</section>

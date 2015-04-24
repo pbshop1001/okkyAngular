@@ -3,6 +3,7 @@
 
 <head>
 	<title>{{title}}</title>
+	<meta name="viewport" content="width=device-width">
 
 	<!-- General META -->
 	<meta charset="utf-8">
@@ -32,7 +33,12 @@
 	<meta name="twitter:image" content="/img/brand/logo.png">
 
 	<!-- Fav Icon -->
-	<link href="/modules/core/img/brand/favicon.ico" rel="shortcut icon" type="image/x-icon">
+	<link href="/modules/core/img/brand/favicon.png" rel="shortcut icon" type="image/x-icon">
+
+    <link href="http://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
+
+    <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>-->
 
 	<!--Application CSS Files-->
 	{% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
@@ -41,28 +47,60 @@
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+
+    <!-- google
+	<script type="text/javascript" src="https://wallet-web.sandbox.google.com/online/v2/merchant/merchant.js"></script>
+    -->
+    <script src="https://apis.google.com/js/client:platform.js" async defer></script>
+
+    <script src="https://apis.google.com/js/client.js?onload=init"></script>
+
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
+    <!-- jQuery
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    -->
+
+    <!-- Google Wallet
+    <script src="https://sandbox.google.com/checkout/inapp/lib/buy.js"></script>
+    -->
+	<!-- typekit for font
+    <script src="//use.typekit.net/kpu5aao.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+    -->
+
+	<!-- disqus -->
+	<script type="text/javascript">
+		/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+		var disqus_shortname = 'openboardk'; // required: replace example with your forum shortname
+	</script>
 </head>
 
-<body class="ng-cloak">
-	<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
-	<section class="content">
-		<section class="container">
-			{% block content %}{% endblock %}
-		</section>
-	</section>
+<body layout="row" class="ng-cloak">
 
-	<!--Embedding The User Object-->
+	<!--<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>-->
+
+	{% block content %}{% endblock %}
+
+
 	<script type="text/javascript">
 		var user = {{ user | json | safe }};
 	</script>
 
-	<!--Application JavaScript Files-->
-	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
 
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+
+	<!--Application JavaScript Files-->
+	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
+
+
+    <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
 	{% if process.env.NODE_ENV === 'development' %}
 	<!--Livereload script rendered -->
 	<script type="text/javascript" src="http://{{request.hostname}}:35729/livereload.js"></script>
 	{% endif %}
+
+
 </body>
 
 </html>

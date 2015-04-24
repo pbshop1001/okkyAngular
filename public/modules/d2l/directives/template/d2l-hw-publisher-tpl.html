@@ -1,0 +1,48 @@
+<md-content id="fileCreator" class="md-padding">
+    You can publish an assignment.<br/><br/>
+
+    <h3>STEP1: Select HW Template</h3>
+    <div layout="column" layout-align="center center" style="height: 100px;">
+        <md-select ng-model="user" md-on-open="loadUsers()" style="min-width: 200px;">
+            <md-select-label>{{ user ? user.name : 'Select Template' }}</md-select-label>
+            <md-option ng-value="user" ng-repeat="user in users">{{user.name}}</md-option>
+        </md-select>
+        <p class="result">You have assigned the task to: {{ user ? user.name : 'No one yet' }}</p>
+    </div>
+
+    <h3>STEP2: Select HW</h3>
+    <div layout="column" layout-align="center center" style="height: 100px;">
+        <md-select ng-model="d2lhw" md-on-open="loadUsers()" style="min-width: 200px;">
+            <md-select-label>{{ d2lhw ? d2lhw.title : 'Select Homework' }}</md-select-label>
+            <md-option ng-value="d2lhw" ng-repeat="d2lhw in d2lhws">{{d2lhw.title}}</md-option>
+        </md-select>
+        <p class="result">You have assigned the task to: {{ d2lhw ? d2lhw.title : 'No one yet' }}</p>
+    </div>
+
+    <div layout="row" style="margin-top:12px; margin-left:20px; margin-bottom: 10px;">
+        <md-button class="md-fab md-primary md-hue-2" aria-label="Profile" ng-click="listP(user.docId)">
+            <md-icon md-svg-src="modules/d2l/svg/ic_play_arrow_24px.svg"></md-icon>
+            <md-tooltip>
+                Publish
+            </md-tooltip>
+        </md-button>
+        <md-button class="md-fab md-primary md-hue-2" aria-label="Profile" ng-click="copyFileTemplate(user.docId)">
+            <md-icon md-svg-src="modules/d2l/svg/ic_menu_24px.svg"></md-icon>
+            <md-tooltip>
+                Copy
+            </md-tooltip>
+        </md-button>
+
+        <md-button class="md-fab md-primary md-hue-2" aria-label="Profile" ng-click="gsCopyFile()">
+            <md-icon md-svg-src="modules/d2l/svg/ic_menu_24px.svg"></md-icon>
+            <md-tooltip>
+                Copy by GS
+            </md-tooltip>
+        </md-button>
+
+
+    </div>
+
+    <div ng-repeat="item in items">{{item}}</div>
+    <div class="label">Publish Assignment GDOCS</div>
+</md-content>

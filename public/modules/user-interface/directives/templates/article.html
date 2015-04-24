@@ -1,0 +1,7 @@
+<div ng-init="find()">
+    <h2>Article</h2>
+    <input type="button" value="update" ng-click="find()">
+    <div ng-repeat="article in articles">
+        <pre>{{article.title}}</pre>
+    </div>
+</div>

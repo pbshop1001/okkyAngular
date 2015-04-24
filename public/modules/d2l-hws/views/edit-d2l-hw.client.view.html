@@ -1,0 +1,89 @@
+<section class="headerEnabled" data-ng-controller="D2lHwsController" data-ng-init="findOne()">
+
+    <md-toolbar>
+        <h2 class="md-toolbar-tools">
+            <span><b>Assignment Wizard</b></span>
+            <span flex></span>
+            <span ng-if="authentication !== undefined">LogIn required</span>
+        </h2>
+    </md-toolbar>
+    <md-content class="md-padding">
+        Edit an assignment.<br/><br/>
+        <form name="projectForm" data-ng-submit="update()">
+            <md-input-container>
+                <label>Title</label>
+                <input md-maxlength="30" required name="title" ng-model="d2lHw.title">
+                <div ng-messages="projectForm.description.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                </div>
+            </md-input-container>
+
+
+            <div layout="column" layout-align="center center" style="height: 100px;">
+                <p>Select Class</p>
+                <md-select ng-model="d2lHw.class" md-on-open="loadClasses()" style="min-width: 200px;">
+                    <md-select-label>{{ d2lHw.class ? d2lHw.class.name : 'Select Class' }}</md-select-label>
+                    <md-option ng-value="class" ng-repeat="class in classes">{{class.prefix}} {{class.name}}</md-option>
+                </md-select>
+                <p class="hws-select-result">You have assigned for: {{ d2lHw.class ? d2lHw.class.prefix+" "+d2lHw.class.name : 'No class yet' }}</p>
+            </div>
+
+
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>Total Grade</label>
+                    <input type="number" name="title" ng-model="d2lHw.totalGrade">
+                    <div ng-messages="projectForm.totalGrade.$error">
+                        <!--<div ng-message="required">This is required.</div>-->
+                        <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Percent</label>
+                    <input type="number" name="percent" ng-model="d2lHw.percent">
+                    <div ng-messages="projectForm.totalGrade.$error">
+                        <!--<div ng-message="required">This is required.</div>-->
+                        <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>Due Date</label>
+                    <input type="date" required name="dDate" ng-model="d2lHw.dDate">
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>description</label>
+                    <input md-maxlength="130" required name="desc" ng-model="d2lHw.desc">
+                    <div ng-messages="projectForm.description.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <md-input-container>
+                <label>Contents</label>
+                <textarea ng-model="d2lHw.content" columns="1" md-maxlength="650"></textarea>
+            </md-input-container>
+
+            <md-input-container layout="row">
+                <md-button type="submit" class="md-fab md-primary md-hue-2" aria-label="Profile">
+                    <md-icon md-svg-src="modules/d2l/svg/ic_play_arrow_24px.svg"></md-icon>
+                    <md-tooltip>
+                        Submit
+                    </md-tooltip>
+                </md-button>
+                <md-button class="md-fab" aria-label="Comment">
+                    <md-icon md-svg-src="modules/d2l/svg/ic_menu_24px.svg"></md-icon>
+                    <md-tooltip>
+                        Cancel
+                    </md-tooltip>
+                </md-button>
+            </md-input-container>
+        </form>
+    </md-content>
+</section>

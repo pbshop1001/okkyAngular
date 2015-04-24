@@ -14,5 +14,13 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 		$scope.$on('$stateChangeSuccess', function() {
 			$scope.isCollapsed = false;
 		});
+
+        $(document).on( 'scroll', function(){
+            console.log('11111');
+            if($(document).scrollTop() > 150)
+                TweenMax.to($('header'), 1, {y:-51});
+            else
+                TweenMax.set($('header'), {y:0});
+        });
 	}
 ]);

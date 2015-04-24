@@ -1,0 +1,213 @@
+<section class="headerEnabled" ng-controller="AngularCtrl" layout="column" layout-fill>
+
+    <div ng-hide="true" class="meanT-headToolBar">
+        <div class="meanT-brandName">
+            <a href="/#!/versioning" target="_blank">Version: 0.0.3</a>
+            <span style="margin-left:20px;">{{notice}}</span>
+        </div>
+    </div>
+
+    <md-content layout="column" layout-align="center center">
+        <md-content class="meanT-homeFirstRow" style="top:0px !important">
+            <div class="meanT-headTitle">
+                <strong>{{homeContents.mainTitle}}</strong>
+            </div>
+
+            <div class="meanT-headSubTitle md-body-1" hide-sm>
+                <strong>{{homeContents.mainTitle}}</strong> {{homeContents.subTitleText}}<br/><br/>
+                <div layout="row" layout-margin layout-align="center center">
+                    <md-button class="md-raised md-primary" ng-click="goTo('openboard')" style="margin-bottom: 10px;">Get Started</md-button>
+                    <div flex="5"></div>
+                    <md-button class="md-raised md-primary" ng-click="goTo('open-board-present')" style="margin-bottom: 10px;">Presentation</md-button>
+                </div>
+                <!--<a href="https://docs.google.com/document/d/1Q_CJwJftcL-zabVm0USc1px5HDfbpxu6Klav-XYOzNg/edit?usp=sharing" target="_blank">-->
+                <!--<img title="Google Doc" class="meanT-googleDocImg" ng-src="modules/mean-tutorials/img/google_docs.png">-->
+                <!--</a>-->
+            </div>
+        </md-content>
+
+        <md-content class="md-padding meanT-homeSecondRow" style="overflow:hidden">
+            <div class="meanT-headSubTitle md-body-1" show-sm hide-gt-sm>
+                <strong>{{homeContents.mainTitle}}</strong> {{homeContents.subTitleText}}<br/><br/>
+                <div layout="row" layout-margin layout-align="center center">
+                    <md-button class="md-raised md-primary" ng-click="goTo('openboard')" style="margin-bottom: 10px;">Get Started</md-button>
+                    <div flex="5"></div>
+                    <md-button class="md-raised md-primary" ng-click="goTo('open-board-present')" style="margin-bottom: 10px;">Presentation</md-button>
+                </div>
+
+                <!--<a href="https://docs.google.com/document/d/1Q_CJwJftcL-zabVm0USc1px5HDfbpxu6Klav-XYOzNg/edit?usp=sharing" target="_blank">-->
+                <!--<img title="Google Doc" class="meanT-googleDocImg" ng-src="modules/mean-tutorials/img/google_docs.png">-->
+                <!--</a>-->
+            </div>
+
+            <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-base"
+                           layout="column" layout-align="space-around start">
+                <h3 class="docs-title-card-not-Center md-title">{{homeContents.classTitle}}</h3>
+                <div class="md-body-1">
+                    {{homeContents.classSubTitle}}
+                </div>
+            </md-whiteframe>
+
+            <md-whiteframe style="overflow-x: scroll;"
+                           class="md-whiteframe-z2 meanT-home-card ob-underbar-yellow"
+                           layout="column" layout-align="space-around start">
+                <h3 class="md-title"> Class Contents </h3>
+                <div  layout="row" layout-align="center center">
+                    <md-card ng-click="goTo('class-content')" ng-repeat="content in classContents" style="width:170px;">
+                        <img src="modules/d2l-classes/img/intro.jpg" alt="Washed Out">
+                        <md-card-content>
+                            <div style="font-size:12px;">Lecture{{$index+1}}</div>
+                            <p class="md-body-1">{{content.topic}}</p>
+                        </md-card-content>
+                    </md-card>
+                </div>
+            </md-whiteframe>
+
+            <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-base"
+                           layout="column" layout-align="space-around start">
+                <h3 class="docs-title-card-not-Center md-title">Articles</h3>
+                <div class="md-body-1">
+                     ㅅㅌㅊ
+                </div>
+            </md-whiteframe>
+        </md-content>
+    </md-content>
+
+    <section layout="row">
+        <!--<md-sidenav class="md-sidenav-left md-whiteframe-z2 headerEnabled" md-component-id="left" md-is-locked-open="$media('gt-md')">-->
+
+        <!--
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2 headerEnabled" md-component-id="left"
+                    style="position:fixed; z-index: 999; top:0">
+            <md-toolbar MeanHomeControllerclass="md-theme-indigo">
+                <h1 class="md-toolbar-tools">MENU</h1>
+            </md-toolbar>
+            <md-content class="md-padding" layout="column" layout-align="center start">
+                <H3>Kevin S</H3>
+                <md-button ui-sref="ads1" ng-click="close()" class="md-primary" hide-gt-md>
+                    PORTFOLIO
+                </md-button>
+                <md-button ui-sref="ads1" ng-click="close()" class="md-primary" hide-gt-md>
+                    CV
+                </md-button>
+                <H3>Ongoing Project</H3>
+                </md-button>
+                <md-button ui-sref="the-clean" ng-click="close()" class="md-primary">
+                    The Clean
+                </md-button>
+                <md-button ui-sref="top-hair-home" ng-click="close()" class="md-primary">
+                    Top Hair Wigs
+                </md-button>
+                <md-button ui-sref="ads2" ng-click="close()" class="md-primary">
+                    E-Learning App
+                </md-button>
+            </md-content>
+        </md-sidenav>
+        -->
+
+        <!-- Right Menu-->
+        <md-sidenav class="md-sidenav-right md-whiteframe-z2 headerEnabled" md-component-id="right"
+                    style="position:fixed; z-index: 999; top:0">
+            <md-toolbar class="md-tall md-warn md-hue-5">
+                <div class="sidebar-header header-cover"
+                     style="background-image: url(http://2.bp.blogspot.com/-2RewSLZUzRg/U-9o6SD4M6I/AAAAAAAADIE/voax99AbRx0/s1600/14%2B-%2B1%2B%281%29.jpg);">
+                    <h1 class="md-toolbar-tools">My Page</h1>
+
+                </div>
+            </md-toolbar>
+
+            <!-- Authentication Needed -->
+            <!--<a href="/auth/google" class="undecorated-link">-->
+            <!--<img src="/modules/users/img/buttons/google.png">-->
+            <!--</a>-->
+
+            <md-content class="md-padding" style="overflow: hidden;" layout="column" layout-align="start start">
+                <!-- Google Authentication
+                <p>We recomemend sign up with your Google Ac</p>
+                <div layout="row">
+                    <md-button class="md-primary" href="/auth/google" >
+                        <md-icon md-svg-src="/modules/mean-tutorials/img/social-google.svg"></md-icon>
+                    </md-button>
+                </div>
+                -->
+
+                <cal-date></cal-date>
+
+                <div style="margin-top:20px;" data-ng-hide="authentication.user">
+
+                    <p>We recomemend you sign up with your Google Account</p>
+                    <div layout="row">
+                        <md-button class="md-primary" href="/auth/google" >
+                            <md-icon md-svg-src="/modules/mean-tutorials/img/social-google.svg"></md-icon>
+                            Recommended
+                        </md-button>
+                    </div>
+                    <p>Or</p>
+                    <div layout="row">
+
+
+                        <md-button class="md-primary" ng-click="showSignInTutorial($event)">
+                            <md-icon md-svg-src="/modules/mean-tutorials/img/log-in.svg"></md-icon>
+                            Sign In
+                        </md-button>
+                        <!--<span flex></span>-->
+
+                        <md-button class="md-primary" ng-click="showSignUpTutorial($event)">
+                            <md-icon md-svg-src="/modules/mean-tutorials/img/log-out.svg"></md-icon>
+                            Sign Up
+                        </md-button>
+
+                    </div>
+                </div>
+
+                <md-button style="margin-top:20px;" ng-disabled="false" ui-sref="openboard" class="md-primary">
+                    <md-icon md-svg-src="/modules/mean-tutorials/img/android-person.svg"></md-icon>
+                    Get Started
+                </md-button>
+
+                <div layout="column" layout-align="space-around start" data-ng-show="authentication.user">
+                    <md-button class="md-primary" href="/auth/signout">
+                        <!--<md-button class="md-primary" ng-click="showSignIn($event)">-->
+                        <md-icon md-svg-src="/modules/mean-tutorials/img/log-out.svg"></md-icon>
+                        Sign Out
+                        <!--</md-button>-->
+                    </md-button>
+                    <md-button ng-disabled="false" ui-sref="profile" class="md-primary">
+                        <md-icon md-svg-src="/modules/mean-tutorials/img/android-person.svg"></md-icon>
+                        Account
+                    </md-button>
+
+
+                    <!--<md-button ng-disabled="false" ui-sref="projectview.dashboard" class="md-primary">-->
+                    <!--<md-icon md-svg-src="/modules/mean-tutorials/img/grid.svg"></md-icon>-->
+                    <!--Dashboard-->
+                    <!--</md-button>-->
+                    <!--<md-button ng-disabled="true" ng-click="close()" class="md-primary">-->
+                    <!--<md-icon md-svg-src="/modules/mean-tutorials/img/briefcase.svg"></md-icon>-->
+                    <!--Projects-->
+                    <!--</md-button>-->
+                    <md-button ng-disabled="false" ui-sref="d2l-home" class="md-primary">
+                        <md-icon md-svg-src="/modules/mean-tutorials/img/easel.svg"></md-icon>
+                        Open Board
+                    </md-button>
+
+                    <!--<md-button ng-disabled="false" ui-sref="d2l-ins.class" class="md-primary">-->
+                    <!--Instructor Demo (beta)-->
+                    <!--</md-button>-->
+                    <!--<md-button ng-disabled="false" ui-sref="d2l-stu" class="md-primary">-->
+                    <!--Student Demo (beta)-->
+                    <!--</md-button>-->
+
+                </div>
+
+                <div class="meanT-logo-bottom">
+                    <img alt="Add-on logo" class="meanT-logo" width="27" height="27"
+                         src="https://googledrive.com/host/0B0G1UdyJGrY6XzdjQWF4a1JYY1k/translate-logo-small.png">
+                    <span class="gray meanT-branding-text">Openboard Web App by Kevin S</span>
+                </div>
+            </md-content>
+        </md-sidenav>
+
+    </section>
+
+</section>

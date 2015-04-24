@@ -1,0 +1,21 @@
+.d2l-ins-whiteframe{
+    background: #fff;
+    /*margin-right: 10px;*/
+    /*margin-left: 10px;*/
+    margin: 3px;
+    padding: 3px;
+}
+
+.d2l-ins-md-card {
+    min-height: 150px;
+}
+
+.ins-container {
+    overflow-y: hidden;
+    background: #f7f7f7;
+    border-radius: 3px;
+    margin: 1em;
+    position: relative !important;
+    padding-bottom: 10px;
+}
+

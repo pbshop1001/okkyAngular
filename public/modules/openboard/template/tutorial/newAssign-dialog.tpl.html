@@ -1,0 +1,79 @@
+<md-dialog aria-label="createNewClass Btn">
+    <md-toolbar class="md-primary">
+        <h1 class="md-toolbar-tools">
+            Create New Assignment
+        </h1>
+    </md-toolbar>
+    <md-content>
+        <form name="projectForm" data-ng-submit="createNewRecord()">
+
+            <div ng-show="project.gdocId == undefined">
+                <p>First you need to select file from your Google Drive</p>
+                <div layout layout-sm='column' ng-controller="GDriveFilePickerController">
+                    <label>Select File</label>
+                    <div flex></div>
+                    <md-button class="md-raised md-primary" style="font-size:11px" ng-click="init()">Open Picker</md-button>
+                </div>
+            </div>
+
+
+            <div ng-show="project.gdocId !== undefined">
+                <md-input-container>
+                    <label>Title</label>
+                    <input md-maxlength="30" required name="title" ng-model="project.title">
+                    <div ng-messages="projectForm.title.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                    </div>
+                </md-input-container>
+                <div layout="column" layout-align="center center" style="height: 100px;">
+                    <md-select ng-model="project.class" md-on-open="loadClasses()" style="min-width: 200px;">
+                        <md-select-label>{{ project.class ? project.class.name : 'Select Class' }}</md-select-label>
+                        <md-option ng-value="class" ng-repeat="class in classes">{{class.prefix}} {{class.name}}</md-option>
+                    </md-select>
+                    <p class="hws-select-result">You have assigned for: {{ project.class ? project.class.prefix+" "+project.class.name : 'No class yet' }}</p>
+                </div>
+
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Total Grade</label>
+                        <input type="number" id="totalGrade" name="totalGrade" ng-model="project.totalGrade">
+                        <div ng-messages="projectForm.totalGrade.$error">
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Percent(%)</label>
+                        <input type="number" id="percent" name="percent" ng-model="project.percent" max="100" min="0">
+                        <div ng-messages="projectForm.percent.$error">
+                            <div ng-message="min">Percentage should be more than 0%</div>
+                            <div ng-message="max">Percentage should be less than 100%</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout layout-sm="column">
+                    <md-input-container flex>
+                        <label>Due Date</label>
+                        <input type="date" required name="dDate" ng-model="project.dDate">
+                    </md-input-container>
+                </div>
+
+                <md-input-container>
+                    <label>Google Doc ID</label>
+                    <input required id="gdocId" name="gdocId" ng-disabled="true" ng-model="project.gdocId">
+                    <div ng-messages="projectForm.gdocId.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div class="md-actions" layout="row">
+                <md-button class="md-primary" aria-label="Comment" ng-click="cancel()">Cancel</md-button>
+                <span flex></span>
+                <md-button type="submit" class="md-primary md-hue-2" aria-label="Profile">Submit</md-button>
+            </div>
+            <div data-ng-show="error" class="text-center text-danger">
+                <strong class="md-body-2" data-ng-bind="error"></strong>
+            </div>
+        </form>
+    </md-content>
+</md-dialog>

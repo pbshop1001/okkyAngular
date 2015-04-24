@@ -1,0 +1,24 @@
+.selected{
+    border-color: red;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.draginstyle {
+    border-color: red;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.movable {
+    border-style:dotted;
+}
+
+.position-fixed {
+    position: fixed;
+}
+
+.draggable-target {
+    background-color: lightgreen;
+    margin:5px;
+}

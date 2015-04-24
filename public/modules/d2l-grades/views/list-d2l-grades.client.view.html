@@ -1,0 +1,19 @@
+<section data-ng-controller="D2lGradesController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>D2l grades</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="d2lGrade in d2lGrades" data-ng-href="#!/d2l-grades/{{d2lGrade._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="d2lGrade.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="d2lGrade.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="d2lGrade.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!d2lGrades.$resolved || d2lGrades.length">
+    	No D2l grades yet, why don't you <a href="/#!/d2l-grades/create">create one</a>?
+    </div>
+</section>

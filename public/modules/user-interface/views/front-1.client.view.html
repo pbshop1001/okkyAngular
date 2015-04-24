@@ -1,0 +1,297 @@
+<section class="without-container" data-ng-controller="Front1Controller">
+	<style>
+		#svg {
+			width:430px;
+		}
+
+		.shape {
+			fill: none;
+			stroke: #60544F;
+		}
+		.outline,
+		.doors {
+			fill: #F4EEE6;
+			stroke: #60544F;
+			stroke-width: 2pt;
+		}
+		.water {
+			fill: #D6EDEE;
+			stroke: #60544F;
+		}
+		.water-cut {
+			fill: #B4D6DB;
+		}
+		.milk {
+			fill: #fff;
+			stroke: #60544F;
+		}
+		.milk-cut {
+			fill: #F4EEE6;
+		}
+		.coffee {
+			fill: #60544F;
+			stroke: #60544F;
+		}
+		.coffee-cut {
+			fill: #60544F;
+		}
+	</style>
+
+	<div class="first-row">
+		<div class="face face-font">
+		</div>
+		<div class="face-font-test">
+			의리미엄 쇼핑몰에 온것을 환영한다 이기야!<br>
+			주의: Chrome과 FireFox를 Standard로 개발되어있음
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="show-case">
+		<div id="content">
+			<section class="lone">
+
+				<!--
+				<object id="svg1" data="modules/user-interface/img/history_path.svg" type="image/svg+xml"></object>
+				-->
+
+
+
+
+				<svg version="1.1" class="boxSvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 				viewBox="0 0 800 600" enable-background="new 0 0 800 600" xml:space="preserve">
+					<g>
+						<path id="box-lead" fill="#E0D8D3" stroke="#60544F" stroke-width="3" stroke-miterlimit="10" d="M448,105.8L438,196H317l-9-90.2
+							H448z"/>
+						<path id="box-lead-target" fill="#CCC1BC" stroke="#60544F" stroke-width="3" stroke-miterlimit="10" d="M476.9,248l-38.4-50h-121
+							L280,248H476.9z"/>
+						<rect x="279" y="248" fill="#CCC1BC" stroke="#60544F" stroke-width="3" stroke-miterlimit="10" width="199" height="196"/>
+						<rect x="347.5" y="329" fill="none" width="61" height="34"/>
+						<text transform="matrix(1 0 0 1 347.5 354.5596)" font-family="'ArialMT'" font-size="36">Box</text>
+						<polygon fill="#42210B" points="466,243 289.7,243.2 317.4,204.2 438.3,203.8 	"/>
+						<g id="use">
+							<path id="box-lead_1_" fill="#E0D8D3" stroke="#60544F" stroke-width="3" stroke-miterlimit="10" d="M448,105.8L438,196H317
+								l-9-90.2H448z"/>
+						</g>
+					</g>
+
+					<path fill="none" stroke="#000000" stroke-miterlimit="10" d="M352.7,243.2c2.3-59.7-14.7-79.7-106.3-112.5
+						c-29.5-10.5-55.8-12.9-74-12"/>
+					<circle fill="none" stroke="#000000" stroke-miterlimit="10" cx="172.4" cy="118.7" r="54"/>
+					<path fill="none" stroke="#000000" stroke-miterlimit="10" d="M377.3,243.2c0-122.7,91.8-157.9,246-149.2
+						c47.3,2.7,63.6,11.8,81.6,15.5"/>
+					<circle fill="none" stroke="#000000" stroke-miterlimit="10" cx="172.4" cy="118.7" r="54"/>
+					<circle fill="none" stroke="#000000" stroke-miterlimit="10" cx="705" cy="109.5" r="54"/>
+				</svg>
+
+				<svg version="1.1" class="boxSvg2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 				viewBox="0 0 800 600" enable-background="new 0 0 800 600" xml:space="preserve">
+					<path class="invisiblePath" fill="none" stroke="#000000" stroke-miterlimit="10" d="M352.7,243.2c2.3-59.7-14.7-79.7-106.3-112.5
+						c-29.5-10.5-55.8-12.9-74-12"/>
+					<circle id="circleTarget" fill="none" stroke="#000000" stroke-miterlimit="10" r="54"/>
+				</svg>
+
+				<svg version="1.1" id="face-halbe" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 				viewBox="0 0 800 600" enable-background="new 0 0 800 600" xml:space="preserve">
+					<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M295.2,106.7c-9.6,26.7-4.7,62.3-0.5,83.1
+						c-0.4-1.7-2.2-8.8-9-11.7c-1.2-0.5-3.1-1.3-5.3-0.9c-4.5,0.9-6.4,6.6-7.4,9.5c-1,3.1-5,14.9,3.2,26.6c4.7,6.8,10.7,5.6,14.3,11.7
+	c4.2,7.2,0.9,15.2,0,17.6c-7.4,20.3-2.4,73.1,4.2,101.1c0,0,8.8,40.3,63.4,103.8c2.9,3.4,4.9,3.9,6.3,4.5c6.4,2.7,9.1,3.4,12.1,3.6
+	c26.9,2.1,24.7,2.5,29,2.3c14.8-0.8,25.5-4.4,33.8-7.2c3.6-1.3,19.8-7,37.5-19.4c6.4-4.5,15.7-11.8,24.8-22.1
+	c5-5.6,12.4-15,21.1-32.5c7.5-15.1,12-28.5,19.5-56.4c7.8-29.2,11.7-43.8,13.7-56c7-42.9,2.7-76.8,0-96.6
+	c-6.5-47.9-9.7-71.9-29.6-98.4c-10.3-13.8-32.4-43.3-75-53.3C398.1,3.4,343.6,28.9,324.8,52.1c-4.8,5.9-16.9,23.5-26.4,46.5
+	C298.4,98.6,296.6,103,295.2,106.7z"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M416.2,160c4.9,3.8,9.6,5.7,12.7,6.8
+	c7.8,2.6,14.7,2.5,26.4,2.3c6.2-0.1,11.3-0.6,14.8-0.9"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M414.6,172.2c1.8,0.9,4.5,2.2,7.9,3.2
+	c6.7,2,12.1,1.9,16.9,1.8c20.2-0.2,30.4-0.2,31.7,0c4.7,0.9,9.9,2.4,15.8,0.5c2.7-0.9,4.6-2.2,5.8-3.2"/>
+<polyline fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="400.3,175.8 413,182.8 436.2,188
+	463.7,188 482.7,181 "/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M444.7,232.2c0.8,1.1,1.5,2.3,2.1,3.6
+	c3.2,6.7,2.1,13.1,1.1,16.7"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M464.7,235.4c1,0.8,2,1.8,2.6,3.2
+	c2.8,5.4-1.6,11.1-2.1,11.7"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M402.4,290.5c4.3-3.2,8-5.9,11.1-8.1
+	c18.8-13.6,17.4-11.5,19.1-13.4c0.8-0.9,2.7-3.2,4.1-2.8c1.3,0.3,0.7,2.5,2.1,4.5c2.3,3.2,8.9,4.2,13.7,3.2c5-1,4.4-3.4,9.5-4.5
+	c5.8-1.3,8.8,1.2,12.1-0.9c1.9-1.2,3.6-3.7,2.6-5.9c-0.9-2-4-3.3-7.4-2.7"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M418.8,283.7c-6.3,4.9-10,10-11.6,13.1
+	c-1.6,3-0.8,3.4-2.9,7.9c-0.3,0.5-0.4,0.9-0.2,1.1c1,1.2,8.8-3.4,19-6.3c5.2-1.5,9-1.9,15.3-2.7c12.1-1.5,18.1-2.2,24.8-1.4
+	c5.1,0.7,10.2,2,13.2-0.5c1.7-1.4,2-3.5,3.7-3.6c1.7-0.1,2.2,2.2,5.3,3.2c0.4,0.1,3.7,1.1,5.8-0.5c1.5-1.2,2-3.3,1.1-5.4"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M484.3,268.4c13.7,10.2,20.8,22,16.9,30.2
+	c-0.6,1.3-1.6,2.7-3.2,4.1"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M295.2,290.5c2,1.3,5,3.1,9,4.5
+	c3,1.1,7.4,2.7,13.2,2.7c7,0.1,12.4-2.2,15.3-3.6"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M523.3,292.3c1.8,0.5,4.3,1.3,7.4,2.3
+	c6.8,2.1,7.4,2.2,7.9,2.3c2.6,0.4,7.5,0.1,14.8-6.3"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M405.1,399.3c7.5,2,23.9,5.3,42.8,0.5
+	c8-2,14.3-5,19-7.7"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M300.5,343.3c0.7,4.5,1.4,10.7,1.6,18.1
+	c0.2,8.2,0.5,20.8-3.7,34.8c-2.5,8.3-8,22.2-21.6,37"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M276.2,433.2c3.4,0.9,8.3,2.7,12.7,6.3
+	c2.6,2.1,4,4,4.8,5c3.8,4.8,8.5,8.2,18,14.9c13.5,9.6,26.9,17.2,30.1,19c21,11.8,38,19.9,42.8,22.1c15.5,7.3,35.7,16.2,60.2,25.3"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M555,430c-7.6,6.1-15.1,12.2-22.7,18.5
+	c-31.1,25.8-60.3,51.6-87.6,77.2"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M547.1,315.8c-2.6,12.7-7.9,42.8-4.8,73.6
+	c0,0,2.3,22.4,14.8,42c2.6,4.1,5.6,6.6,6.3,7.2c4.2,3.4,8,4.6,13.2,6.8c8.8,3.6,12.1,5.9,16.9,8.1c10.9,5,53,20.6,111.9,38.4"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M276.8,433.2c-7.6,4.7-18.7,11.3-32.7,18.5
+	c-10.4,5.4-34.2,17.3-76.6,32.5c-50.8,18.3-45.1,11.5-60.2,19.9C62.7,528.8,48,568.8,46,574.5c-3.3,9.4-4.6,17.5-5.3,23"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M244,451.2c4.3,4.6,10.2,10.7,17.4,17.6
+	c5.8,5.6,16.7,16.2,30.1,27.1c9.6,7.9,28,22.8,55.4,37.9c11.1,6.1,26.5,13.8,45.9,21.2"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M450.5,567.3c24.4-18.7,45.2-32.7,59.7-42
+	c18.1-11.6,25.5-15.3,36.4-23.9c22.7-17.8,35.8-36.9,43.3-50.1"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M416.7,545.1c9.3-6.8,18.7-13.5,28-20.3"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M445.7,525.7c11.3,6.6,22.5,13.2,33.8,19.9"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M364.4,212.4c3,1.4,6,2.7,9,4.1l0,0
+	c2.7,1.2,6.3,2.4,10.6,3.2c10.6,1.8,19.4-0.4,23.8-1.8"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M364.4,218.3c3.9-0.3,7.7-0.6,11.6-0.9"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M371.3,222.8c1-1.4,2.6-3.3,4.8-5.4
+	c4-3.9,6.2-6.1,10-7.2c5.6-1.7,10.7,0,12.1,0.5c5,1.6,7.9,4.6,9,5.9"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M508.6,214.2c11.1,0.4,17.1-0.7,20.6-1.8
+	c0.6-0.2,3.8-1.2,8.4-2.7c2.5-0.8,4.5-1.4,5.8-1.8"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M508,212.4c0.1-0.9,0.9-6.2,6.3-9.5
+	c5.9-3.6,12.6-2.1,13.7-1.8c7.5,1.8,13.2,8.2,14.3,16.3"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M536,205.2c1.8-1.1,3.5-2.1,5.3-3.2"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M406.1,324.3c0.2,4,8.5,6.7,11.6,7.7
+	c28.3,9,57.6-7.3,64.9-11.7c6.7-4.1,9.1-6.7,9-9.5c-0.2-6.1-12.1-11.5-22.2-13.1c-10.3-1.6-24.6,4.9-52.8,18.1
+	C411.8,318,405.9,320.9,406.1,324.3z"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M344.3,378.5"/>
+</svg>
+
+			</section>
+		</div>
+	</div>
+
+
+
+	<hr>
+	<div style="text-align: center;">
+		<svg class="productCard" width="350" height="110" ng-repeat=" test in tests">
+			<rect width="345" height="100" class="menuCard" ng-click="clickProduct($index)"/>
+			<text x="20" y="20"
+				  font-family="Verdana"
+				  font-size="20">
+				{{$index}}
+			</text>
+			<use id="use" xlink:href=".productCard" />
+		</svg>
+	</div>
+
+
+
+	<hr>
+
+	<div style="width:100%;  background-color:palevioletred;">
+		<div class="row" style="margin:10px 10px 10px 10px; background-color: #00bcd4">
+			<div class="col-md-3" style="background-color: white;  margin-bottom:10px; margin-right:10px; margin-left:10px;">
+				<svg id="menu1" width="100%" height="120" preserveAspectRatio="xMidYMid meet" viewBox="0 0 200 200">
+					<rect width="100" height="80%" style="fill: #ffffff"></rect>
+					<rect width="10" height="10" style="fill: #ffffff"></rect>
+				</svg>
+			</div>
+			<div class="col-md-3" style="background-color: white; margin-bottom:10px; margin-right:10px; margin-left:10px;">
+				<svg id="menu2" width="100%" height="120" preserveAspectRatio="xMidYMid meet" viewBox="0 0 200 200">
+					<rect width="100" height="80%" style="fill: #ffffff"></rect>
+					<rect width="10" height="10" style="fill: #ffffff"></rect>
+				</svg>
+			</div>
+			<div class="col-md-3" style="background-color: white; margin-bottom:10px; margin-right:10px; margin-left:10px;">
+				<svg id="menu3" width="100%" height="120" preserveAspectRatio="xMidYMid meet" viewBox="0 0 200 200">
+					<rect width="100" height="80%" style="fill: #ffffff"></rect>
+					<rect width="10" height="10" style="fill: #ffffff"></rect>
+				</svg>
+			</div>
+			<div class="col-md-3" style="background-color: white; margin-bottom:10px; margin-right:10px; margin-left:10px;">
+				<svg id="menu3" width="100%" height="120" preserveAspectRatio="xMidYMid meet" viewBox="0 0 200 200">
+					<rect width="100" height="80%" style="fill: #ffffff"></rect>
+					<rect width="10" height="10" style="fill: #ffffff"></rect>
+				</svg>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<!--
+        <div class="third-row">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="face-font-test">
+                        의리미엄 쇼핑몰에 온것을 환영한다 이기야!
+                    </div>
+                    <svg version="1.1" id="boxSvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 800 600" enable-background="new 0 0 800 600" xml:space="preserve">
+                        <path id="box-lead" fill="#E0D8D3" stroke="#60544F" stroke-width="3" stroke-miterlimit="10" d="M448,105.8L438,196H317l-9-90.2H448z"/>
+                        <path id="box-lead-target" fill="#CCC1BC" stroke="#60544F" stroke-width="3" stroke-miterlimit="10" d="M476.9,248l-38.4-50h-121L280,248H476.9z"/>
+                        <rect x="279" y="248" fill="#CCC1BC" stroke="#60544F" stroke-width="3" stroke-miterlimit="10" width="199" height="196"/>
+                        <rect x="347.5" y="329" fill="none" width="61" height="34"/>
+                        <text transform="matrix(1 0 0 1 347.5 354.5596)" font-family="'MyriadPro-Regular'" font-size="36">Box</text>
+                        <polygon fill="#42210B" points="466,243 289.7,243.2 317.4,204.2 438.3,203.8 "/>
+                        <use id="use" xlink:href="#box-lead" />
+                    </svg>
+                </div>
+                <div class="col-md-6">
+                    <div class="face-font-test">편리하고 안전한 결제</div>
+
+                    <div class="face-font-test">모바일 Friendly 인터페이스</div>
+                    <div class="face-font-test">의리미엄 맛집 정보 검색</div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="second-row">
+            <div class="face-font-test"> 사고 싶어도 광고가 내려가서 찾기 힘들었던 물건들을 한눈에 볼 수 있다 이기야!</div>
+        </div>
+
+        <div class="third-row">
+            <div class="face-font-test">의리 넘치는 선택된 자만을 위한 최고의 서비스를 보장한다. </div>
+            <div class="testFont">testFont</div>
+        </div>
+
+        <hr>
+        <div class="content">
+            <div class="container">
+                <div disqus="id"></div>
+            </div>
+        </div>
+
+
+        <!--
+        <div class="first-row">
+
+            <div class="face-font-test">
+                <svg id="svg"></svg><br/>
+                의리미엄 쇼핑몰에 온것을 환영한다 이기야!
+            </div>
+        </div>
+        <br/>
+        <div class="first-row">
+            <div class="face face-font"></div>
+            <div class="face-font-test">의리미엄 쇼핑몰에 온것을 환영한다 이기야!</div>
+
+            <svg id="map" ng-click="getStart()"></svg>
+        </div>
+
+        <div class="second-row">
+            <div class="face-font-test">쉽고 한번에 찾아 볼 수있는 의리미엄 컨텐츠</div>
+
+            <svg id="kiwi_svg"></svg>
+
+        </div>
+
+        <div class="third-row">
+            <div class="face-font-test">편리하고 안전한 결제</div>
+            <div class="face-font-test">모바일 Friendly 인터페이스</div>
+            <div class="face-font-test">의리미엄 맛집 정보 검색</div>
+        </div>
+
+        <div class="second-row">
+            <div class="face-font-test"> 사고 싶어도 광고가 내려가서 찾기 힘들었던 물건들을 한눈에 볼 수 있다 이기야!</div>
+        </div>
+
+        <div class="third-row">
+            <div class="face-font-test">의리 넘치는 선택된 자만을 위한 최고의 서비스를 보장한다. </div>
+            <div class="testFont">testFont</div>
+        </div>
+        <div disqus="id"></div>
+    -->
+</section>

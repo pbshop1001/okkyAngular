@@ -1,0 +1,106 @@
+<section class="headerEnabled" data-ng-controller="D2lHwController">
+    <md-toolbar>
+        <h2 class="md-toolbar-tools">
+            <span><b>Assignment Wizard</b></span>
+            <span flex></span>
+            <span ng-if="authentication.user === ''">LogIn required</span>
+        </h2>
+    </md-toolbar>
+    <md-content class="md-padding">
+        <p>Create New Assignment</p>
+        <div layout layout-sm='column' ng-controller="GDriveFilePickerController">
+            <md-button class="md-raised md-warn" style="font-size:11px" ng-click="init()">{{authName}}</md-button>
+            <md-button flex flex-order="5"
+                       class="md-raised md-primary"
+                       noink
+                       style="background-color: #009688; font-size:11px;"
+                       aria-label="{{authName}}"
+                       ng-click="docs=setupPicker();"
+                       ng-disabled="!isAuth">
+                File Picker
+            </md-button>
+        </div>
+        <form name="projectForm" data-ng-submit="createNewRecord()">
+            <md-input-container>
+                <label>Title</label>
+                <input md-maxlength="30" required name="title" ng-model="project.title">
+                <div ng-messages="projectForm.title.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                </div>
+            </md-input-container>
+
+            <div layout="column" layout-align="center center" style="height: 100px;">
+                <p>Select Class</p>
+                <md-select ng-model="project.class" md-on-open="loadClasses()" style="min-width: 200px;">
+                    <md-select-label>{{ project.class ? project.class.name : 'Select Class' }}</md-select-label>
+                    <md-option ng-value="class" ng-repeat="class in classes">{{class.prefix}} {{class.name}}</md-option>
+                </md-select>
+                <p class="hws-select-result">You have assigned for: {{ project.class ? project.class.prefix+" "+project.class.name : 'No class yet' }}</p>
+            </div>
+
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>Total Grade</label>
+                    <input type="number" name="totalGrade" ng-model="project.totalGrade">
+                    <div ng-messages="projectForm.totalGrade.$error">
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Percent(%)</label>
+                    <input type="number" name="percent" ng-model="project.percent" max="100" min="0">
+                    <div ng-messages="projectForm.percent.$error">
+                        <div ng-message="min">Percentage should be more than 0%</div>
+                        <div ng-message="max">Percentage should be less than 100%</div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>Due Date</label>
+                    <input type="date" required name="dDate" ng-model="project.dDate">
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>description</label>
+                    <input md-maxlength="130" required name="desc" ng-model="project.desc">
+                    <div ng-messages="projectForm.description.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message="md-maxlength">The name has to be less than 130 characters long.</div>
+                    </div>
+                </md-input-container>
+            </div>
+
+
+
+
+            <md-input-container>
+                <label>Contents</label>
+                <textarea ng-model="project.content" columns="1"></textarea>
+            </md-input-container>
+
+            <p>Or</p>
+
+            <md-input-container>
+                <label>Google Doc ID</label>
+                <input ng-disabled="true" ng-model="project.gdocId"></textarea>
+            </md-input-container>
+
+            <div style="margin-top:12px; margin-left:20px;">
+                <md-button type="submit" class="md-fab md-primary md-hue-2" aria-label="Profile">
+                    <md-icon md-svg-src="modules/d2l/svg/ic_play_arrow_24px.svg"></md-icon>
+                    <md-tooltip>
+                        Submit
+                    </md-tooltip>
+                </md-button>
+                <md-button class="md-fab" aria-label="Comment">
+                    <md-icon md-svg-icon="modules/d2l/svg/ic_menu_24px.svg"></md-icon>
+                    <md-tooltip>
+                        Cancel
+                    </md-tooltip>
+                </md-button>
+            </div>
+        </form>
+    </md-content>
+</section>

@@ -1,0 +1,175 @@
+
+<section class="headerEnabled openboard-background" data-ng-controller="D2lClassesController" data-ng-init="findOne()">
+	<div layout="row" layout-align="center center">
+		<b><h2>{{d2lClass.prefix}} {{d2lClass.name}}</h2></b>
+	</div>
+
+
+
+	<div class="alert alert-danger md-caption" style="margin-left:10px; margin-right:10px;" role="alert">
+		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		<span class="sr-only">Error:</span>
+		Important Date, Class Board and Contents are all identical for every class. You can't change the contents at this time.
+	</div>
+
+	<!-- Debuging Purpose Start-->
+	<!--<div ng-controller="SizeUtil.sizeOfWidthController" class="size-util-sizeOfWidth">{{width}}px<br/> {{screen}}</div>-->
+	<!-- Debuging Purpose End-->
+
+
+	<!-- Important Date Class Board-->
+	<div layout="row" layout-sm="column">
+		<md-whiteframe ng-if="calendarAvail" flex class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
+					   layout="column" layout-align="space-around start"
+				style="min-height: 350px;">
+			<h3 class="md-title">Calendar</h3>
+			<iframe ng-src="{{calendar()}}"
+					style=" border-width:0"; width='100%'; height="250px" frameborder="0" scrolling="no"></iframe>
+		</md-whiteframe>
+		<md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
+					   layout="column" layout-align="start start">
+			<h3 class="md-title"> Class Board </h3>
+			<div layout="column" layout-fill>
+				<md-whiteframe class="class-board md-whiteframe-z2" layout layout-align="start center">
+					<span class="class-board-desc md-body-1">Research Paper and Presentation Schedule (UPDATED)</span>
+				</md-whiteframe>
+				<md-whiteframe class="class-board md-whiteframe-z2" layout layout-align="start center">
+					<span class="class-board-desc md-body-1">Assignment - Spring 2015 COE Career Fair</span>
+				</md-whiteframe>
+				<md-whiteframe class="class-board md-whiteframe-z2" layout layout-align="start center">
+					<span class="class-board-desc md-body-1">Exam is coming SOON</span>
+				</md-whiteframe>
+			</div>
+		</md-whiteframe>
+	</div>
+
+
+	<!-- Class Contents-->
+	<md-whiteframe style="overflow-x: scroll;"
+				   class="md-whiteframe-z2 meanT-home-card ob-underbar-yellow"
+				   layout="column" layout-align="space-around start">
+		<h3 class="md-title"> Class Contents </h3>
+		<div  layout="row" layout-align="center center">
+			<md-card ng-repeat="content in classContents" style="width:170px;">
+				<img src="modules/d2l-classes/img/intro.jpg" alt="Washed Out">
+				<md-card-content>
+					<div style="font-size:12px;">Lecture{{$index+1}}</div>
+					<p class="md-body-1">{{content.topic}}</p>
+				</md-card-content>
+			</md-card>
+		</div>
+	</md-whiteframe>
+
+
+	<!--List HW-->
+	<md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-red"
+				   layout="column" layout-align="space-around start">
+
+		<div style="position:inherit; margin-bottom: 5px;">
+			<md-button class="md-primary" ng-click="copyHWTemplate('1S1cucFhz96cGRHvXzgGqxuptNR-NgWKpIwI55RB67NU')">
+				<md-icon style="font-size:40px; width:40px; height:40px;" md-svg-src="modules/openboard/img/doc.svg"></md-icon>
+				Copy Assignment Template
+			</md-button>
+			<md-button class="md-primary md-raised" ng-click="showNewAssign()">New Assignment</md-button>
+		</div>
+
+		<div style="border-top: 5px solid #ffeb45; padding: 5px;">
+			<div class="md-body-2">List HW [Student]</div>
+			<p class="md-caption">Access your assignment. Even if you click several time for one item. It will not make duplicate files but it will direct to where your file is located. </p>
+			<table st-table="hwsCopy" st-safe-src="hws" class="table table-striped">
+				<thead>
+				<tr>
+					<th st-sort="class.prefix">Class</th>
+					<th st-sort="title">Title</th>
+					<th st-sort="dDate">Due Date</th>
+					<th st-sort="totalGrade">Total</th>
+					<th st-sort="percent" hide-sm>Total %</th>
+					<th>Doc Link</th>
+				</tr>
+				<tr>
+					<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="HW in hwsCopy">
+					<td>{{HW.class.prefix}}</td>
+					<td>{{HW.title}}</td>
+					<td>{{HW.dDate |  date : format : timezone}}</td>
+					<td>{{HW.totalGrade}}</td>
+					<td hide-sm>{{HW.percent}}</td>
+					<td> <md-button class="md-warn md-raised" style="font-size:0.8em" ng-click="linkHW(HW)">Open</md-button></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</md-whiteframe>
+
+
+	<md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-green"
+				   layout="column" layout-align="space-around start">
+		<div style="border-top: 5px solid #acff53; padding: 5px;">
+			<div class="md-body-2">Assignment Submission List [Instructor]</div>
+			<p class="md-caption">These submitted assignment is ready to grade. You can access their assignments by one click.</p>
+			<table st-table="submittedHWCopy"
+				   st-safe-src="submittedHW"
+				   class="table table-striped">
+				<thead>
+				<tr>
+					<th st-sort="hwInfo[0].title">Title</th>
+					<th st-sort="user.displayName">Student</th>
+
+					<th>Doc Link</th>
+				</tr>
+				<tr>
+					<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="subm in submittedHWCopy">
+					<td>{{subm.hwInfo[0].title}}</td>
+					<td>{{subm.user.displayName}}</td>
+
+					<td><md-button class="md-warn md-raised" ng-click="openDoc(subm.docId)">Grade</md-button></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</md-whiteframe>
+
+
+
+	<!-- List Grade -->
+	<md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-base"
+				   layout="column" layout-align="space-around start">
+		<div style="border-top: 5px solid #61a4ff; padding: 5px;">
+			<div class="tableTitle">Grade Board for Student</div>
+			<p hide-sm>Check your registered classes</p>
+			<table st-table="gradeCollectionCopy" st-safe-src="gradeCollection" class="table table-striped">
+				<thead>
+				<tr>
+					<th></th>
+					<th st-sort="name">Title</th>
+					<th st-sort="student.displayName">Student</th>
+					<th st-sort="student.email">Email</th>
+					<th st-sort="grade">Grade</th>
+					<th st-sort="comment">%</th>
+				</tr>
+				<tr>
+					<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="row in gradeCollectionCopy">
+					<td cs-select="row"></td>
+					<td>{{row.name}}</td>
+					<td>{{row.student.displayName}}</td>
+					<td>{{row.student.email}}</td>
+					<td>{{row.grade}}</td>
+					<td>{{row.comment}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</md-whiteframe>
+	<div disqus="id" style="margin:auto; margin-left: 20px; margin-right:20px;	"></div>
+</section>

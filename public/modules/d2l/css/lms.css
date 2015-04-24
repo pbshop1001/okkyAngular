@@ -1,0 +1,41 @@
+.lms-demo-btn-container{
+    width:320px;
+    border-left: 5px solid #34c9ff;
+
+    padding: 5px 5px 5px 5px;
+    margin-left:auto;
+    margin-right: auto;
+    background-color: #bacbc8;
+    color:white;
+}
+
+.lms-demo-btn-container2{
+    width:320px;
+    border-left: 5px solid #4f71ff;
+
+    padding: 5px 5px 5px 5px;
+    margin-top:1px;
+    margin-left:auto;
+    margin-right: auto;
+    background-color: #bacbc8;
+    color:white;
+}
+
+.lms-demo-btn-container3{
+    width:320px;
+    border-left: 5px solid #ffc838;
+
+    padding: 5px 5px 5px 5px;
+    margin-top:1px;
+    margin-left:auto;
+    margin-right: auto;
+    background-color: #bacbc8;
+    color:white;
+}
+
+.lms-subtitle{
+    text-align:center;
+    margin-top:100px;
+    margin-left:auto;
+    margin-right:auto;
+}
