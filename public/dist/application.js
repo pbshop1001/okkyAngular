@@ -142,6 +142,11 @@ ApplicationConfiguration.registerModule('openboard');
 'use strict';
 
 // Use application configuration module to register a new module
+ApplicationConfiguration.registerModule('payment');
+
+'use strict';
+
+// Use application configuration module to register a new module
 ApplicationConfiguration.registerModule('present');
 
 'use strict';
@@ -3557,7 +3562,7 @@ angular.module('etc').controller('WigsController', ['$scope',
 'use strict';
 
 angular.module('etc').directive('colorPicker', [
-	function() {
+	function() {
 		ColorPickerCtrl.$inject = ["$scope"];
 		return {
 			templateUrl: 'modules/etc/directives/template/color-picker.html',
@@ -3653,7 +3658,7 @@ angular.module('etc').directive('colorPicker', [
 'use strict';
 
 angular.module('etc').directive('gallery', [
-	function() {
+	function() {
         galleryCtrl.$inject = ["$scope"];
 		return {
 			templateUrl: 'modules/etc/directives/template/gallery.html',
@@ -3698,7 +3703,7 @@ angular.module('etc').directive('gallery', [
 'use strict';
 
 angular.module('etc').directive('productDetail', [
-	function() {
+	function() {
 		ProductDetailCtrl.$inject = ["$scope"];
 		return {
 			templateUrl: 'modules/etc/directives/template/product-detail.html',
@@ -5711,6 +5716,93 @@ angular.module('openboard').directive('openboardAni1', [
 'use strict';
 
 //Setting up route
+angular.module('payment').config(['$stateProvider',
+	function($stateProvider) {
+		// Payment state routing
+		$stateProvider.
+		state('bt-payment-test', {
+			url: '/bt-payment-test',
+			templateUrl: 'modules/payment/views/bt-payment-test.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+angular.module('payment').controller('BtPaymentTestController', ['$scope',
+	function($scope) {
+		// Bt payment test controller logic
+		// ...
+	}
+]);
+'use strict';
+
+angular.module('payment')
+    .constant('clientTokenPath', '/client-token')
+    .controller('BtPaymentController', BtPaymentController);
+
+// directive controller
+function BtPaymentController($scope, $http, $braintree) {
+    $scope.title = "등록하기";
+    var client;
+    $scope.creditCard = {
+        number: '',
+        expirationDate: ''
+    };
+
+    var startup = function() {
+        $braintree.getClientToken().success(function(token) {
+            client = new $braintree.api.Client({
+                clientToken: token
+            });
+        });
+    }
+
+    $scope.creditCard.number = "4111111111111111";
+    $scope.creditCard.expirationDate ="10/18";
+
+    $scope.payButtonClicked = function() {
+        console.log("clicked");
+        // - Validate $scope.creditCard
+        // - Make sure client is ready to use
+        client.tokenizeCard({
+            number: $scope.creditCard.number,
+            expirationDate: $scope.creditCard.expirationDate
+        }, function (err, nonce) {
+            console.log("err: " + err);
+            console.log("nonce: "+nonce);
+
+            $http.post('/buy-something', {nonce:nonce}).success(function(){
+                alert('1');
+            })
+            .error(function(){
+                alert('2');
+                })
+
+
+            // - Send nonce to your server (e.g. to make a transaction)
+        });
+    };
+    startup();
+
+}
+BtPaymentController.$inject = ["$scope", "$http", "$braintree"];
+'use strict';
+
+angular.module('payment').directive('btPayment', [
+	function() {
+		return {
+			templateUrl: 'modules/payment/directives/template/bt-payment.html',
+			restrict: 'E',
+            controller: 'BtPaymentController',
+			link: function postLink(scope, element, attrs) {
+
+			}
+		};
+	}
+]);
+'use strict';
+
+//Setting up route
 angular.module('present').config(['$stateProvider',
 	function($stateProvider) {
 		// Present state routing
@@ -6840,7 +6932,7 @@ function GetRequires($parse){
 }
 GetRequires.$inject = ["$parse"];
 
-function SelectProvider($$interimElementProvider) {
+function SelectProvider($$interimElementProvider) {
 	selectDefaultOptions.$inject = ["$tcOrder", "$mdConstant", "$$rAF", "$mdUtil", "$mdTheming", "$timeout"];
 	return $$interimElementProvider('$tcOrder')
 		.setDefaults({
