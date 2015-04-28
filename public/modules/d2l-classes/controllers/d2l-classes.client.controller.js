@@ -104,7 +104,8 @@ angular.module('d2l-classes').controller('D2lClassesController',
 
 		$scope.linkHW = function(hw){
 			console.log('dd');
-			var AppScriptAPI = 'https://script.google.com/macros/s/AKfycbzoXxZDgzjLOJdqGUGYCWSpIT7n2sHyvnIo2W7E5jmXI_2sryj3/exec?';
+			var AppScriptAPI = 'https://script.google.com/macros/s/AKfycbzMWif8iQmlLZbno9fSUSWWwA9mL4_OEae1nKxcnbxSt980kOpy/exec?'
+			//var AppScriptAPI = 'https://script.google.com/macros/s/AKfycbzoXxZDgzjLOJdqGUGYCWSpIT7n2sHyvnIo2W7E5jmXI_2sryj3/exec?';
 			var param = 'docId='+hw.gdocId+
 				'&userId='+authentication.user.username+
 				'&title='+hw.title+
