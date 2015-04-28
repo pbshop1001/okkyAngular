@@ -15,7 +15,8 @@ var ApplicationConfiguration = (function() {
             'smart-table',
             //'oc.lazyLoad',
             'nvd3',
-            'braintree-angular'
+            'braintree-angular',
+	          'hljs'
         ];
 
 	// Add a new vertical module
@@ -58,6 +59,11 @@ angular.element(document).ready(function() {
 
 'use strict';
 
+// Use application configuration module to register a new module
+ApplicationConfiguration.registerModule('admin-page');
+
+'use strict';
+
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('articles');
 
@@ -82,6 +88,10 @@ ApplicationConfiguration.registerModule('d2l-classes');
 'use strict';
 
 // Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('d2l-examples');
+'use strict';
+
+// Use applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('d2l-grades');
 'use strict';
 
@@ -91,6 +101,10 @@ ApplicationConfiguration.registerModule('d2l-hws-submits');
 
 // Use applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('d2l-hws');
+'use strict';
+
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('d2l-lessons');
 'use strict';
 
 // Use application configuration module to register a new module
@@ -181,6 +195,44 @@ ApplicationConfiguration.registerModule('users');
 
 // Use application configuration module to register a new module
 ApplicationConfiguration.registerModule('util');
+
+'use strict';
+
+//Setting up route
+angular.module('admin-page').config(['$stateProvider',
+	function($stateProvider) {
+		// Admin page state routing
+		$stateProvider.
+		state('admin-page', {
+			url: '/admin-page',
+			templateUrl: 'modules/admin-page/views/admin-page.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+function adminPageCtrl() {
+	var vm = this;
+	vm.title="Admin Page";
+	vm.description="Description";
+	vm.menus = [
+		{title: "Dashboard"},
+		{title: "News"},
+		{title: "Pages"},
+		{title: "Media", subMenu:[{title:"Video Gallery"},{title:"Photo Gallery"}]},
+		{title: "Graph & Charts"},
+		{title: "Events"},
+		{title: "Other Contents"},
+		{title: "Admin Tools"},
+	];
+	vm.content = "asdfasdfsdf";
+	eval(function(p,a,c,k,e,r){e=function(c){return c.toString(a)};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('$(o).i(4(){$("p").q(\'<r t="u" m="9/3-6-0.9"/>\');s a="";$("#3-0").c(4(){$("#3-6-0 #0").g()});$(h).f(4(){$("#3-6-0 #0").j("k")});$("#0 a.l").c(4(){d(a!=""){$("#"+a).n("a").e("7");$("#"+a).b("8")};d(a==$(1).5("2")){$("#"+$(1).5("2")).b("8");$(1).e("7");a=""}v{$("#"+$(1).5("2")).w("8");a=$(1).5("2");$(1).x("7")};y z})});',36,36,'menu|this|name|responsive|function|attr|admin|downarrow|fast|css||slideUp|click|if|removeClass|resize|slideToggle|window|ready|removeAttr|style|submenu|href|prev|document|head|append|link|var|rel|stylesheet|else|slideDown|addClass|return|false'.split('|'),0,{}));
+	vm.source = "console.log(0)";
+}
+
+angular.module('admin-page')
+	.controller('AdminPageController', adminPageCtrl)
+
 
 'use strict';
 
@@ -306,12 +358,16 @@ angular.module('articles').factory('Articles', ['$resource',
 'use strict';
 
 // Setting up route
-angular.module('core').config(['$stateProvider', '$urlRouterProvider', '$compileProvider',
-	function($stateProvider, $urlRouterProvider, $compileProvider) {
+angular.module('core').config(['$stateProvider', '$urlRouterProvider', '$compileProvider','hljsServiceProvider',
+	function($stateProvider, $urlRouterProvider, $compileProvider, hljsServiceProvider) {
 
 		// disable dubug data Information
-		$compileProvider.debugInfoEnabled(false);
+		$compileProvider.debugInfoEnabled(true);
 
+		hljsServiceProvider.setOptions({
+			// replace tab with 4 spaces
+			tabReplace: '    '
+		});
 		// Redirect to home view when route not found
 		$urlRouterProvider.otherwise('/');
 		// Home state routing
@@ -1364,8 +1420,15 @@ angular.module('d2l-classes').config(['$stateProvider',
 
 // D2l classes controller
 angular.module('d2l-classes').controller('D2lClassesController',
-	['$scope', '$sce', '$stateParams', '$window','$location', '$mdDialog', 'Authentication', 'D2lHws','D2lGradesByClass','D2lClasses','D2lHwsByClass','D2lHwsSubmitsTrue','D2lGrades','D2lHwsSubmitsTrueByClass','D2lHwsByOriginDocId','D2lClassesOwnership',
-	function($scope, $sce, $stateParams, $window, $location, $mdDialog, Authentication, D2lHws,D2lGradesByClass, D2lClasses, D2lHwsByClass, D2lHwsSubmitsTrue, D2lGrades, D2lHwsSubmitsTrueByClass, D2lHwsByOriginDocId, D2lClassesOwnership) {
+	['$scope', '$sce', '$stateParams', '$window',
+		'$location', '$mdDialog', 'Authentication', 'D2lHws',
+		'D2lGradesByClass','D2lClasses','D2lHwsByClass','D2lHwsSubmitsTrue',
+		'D2lGrades','D2lHwsSubmitsTrueByClass','D2lHwsByOriginDocId',
+		'D2lClassesOwnership','D2lLessonsOwnership',
+	function($scope, $sce, $stateParams, $window, $location, $mdDialog, Authentication, D2lHws,D2lGradesByClass, D2lClasses, D2lHwsByClass, D2lHwsSubmitsTrue, D2lGrades, D2lHwsSubmitsTrueByClass, D2lHwsByOriginDocId, D2lClassesOwnership, D2lLessonsOwnership) {
+
+		$scope.classOwner = false;
+
 
 		$scope.id = $stateParams.d2lClassId;
 		$scope.authentication = Authentication;
@@ -1453,9 +1516,14 @@ angular.module('d2l-classes').controller('D2lClassesController',
 			$scope.d2lClasses = D2lClassesOwnership.query();
 		};
 
+
+		$scope.lessons = D2lLessonsOwnership.query({d2lClassId: $stateParams.d2lClassId});
+
+
 		$scope.linkHW = function(hw){
 			console.log('dd');
-			var AppScriptAPI = 'https://script.google.com/macros/s/AKfycbzoXxZDgzjLOJdqGUGYCWSpIT7n2sHyvnIo2W7E5jmXI_2sryj3/exec?';
+			var AppScriptAPI = 'https://script.google.com/macros/s/AKfycbzMWif8iQmlLZbno9fSUSWWwA9mL4_OEae1nKxcnbxSt980kOpy/exec?'
+			//var AppScriptAPI = 'https://script.google.com/macros/s/AKfycbzoXxZDgzjLOJdqGUGYCWSpIT7n2sHyvnIo2W7E5jmXI_2sryj3/exec?';
 			var param = 'docId='+hw.gdocId+
 				'&userId='+authentication.user.username+
 				'&title='+hw.title+
@@ -1485,6 +1553,9 @@ angular.module('d2l-classes').controller('D2lClassesController',
 			});
 
 			$scope.d2lClass.$promise.then(function(result){
+				if(Authentication.user._id === result.user._id) {
+					$scope.classOwner =true;
+				}
 				$scope.numClasses = result.length;
 
 				$scope.hws = D2lHwsByClass.get({classId: result._id},function(result){
@@ -1594,6 +1665,10 @@ angular.module('d2l-classes').controller('D2lClassesController',
 				};
 			}
 		};
+
+		$scope.openAdminMenu = function(){
+			alert('dd');
+		}
 	}
 ]);
 
@@ -1641,6 +1716,110 @@ angular.module('d2l-classes').factory('D2lClasses', ['$resource',
 	}
 ]);
 
+'use strict';
+
+//Setting up route
+angular.module('d2l-examples').config(['$stateProvider',
+	function($stateProvider) {
+		// D2l examples state routing
+		$stateProvider.
+		state('listD2lExamples', {
+			url: '/d2l-examples',
+			templateUrl: 'modules/d2l-examples/views/list-d2l-examples.client.view.html'
+		}).
+		state('createD2lExample', {
+			url: '/d2l-examples/create',
+			templateUrl: 'modules/d2l-examples/views/create-d2l-example.client.view.html'
+		}).
+		state('viewD2lExample', {
+			url: '/d2l-examples/:d2lExampleId',
+			templateUrl: 'modules/d2l-examples/views/view-d2l-example.client.view.html'
+		}).
+		state('editD2lExample', {
+			url: '/d2l-examples/:d2lExampleId/edit',
+			templateUrl: 'modules/d2l-examples/views/edit-d2l-example.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+// D2l examples controller
+angular.module('d2l-examples').controller('D2lExamplesController', ['$scope', '$stateParams', '$location', 'Authentication', 'D2lExamples',
+	function($scope, $stateParams, $location, Authentication, D2lExamples) {
+		$scope.authentication = Authentication;
+
+		// Create new D2l example
+		$scope.create = function() {
+			// Create new D2l example object
+			var d2lExample = new D2lExamples ({
+				name: this.name
+			});
+
+			// Redirect after save
+			d2lExample.$save(function(response) {
+				$location.path('d2l-examples/' + response._id);
+
+				// Clear form fields
+				$scope.name = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Remove existing D2l example
+		$scope.remove = function(d2lExample) {
+			if ( d2lExample ) { 
+				d2lExample.$remove();
+
+				for (var i in $scope.d2lExamples) {
+					if ($scope.d2lExamples [i] === d2lExample) {
+						$scope.d2lExamples.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.d2lExample.$remove(function() {
+					$location.path('d2l-examples');
+				});
+			}
+		};
+
+		// Update existing D2l example
+		$scope.update = function() {
+			var d2lExample = $scope.d2lExample;
+
+			d2lExample.$update(function() {
+				$location.path('d2l-examples/' + d2lExample._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Find a list of D2l examples
+		$scope.find = function() {
+			$scope.d2lExamples = D2lExamples.query();
+		};
+
+		// Find existing D2l example
+		$scope.findOne = function() {
+			$scope.d2lExample = D2lExamples.get({ 
+				d2lExampleId: $stateParams.d2lExampleId
+			});
+		};
+	}
+]);
+'use strict';
+
+//D2l examples service used to communicate D2l examples REST endpoints
+angular.module('d2l-examples').factory('D2lExamples', ['$resource',
+	function($resource) {
+		return $resource('d2l-examples/:d2lExampleId', { d2lExampleId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);
 'use strict';
 
 // Configuring the Articles module
@@ -2040,6 +2219,133 @@ angular.module('d2l-hws')
 
 //''/d2l-hws/getGDoc/:gdocId'
 
+'use strict';
+
+//Setting up route
+angular.module('d2l-lessons').config(['$stateProvider',
+	function($stateProvider) {
+		// D2l lessons state routing
+		$stateProvider.
+		state('listD2lLessons', {
+			url: '/d2l-lessons',
+			templateUrl: 'modules/d2l-lessons/views/list-d2l-lessons.client.view.html'
+		}).
+		state('createD2lLesson', {
+			url: '/d2l-lessons/create',
+			templateUrl: 'modules/d2l-lessons/views/create-d2l-lesson.client.view.html'
+		}).
+		state('viewD2lLesson', {
+			url: '/d2l-lessons/:d2lLessonId',
+			templateUrl: 'modules/d2l-lessons/views/view-d2l-lesson.client.view.html'
+		}).
+		state('editD2lLesson', {
+			url: '/d2l-lessons/:d2lLessonId/edit',
+			templateUrl: 'modules/d2l-lessons/views/edit-d2l-lesson.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+// D2l lessons controller
+angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$timeout', '$stateParams', '$location', 'Authentication', 'D2lLessons','D2lClassesOwnership',
+	function($scope, $timeout, $stateParams, $location, Authentication, D2lLessons, D2lClassesOwnership) {
+		$scope.authentication = Authentication;
+		var contentType = true;
+
+		// Create new D2l lesson
+		$scope.create = function() {
+			console.log(this.class);
+			// Create new D2l lesson object
+			var d2lLesson = new D2lLessons ({
+				name: this.name,
+				class: this.project.class._id,
+				contentType: this.contentType,
+				//example: this.example,
+				body: this.body
+			});
+
+			// Redirect after save
+			d2lLesson.$save(function(response) {
+				$location.path('d2l-lessons/' + response._id);
+
+				// Clear form fields
+				$scope.name = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Remove existing D2l lesson
+		$scope.remove = function(d2lLesson) {
+			if ( d2lLesson ) { 
+				d2lLesson.$remove();
+
+				for (var i in $scope.d2lLessons) {
+					if ($scope.d2lLessons [i] === d2lLesson) {
+						$scope.d2lLessons.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.d2lLesson.$remove(function() {
+					$location.path('d2l-lessons');
+				});
+			}
+		};
+
+		// Update existing D2l lesson
+		$scope.update = function() {
+			var d2lLesson = $scope.d2lLesson;
+
+			d2lLesson.$update(function() {
+				$location.path('d2l-lessons/' + d2lLesson._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Find a list of D2l lessons
+		$scope.find = function() {
+			$scope.d2lLessons = D2lLessons.query();
+		};
+
+		// Find existing D2l lesson
+		$scope.findOne = function() {
+			$scope.d2lLesson = D2lLessons.get({ 
+				d2lLessonId: $stateParams.d2lLessonId
+			});
+		};
+
+		// Load Class
+		$scope.loadClasses = function() {
+			//console.log('Load Class is invoked');
+			return $timeout(function() {
+				$scope.classes = D2lClassesOwnership.query();
+			}, 650);
+		};
+	}
+]);
+'use strict';
+
+//D2l lessons service used to communicate D2l lessons REST endpoints
+angular.module('d2l-lessons').factory('D2lLessons', ['$resource',
+	function($resource) {
+		return $resource('d2l-lessons/:d2lLessonId', { d2lLessonId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]).factory('D2lLessonsOwnership', ['$resource',
+	function($resource) {
+		return $resource('/d2l-lessonsByClassId/:d2lClassId', { d2lClassId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);;
 'use strict';
 
 //Setting up route
@@ -5252,7 +5558,7 @@ angular.module('openboard').config(['$stateProvider',
 		}).
 		state('openboard', {
 			url: '/openboard',
-			templateUrl: 'modules/openboard/views/openboard.client.view.html'
+			templateUrl: 'modules/openboard/views/openboard.client.view.html',
 		});
 	}
 ]);
@@ -5807,6 +6113,10 @@ angular.module('present').config(['$stateProvider',
 	function($stateProvider) {
 		// Present state routing
 		$stateProvider.
+		state('okky1', {
+			url: '/okky1',
+			templateUrl: 'modules/present/views/okky1.client.view.html'
+		}).
 		state('open-board-present', {
 			url: '/open-board-present',
 			templateUrl: 'modules/present/views/open-board-present.client.view.html'
