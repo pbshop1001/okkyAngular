@@ -1,0 +1,19 @@
+<section data-ng-controller="D2lExamplesController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>D2l examples</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="d2lExample in d2lExamples" data-ng-href="#!/d2l-examples/{{d2lExample._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="d2lExample.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="d2lExample.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="d2lExample.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!d2lExamples.$resolved || d2lExamples.length">
+    	No D2l examples yet, why don't you <a href="/#!/d2l-examples/create">create one</a>?
+    </div>
+</section>

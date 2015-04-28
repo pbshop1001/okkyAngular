@@ -15,7 +15,8 @@ var ApplicationConfiguration = (function() {
             'smart-table',
             //'oc.lazyLoad',
             'nvd3',
-            'braintree-angular'
+            'braintree-angular',
+	          'hljs'
         ];
 
 	// Add a new vertical module

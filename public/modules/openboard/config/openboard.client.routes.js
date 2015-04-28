@@ -15,7 +15,7 @@ angular.module('openboard').config(['$stateProvider',
 		}).
 		state('openboard', {
 			url: '/openboard',
-			templateUrl: 'modules/openboard/views/openboard.client.view.html'
+			templateUrl: 'modules/openboard/views/openboard.client.view.html',
 		});
 	}
 ]);

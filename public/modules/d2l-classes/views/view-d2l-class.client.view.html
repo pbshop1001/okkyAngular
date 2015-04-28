@@ -4,13 +4,18 @@
 		<b><h2>{{d2lClass.prefix}} {{d2lClass.name}}</h2></b>
 	</div>
 
-
-
-	<div class="alert alert-danger md-caption" style="margin-left:10px; margin-right:10px;" role="alert">
-		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-		<span class="sr-only">Error:</span>
-		Important Date, Class Board and Contents are all identical for every class. You can't change the contents at this time.
+	<div ng-show="classOwner" style="position: fixed; bottom:35px; right:35px">
+		<md-button class="green md-fab" ng-click="openAdminMenu()">
+			<md-icon md-svg-src="modules/d2l/img/flat-svg/settings.svg" class="ng-scope ng-isolate-scope md-default-theme" aria-hidden="true"></md-icon>
+		</md-button>
 	</div>
+
+
+	<!--<div class="alert alert-danger md-caption" style="margin-left:10px; margin-right:10px;" role="alert">-->
+		<!--<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>-->
+		<!--<span class="sr-only">Error:</span>-->
+		<!--현제 사이트는 베타 버전 입니다. -->
+	<!--</div>-->
 
 	<!-- Debuging Purpose Start-->
 	<!--<div ng-controller="SizeUtil.sizeOfWidthController" class="size-util-sizeOfWidth">{{width}}px<br/> {{screen}}</div>-->
@@ -31,41 +36,40 @@
 			<h3 class="md-title"> Class Board </h3>
 			<div layout="column" layout-fill>
 				<md-whiteframe class="class-board md-whiteframe-z2" layout layout-align="start center">
-					<span class="class-board-desc md-body-1">Research Paper and Presentation Schedule (UPDATED)</span>
+					<span class="class-board-desc md-body-1">
+						드디어 오픈을 하게 되었습니다.
+					</span>
 				</md-whiteframe>
 				<md-whiteframe class="class-board md-whiteframe-z2" layout layout-align="start center">
-					<span class="class-board-desc md-body-1">Assignment - Spring 2015 COE Career Fair</span>
-				</md-whiteframe>
-				<md-whiteframe class="class-board md-whiteframe-z2" layout layout-align="start center">
-					<span class="class-board-desc md-body-1">Exam is coming SOON</span>
+					<span class="class-board-desc md-body-1">
+						전문적으로 교육을 하는 사람이 아니라서 다소 부족 하더라도 많이 이해 해주시길 바라겠습니다.
+					</span>
 				</md-whiteframe>
 			</div>
 		</md-whiteframe>
 	</div>
 
-
-	<!-- Class Contents-->
+	<!-- Class Lectures-->
 	<md-whiteframe style="overflow-x: scroll;"
 				   class="md-whiteframe-z2 meanT-home-card ob-underbar-yellow"
 				   layout="column" layout-align="space-around start">
-		<h3 class="md-title"> Class Contents </h3>
+		<h3 class="md-title"> Class Lectures </h3>
 		<div  layout="row" layout-align="center center">
-			<md-card ng-repeat="content in classContents" style="width:170px;">
+			<md-card ng-repeat="lesson in lessons" style="width:170px;">
 				<img src="modules/d2l-classes/img/intro.jpg" alt="Washed Out">
 				<md-card-content>
 					<div style="font-size:12px;">Lecture{{$index+1}}</div>
-					<p class="md-body-1">{{content.topic}}</p>
+					<p class="md-body-1">{{lesson.name}}</p>
 				</md-card-content>
 			</md-card>
 		</div>
 	</md-whiteframe>
 
-
 	<!--List HW-->
 	<md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-red"
 				   layout="column" layout-align="space-around start">
 
-		<div style="position:inherit; margin-bottom: 5px;">
+		<div ng-show="classOwner" style="position:inherit; margin-bottom: 5px;">
 			<md-button class="md-primary" ng-click="copyHWTemplate('1S1cucFhz96cGRHvXzgGqxuptNR-NgWKpIwI55RB67NU')">
 				<md-icon style="font-size:40px; width:40px; height:40px;" md-svg-src="modules/openboard/img/doc.svg"></md-icon>
 				Copy Assignment Template
@@ -74,16 +78,19 @@
 		</div>
 
 		<div style="border-top: 5px solid #ffeb45; padding: 5px;">
-			<div class="md-body-2">List HW [Student]</div>
-			<p class="md-caption">Access your assignment. Even if you click several time for one item. It will not make duplicate files but it will direct to where your file is located. </p>
+
+			<div class="md-body-2">Class 자료</div>
+			<p class="md-caption">
+				아래 Document Link 를 클릭 하시면 자신의 구글 드라이브에 자료가 복사 됩니다.
+			</p>
 			<table st-table="hwsCopy" st-safe-src="hws" class="table table-striped">
 				<thead>
 				<tr>
-					<th st-sort="class.prefix">Class</th>
+					<!--<th st-sort="class.prefix">Class</th>-->
 					<th st-sort="title">Title</th>
-					<th st-sort="dDate">Due Date</th>
-					<th st-sort="totalGrade">Total</th>
-					<th st-sort="percent" hide-sm>Total %</th>
+					<!--<th st-sort="dDate">Due Date</th>-->
+					<!--<th st-sort="totalGrade">Total</th>-->
+					<!--<th st-sort="percent" hide-sm>Total %</th>-->
 					<th>Doc Link</th>
 				</tr>
 				<tr>
@@ -92,11 +99,11 @@
 				</thead>
 				<tbody>
 				<tr ng-repeat="HW in hwsCopy">
-					<td>{{HW.class.prefix}}</td>
+					<!--<td>{{HW.class.prefix}}</td>-->
 					<td>{{HW.title}}</td>
-					<td>{{HW.dDate |  date : format : timezone}}</td>
-					<td>{{HW.totalGrade}}</td>
-					<td hide-sm>{{HW.percent}}</td>
+					<!--<td>{{HW.dDate |  date : format : timezone}}</td>-->
+					<!--<td>{{HW.totalGrade}}</td>-->
+					<!--<td hide-sm>{{HW.percent}}</td>-->
 					<td> <md-button class="md-warn md-raised" style="font-size:0.8em" ng-click="linkHW(HW)">Open</md-button></td>
 				</tr>
 				</tbody>
@@ -105,71 +112,71 @@
 	</md-whiteframe>
 
 
-	<md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-green"
-				   layout="column" layout-align="space-around start">
-		<div style="border-top: 5px solid #acff53; padding: 5px;">
-			<div class="md-body-2">Assignment Submission List [Instructor]</div>
-			<p class="md-caption">These submitted assignment is ready to grade. You can access their assignments by one click.</p>
-			<table st-table="submittedHWCopy"
-				   st-safe-src="submittedHW"
-				   class="table table-striped">
-				<thead>
-				<tr>
-					<th st-sort="hwInfo[0].title">Title</th>
-					<th st-sort="user.displayName">Student</th>
+	<!--<md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-green"-->
+				   <!--layout="column" layout-align="space-around start">-->
+		<!--<div style="border-top: 5px solid #acff53; padding: 5px;">-->
+			<!--<div class="md-body-2">Assignment Submission List [Instructor]</div>-->
+			<!--<p class="md-caption">These submitted assignment is ready to grade. You can access their assignments by one click.</p>-->
+			<!--<table st-table="submittedHWCopy"-->
+				   <!--st-safe-src="submittedHW"-->
+				   <!--class="table table-striped">-->
+				<!--<thead>-->
+				<!--<tr>-->
+					<!--<th st-sort="hwInfo[0].title">Title</th>-->
+					<!--<th st-sort="user.displayName">Student</th>-->
 
-					<th>Doc Link</th>
-				</tr>
-				<tr>
-					<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr ng-repeat="subm in submittedHWCopy">
-					<td>{{subm.hwInfo[0].title}}</td>
-					<td>{{subm.user.displayName}}</td>
+					<!--<th>Doc Link</th>-->
+				<!--</tr>-->
+				<!--<tr>-->
+					<!--<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>-->
+				<!--</tr>-->
+				<!--</thead>-->
+				<!--<tbody>-->
+				<!--<tr ng-repeat="subm in submittedHWCopy">-->
+					<!--<td>{{subm.hwInfo[0].title}}</td>-->
+					<!--<td>{{subm.user.displayName}}</td>-->
 
-					<td><md-button class="md-warn md-raised" ng-click="openDoc(subm.docId)">Grade</md-button></td>
-				</tr>
-				</tbody>
-			</table>
-		</div>
-	</md-whiteframe>
+					<!--<td><md-button class="md-warn md-raised" ng-click="openDoc(subm.docId)">Grade</md-button></td>-->
+				<!--</tr>-->
+				<!--</tbody>-->
+			<!--</table>-->
+		<!--</div>-->
+	<!--</md-whiteframe>-->
 
 
 
 	<!-- List Grade -->
-	<md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-base"
-				   layout="column" layout-align="space-around start">
-		<div style="border-top: 5px solid #61a4ff; padding: 5px;">
-			<div class="tableTitle">Grade Board for Student</div>
-			<p hide-sm>Check your registered classes</p>
-			<table st-table="gradeCollectionCopy" st-safe-src="gradeCollection" class="table table-striped">
-				<thead>
-				<tr>
-					<th></th>
-					<th st-sort="name">Title</th>
-					<th st-sort="student.displayName">Student</th>
-					<th st-sort="student.email">Email</th>
-					<th st-sort="grade">Grade</th>
-					<th st-sort="comment">%</th>
-				</tr>
-				<tr>
-					<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr ng-repeat="row in gradeCollectionCopy">
-					<td cs-select="row"></td>
-					<td>{{row.name}}</td>
-					<td>{{row.student.displayName}}</td>
-					<td>{{row.student.email}}</td>
-					<td>{{row.grade}}</td>
-					<td>{{row.comment}}</td>
-				</tr>
-				</tbody>
-			</table>
-		</div>
-	</md-whiteframe>
+	<!--<md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-base"-->
+				   <!--layout="column" layout-align="space-around start">-->
+		<!--<div style="border-top: 5px solid #61a4ff; padding: 5px;">-->
+			<!--<div class="tableTitle">Grade Board for Student</div>-->
+			<!--<p hide-sm>Check your registered classes</p>-->
+			<!--<table st-table="gradeCollectionCopy" st-safe-src="gradeCollection" class="table table-striped">-->
+				<!--<thead>-->
+				<!--<tr>-->
+					<!--<th></th>-->
+					<!--<th st-sort="name">Title</th>-->
+					<!--<th st-sort="student.displayName">Student</th>-->
+					<!--<th st-sort="student.email">Email</th>-->
+					<!--<th st-sort="grade">Grade</th>-->
+					<!--<th st-sort="comment">%</th>-->
+				<!--</tr>-->
+				<!--<tr>-->
+					<!--<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>-->
+				<!--</tr>-->
+				<!--</thead>-->
+				<!--<tbody>-->
+				<!--<tr ng-repeat="row in gradeCollectionCopy">-->
+					<!--<td cs-select="row"></td>-->
+					<!--<td>{{row.name}}</td>-->
+					<!--<td>{{row.student.displayName}}</td>-->
+					<!--<td>{{row.student.email}}</td>-->
+					<!--<td>{{row.grade}}</td>-->
+					<!--<td>{{row.comment}}</td>-->
+				<!--</tr>-->
+				<!--</tbody>-->
+			<!--</table>-->
+		<!--</div>-->
+	<!--</md-whiteframe>-->
 	<div disqus="id" style="margin:auto; margin-left: 20px; margin-right:20px;	"></div>
 </section>

@@ -16,11 +16,11 @@ var D2lClassSchema = new Schema({
 		required: 'Please fill D2l class name',
 		trim: true
 	},
-    prefix: {
-        type: String,
-        default: '',
-        trim: true
-    },
+	prefix: {
+		type: String,
+		default: '',
+		trim: true
+	},
 	created: {
 		type: Date,
 		default: Date.now
