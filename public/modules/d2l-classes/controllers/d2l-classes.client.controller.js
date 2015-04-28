@@ -2,8 +2,15 @@
 
 // D2l classes controller
 angular.module('d2l-classes').controller('D2lClassesController',
-	['$scope', '$sce', '$stateParams', '$window','$location', '$mdDialog', 'Authentication', 'D2lHws','D2lGradesByClass','D2lClasses','D2lHwsByClass','D2lHwsSubmitsTrue','D2lGrades','D2lHwsSubmitsTrueByClass','D2lHwsByOriginDocId','D2lClassesOwnership',
-	function($scope, $sce, $stateParams, $window, $location, $mdDialog, Authentication, D2lHws,D2lGradesByClass, D2lClasses, D2lHwsByClass, D2lHwsSubmitsTrue, D2lGrades, D2lHwsSubmitsTrueByClass, D2lHwsByOriginDocId, D2lClassesOwnership) {
+	['$scope', '$sce', '$stateParams', '$window',
+		'$location', '$mdDialog', 'Authentication', 'D2lHws',
+		'D2lGradesByClass','D2lClasses','D2lHwsByClass','D2lHwsSubmitsTrue',
+		'D2lGrades','D2lHwsSubmitsTrueByClass','D2lHwsByOriginDocId',
+		'D2lClassesOwnership','D2lLessonsOwnership',
+	function($scope, $sce, $stateParams, $window, $location, $mdDialog, Authentication, D2lHws,D2lGradesByClass, D2lClasses, D2lHwsByClass, D2lHwsSubmitsTrue, D2lGrades, D2lHwsSubmitsTrueByClass, D2lHwsByOriginDocId, D2lClassesOwnership, D2lLessonsOwnership) {
+
+		$scope.classOwner = false;
+
 
 		$scope.id = $stateParams.d2lClassId;
 		$scope.authentication = Authentication;
@@ -91,6 +98,10 @@ angular.module('d2l-classes').controller('D2lClassesController',
 			$scope.d2lClasses = D2lClassesOwnership.query();
 		};
 
+
+		$scope.lessons = D2lLessonsOwnership.query({d2lClassId: $stateParams.d2lClassId});
+
+
 		$scope.linkHW = function(hw){
 			console.log('dd');
 			var AppScriptAPI = 'https://script.google.com/macros/s/AKfycbzoXxZDgzjLOJdqGUGYCWSpIT7n2sHyvnIo2W7E5jmXI_2sryj3/exec?';
@@ -123,6 +134,9 @@ angular.module('d2l-classes').controller('D2lClassesController',
 			});
 
 			$scope.d2lClass.$promise.then(function(result){
+				if(Authentication.user._id === result.user._id) {
+					$scope.classOwner =true;
+				}
 				$scope.numClasses = result.length;
 
 				$scope.hws = D2lHwsByClass.get({classId: result._id},function(result){
@@ -232,6 +246,10 @@ angular.module('d2l-classes').controller('D2lClassesController',
 				};
 			}
 		};
+
+		$scope.openAdminMenu = function(){
+			alert('dd');
+		}
 	}
 ]);
 

@@ -1,12 +1,16 @@
 'use strict';
 
 // Setting up route
-angular.module('core').config(['$stateProvider', '$urlRouterProvider', '$compileProvider',
-	function($stateProvider, $urlRouterProvider, $compileProvider) {
+angular.module('core').config(['$stateProvider', '$urlRouterProvider', '$compileProvider','hljsServiceProvider',
+	function($stateProvider, $urlRouterProvider, $compileProvider, hljsServiceProvider) {
 
 		// disable dubug data Information
-		$compileProvider.debugInfoEnabled(false);
+		$compileProvider.debugInfoEnabled(true);
 
+		hljsServiceProvider.setOptions({
+			// replace tab with 4 spaces
+			tabReplace: '    '
+		});
 		// Redirect to home view when route not found
 		$urlRouterProvider.otherwise('/');
 		// Home state routing
