@@ -110,6 +110,7 @@
                 <md-grid-tile-footer><h3>Tutorial</h3></md-grid-tile-footer>
             </md-grid-tile>
             <md-grid-tile
+                    ng-disabled="true"
                     ng-if="authentication.user"
                     id="urClass"
                     md-rowspan="1"
@@ -117,7 +118,7 @@
                     class="yellow"
                     ng-click="sliderNavEvent('Your Classes', 'urClass')">
                 <md-icon md-svg-src="modules/d2l/img/flat-svg/reading.svg"></md-icon>
-                <md-grid-tile-footer><h3>Your Classes</h3></md-grid-tile-footer>
+                <md-grid-tile-footer><h3>Your History</h3></md-grid-tile-footer>
             </md-grid-tile>
             <md-grid-tile
                     ng-if="authentication.user"
@@ -130,9 +131,8 @@
                 <md-grid-tile-footer><h3>All Classes</h3></md-grid-tile-footer>
             </md-grid-tile>
         </md-grid-list>
-
     </md-content>
     <div style="  position: inherit;
   margin-top: 20px;
-  margin-left: 5px;">Icons are licenced by Web App (http://icons8.com)</div>
+  margin-left: 5px;">Icons are licenced by Web App(http://icons8.com)</div>
 </div>

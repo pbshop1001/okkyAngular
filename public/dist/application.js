@@ -1412,7 +1412,6 @@ angular.module('d2l-classes').config(['$stateProvider',
 	}
 ]);
 'use strict';
-
 // D2l classes controller
 angular.module('d2l-classes').controller('D2lClassesController',
 	['$scope', '$sce', '$stateParams', '$window',
@@ -1421,9 +1420,7 @@ angular.module('d2l-classes').controller('D2lClassesController',
 		'D2lGrades','D2lHwsSubmitsTrueByClass','D2lHwsByOriginDocId',
 		'D2lClassesOwnership','D2lLessonsOwnership',
 	function($scope, $sce, $stateParams, $window, $location, $mdDialog, Authentication, D2lHws,D2lGradesByClass, D2lClasses, D2lHwsByClass, D2lHwsSubmitsTrue, D2lGrades, D2lHwsSubmitsTrueByClass, D2lHwsByOriginDocId, D2lClassesOwnership, D2lLessonsOwnership) {
-
 		$scope.classOwner = false;
-
 
 		$scope.id = $stateParams.d2lClassId;
 		$scope.authentication = Authentication;
@@ -4555,6 +4552,42 @@ function MeanHomeController(
 	//	mainTitle : "Welcome to MEAN Tutorials",
 	//	subTitleText: "Mean Tutorials is a team for scripted, high-performance HTML5 technologies that works in all major browsers. No other delivers such advanced."
 	//};
+
+	$scope.courses = [
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+
+	];
 
 	//  Openboard Contest
 	$scope.homeContents = {

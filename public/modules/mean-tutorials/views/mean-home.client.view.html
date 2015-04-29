@@ -40,33 +40,37 @@
                     <md-button class="md-raised md-primary" ng-click="goTo('open-board-present')" style="margin-bottom: 10px;">Presentation</md-button>
                     <!--<md-button class="md-raised md-primary" ng-click="goTo('watch-game')" style="margin-bottom: 10px;">Watch Game</md-button>-->
                 </div>
-                <!--<a href="https://docs.google.com/document/d/1Q_CJwJftcL-zabVm0USc1px5HDfbpxu6Klav-XYOzNg/edit?usp=sharing" target="_blank">-->
-                    <!--<img title="Google Doc" class="meanT-googleDocImg" ng-src="modules/mean-tutorials/img/google_docs.png">-->
-                <!--</a>-->
             </div>
 
 
-            <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-base"
+            <md-whiteframe style="overflow-x: scroll;"
+                           class="md-whiteframe-z2 meanT-home-card ob-underbar-yellow"
                            layout="column" layout-align="space-around start">
-                <h3 class="md-title">Write Modern Web Apps with the MEAN Stack: Mongo, Express, AngularJS, and Node.js</h3>
-                <p class="md-body-1"> Traditionally, web applications have been architected so that the back-end houses all the front-end code. This has resulted in heavy projects that are difficult to manage and scale. This book will explain a new way to write web applications by treating the front-end as if it were a third-party (such as a mobile client). This book, written by a practicing MEAN developer, will take a holistic approach to using the MEAN JavaScript platform for creating modern web applications and lay out how to use the MEAN (Mongo, Express, AngularJS, and Node.js) set of tools to create a web application, from installation and setup of the tools to debugging and deploying your app. After an introduction to how web development is changing and the advantages of using the MEAN stack, the author jumps into an introduction to each tool and then dives into using the complete JavaScript-based application stack to build, test, and deploy apps.</p>
+                <h3 class="md-title">강의 리스트</h3>
+                <div  layout="row" layout-align="center center">
+                    <md-card ng-repeat="lesson in courses" style="width:170px;">
+                        <img ng-src="{{lesson.imgSrc}}" alt="Washed Out">
+                        <md-card-content>
+                            <div style="font-size:12px;">Course {{$index+1}}</div>
+                            <p class="md-body-1">{{lesson.name}}</p>
+                        </md-card-content>
+                    </md-card>
+                </div>
             </md-whiteframe>
+
             <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-base"
                            layout="column" layout-align="space-around start">
-                <h3 class="docs-title-card-not-Center md-title">앵귤러 강의를 시작하면서</h3>
+                <h3 class="docs-title-card-not-Center md-title">ng-SKorea</h3>
                 <div class="md-body-1">
-                    앵귤러를 이용해서 Front-End 개발을 한지 3년이 되어 가고 있습니다. 처음 앵귤러가 들어 났을때 개발자들의 폭발적인 관심과
-                    새로운 형태의 Front-End개발 컨셉에 개발자들은 하루 하루 흥분을 감추지 못하면서 서로 피드백을 주고 받으며 이렇게 성장하게 되었습니다.
+                    AngularJS를 쉽게 접할 수 있도록 도와드리기 위해서 강의를 개설 하게 되었습니다.
                 </div>
 
-                <div hljs source="'<html><head><body></body></head></html>'"></div>
+                <!--<div hljs source="'<html><head><body></body></head></html>'"></div>-->
+                <!--<iframe width="100%" height="300" src="//jsfiddle.net/dakra/U3pVM/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>-->
+                <!--<a class="jsbin-embed" href="http://jsbin.com/bifiya/4/embed?html,js,output">JS Bin</a>-->
+                <!--<script src="http://static.jsbin.com/js/embed.js"></script>-->
 
-                <iframe width="100%" height="300" src="//jsfiddle.net/dakra/U3pVM/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-
-                <a class="jsbin-embed" href="http://jsbin.com/bifiya/4/embed?html,js,output">JS Bin</a>
-                <script src="http://static.jsbin.com/js/embed.js"></script>
-
-                <a class="jsbin-embed" href="http://jsbin.com/bifiya/4/embed?html,js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>
+                <!--<a class="jsbin-embed" href="http://jsbin.com/bifiya/4/embed?html,js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>-->
             </md-whiteframe>
 
             <openboard-ani1></openboard-ani1>
@@ -83,11 +87,6 @@
                     <li>웹기술은 아직도 구닥다리다라는 편견을 가지신분</li>
                 </ul>
             </md-whiteframe>
-            <!--<div style="max-width:700px; margin-bottom: 20px; margin-left:auto; margin-right:auto;">-->
-                <!--<div class="video-container">-->
-                    <!--<iframe width="640" height="390" src="https://www.youtube.com/embed/eN9cygvhByg" frameborder="0" allowfullscreen></iframe>-->
-                <!--</div>-->
-            <!--</div>-->
 
             <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
                            layout="column" layout-align="space-around start">
@@ -98,8 +97,6 @@
                 <p class="md-body-1">어떤 문제가 닥치셔서 그 문제를 해결 하시려면 전체를 아셔야 문제가되는 곳을 빠르게 찾으시고 대처 방안을 찾으실수 있습니다.</p>
 
             </md-whiteframe>
-
-            <openboard-ani1></openboard-ani1>
 
             <!--<md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"-->
                            <!--layout="column" layout-align="space-around start">-->

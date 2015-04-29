@@ -23,6 +23,42 @@ function MeanHomeController(
 	//	subTitleText: "Mean Tutorials is a team for scripted, high-performance HTML5 technologies that works in all major browsers. No other delivers such advanced."
 	//};
 
+	$scope.courses = [
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+		{
+			name:"Learning AngularJS",
+			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
+		},
+
+	];
+
 	//  Openboard Contest
 	$scope.homeContents = {
 		mainTitle : "ng-SKorea",
