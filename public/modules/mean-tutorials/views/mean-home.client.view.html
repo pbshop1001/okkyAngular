@@ -46,7 +46,7 @@
             <md-whiteframe style="overflow-x: scroll;"
                            class="md-whiteframe-z2 meanT-home-card ob-underbar-yellow"
                            layout="column" layout-align="space-around start">
-                <h3 class="md-title">강의 리스트</h3>
+                <h3 class="md-title"><b>강의 리스트</b></h3>
                 <div  layout="row" layout-align="center center">
                     <md-card ng-repeat="lesson in courses" style="width:170px;">
                         <img ng-src="{{lesson.imgSrc}}" alt="Washed Out">
@@ -60,9 +60,11 @@
 
             <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-base"
                            layout="column" layout-align="space-around start">
-                <h3 class="docs-title-card-not-Center md-title">ng-SKorea</h3>
+                <h3 class="md-title">ng-SKorea 소개</h3>
                 <div class="md-body-1">
-                    AngularJS를 쉽게 접할 수 있도록 도와드리기 위해서 강의를 개설 하게 되었습니다.
+                    AngularJS를 쉽게 접할 수 있도록 도와 드리기 위해서 강의를 개설 하게 되었습니다. ng-SKorea에서는 새로 나오는 책들을 가장 빠르게 접할수 있도록 도와드리며 책의 내용을 토대로 좀더 내용을 구체화 하거나 알기 쉽게 적기 위해 노력 하겠습니다.
+                    기존의 책에서 제공되어지는 코드들은 전체 코드를 제공하는 책들도 많지만 부분적인 코드만 제공 함으로써 AngularJS가 익숙하지 않은 분들이 소스 코드를 만들어 가시는데 도움을 드리고자 책에 나온 소스코드 전부를 다시 적어서 따로 congifuration 세팅을 하지 않아도
+                    바로 실행 할 수 있도록 도와 드릴것입니다.
                 </div>
 
                 <!--<div hljs source="'<html><head><body></body></head></html>'"></div>-->
@@ -73,25 +75,21 @@
                 <!--<a class="jsbin-embed" href="http://jsbin.com/bifiya/4/embed?html,js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>-->
             </md-whiteframe>
 
-            <openboard-ani1></openboard-ani1>
+            <!--<openboard-ani1></openboard-ani1>-->
 
             <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-green"
                            layout="column" layout-align="space-around start">
-                <h3 class="docs-title-card-not-Center md-title">기초부터 고급까지 차근 차근</h3>
+                <h3 class="docs-title-card-not-Center md-title">기초부터 고급까지</h3>
                 <p class="md-body-1">
                     여러 개발자들이 개발중에 닥치게 되는 문제점들 그리고 대부분의 리소스가 영문으로 되어 있어 리소스를 빠르게 접하지 못하시는 분들이 주 타겟입니다.
+                    초보자에게는 누구나 시작하실수 있도록 그리고 고급자에게는 책에 잘 나와있지 않은 피드백이나 팁들을 제공할 것입니다.
                 </p>
-
-                <ul class="md-body-2">
-                    <li>어떤걸 배워야 할까 망설여 지시는분</li>
-                    <li>웹기술은 아직도 구닥다리다라는 편견을 가지신분</li>
-                </ul>
             </md-whiteframe>
 
             <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
                            layout="column" layout-align="space-around start">
-                <h3 class="docs-title-card-not-Center md-title">짧은 강의에 많은 내용을</h3>
-                <p class="md-body-1">지루한 강의는 가라 짧은 강의에 많은 여운을 남길수 있는 강의를 제공 하는 것이 ng-sKorea의 목표 입니다</p>
+                <h3 class="docs-title-card-not-Center md-title">짧은 Video 강의에 많은 내용을..</h3>
+                <p class="md-body-1">지루한 강의는 가라 짧은 강의에 많은 여운을 남길수 있는 강의를 제공하는 것이 ng-sKorea의 목표 입니다</p>
 
                 <h3 class="docs-title-card-not-Center md-title"><b>Problem Solving에 대해서</b></h3>
                 <p class="md-body-1">어떤 문제가 닥치셔서 그 문제를 해결 하시려면 전체를 아셔야 문제가되는 곳을 빠르게 찾으시고 대처 방안을 찾으실수 있습니다.</p>
@@ -138,13 +136,7 @@
                     <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                     <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                 </form>
-
             </md-whiteframe>
         </md-content>
     </md-content>
-    <!--<div class="meanT-logo-bottom">-->
-        <!--<img alt="Add-on logo" class="meanT-logo" width="27" height="27"-->
-             <!--src="https://googledrive.com/host/0B0G1UdyJGrY6XzdjQWF4a1JYY1k/translate-logo-small.png">-->
-        <!--<span class="gray meanT-branding-text">Open Board Web App by Kevin S</span>-->
-    <!--</div>-->
 </section>

@@ -4540,24 +4540,16 @@ angular.module('mean-tutorials')
 
 function MeanLoginCtrl($scope, Authentication, $mdDialog){
 	$scope.authentication = Authentication;
-
-
 }
 MeanLoginCtrl.$inject = ["$scope", "Authentication", "$mdDialog"];
 
-function MeanHomeController(
-		$scope, $state, $http, $mdDialog,
-		$mdSidenav, $log, Authentication) {
+function MeanHomeController($scope, $state, $http, $mdDialog, $mdSidenav, $log, Authentication) {
 
 
 	//Initialization
 
-	//  Original Content
-	//$scope.homeContents = {
-	//	mainTitle : "Welcome to MEAN Tutorials",
-	//	subTitleText: "Mean Tutorials is a team for scripted, high-performance HTML5 technologies that works in all major browsers. No other delivers such advanced."
-	//};
-
+	$scope.authentication = Authentication;
+	//Course list
 	$scope.courses = [
 		{
 			name:"Learning AngularJS",
@@ -4591,16 +4583,15 @@ function MeanHomeController(
 			name:"Learning AngularJS",
 			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
 		},
-
 	];
 
-	//  Openboard Contest
+	//  Openboard Introduction Contents
 	$scope.homeContents = {
 		mainTitle : "ng-SKorea",
-		subTitleText: "안녕하십니까. 앵귤러 tutorial에 오신 것을 환영 합니다."
+		subTitleText: "에 오신 것을 환영 합니다."
 	};
-	$scope.authentication = Authentication;
-	$scope.notice = "Prototype";
+
+	$scope.notice = "Alpha";
 
 	$scope.date = {
 		month: moment().format("MMM").toUpperCase(),
@@ -4612,6 +4603,7 @@ function MeanHomeController(
 		$state.go(stateName);
 	}
 
+	// Extract Contents
 	$http.get('modules/mean-tutorials/data/home.json').success(function(data) {
 		//console.log(data);
 		$scope.dataFromJson = data;
@@ -4620,69 +4612,71 @@ function MeanHomeController(
 		$scope.techs = $scope.dataFromJson.techs;
 	});
 
-	$scope.colorBorder = {
-		header: "blue"
-	}
+	//
+	//$scope.colorBorder = {
+	//	header: "blue"
+	//}
 
-	$scope.close = function() {
-		$mdSidenav('left').close();
-	};
+	//$scope.close = function() {
+	//	$mdSidenav('left').close();
+	//};
 
 	$scope.gotoState = function(state) {
 		$state.go(state);
 	}
 
-	$scope.toggleLeft = function() {
-		$mdSidenav('left').toggle()
-			.then(function(){
-				$log.debug("toggle left is done");
-			});
-	};
-	$scope.toggleRight = function() {
-		//TweenMax.from($('#menuBtn'),2.5, {x:50, ease:Bounce.easeOut});
-		$mdSidenav('right').toggle()
-			.then(function(){
-				$log.debug("toggle RIGHT is done");
-				//TweenMax.set($("md-backdrop"),{position:'fixed'});
-			});
-
-	};
+	//$scope.toggleLeft = function() {
+	//	$mdSidenav('left').toggle()
+	//		.then(function(){
+	//			$log.debug("toggle left is done");
+	//		});
+	//};
+	//$scope.toggleRight = function() {
+	//	//TweenMax.from($('#menuBtn'),2.5, {x:50, ease:Bounce.easeOut});
+	//	$mdSidenav('right').toggle()
+	//		.then(function(){
+	//			$log.debug("toggle RIGHT is done");
+	//			//TweenMax.set($("md-backdrop"),{position:'fixed'});
+	//		});
+	//
+	//};
 
 	$scope.goGetStarted = function(){
 		$state.go('');
 	};
 
-	$scope.showSignUp = function(ev) {
-		$mdDialog.show({
-			controller: 'AuthenticationController',
-			templateUrl: 'modules/mean-tutorials/template/authentication/signup-dialog.tpl.html',
-			targetEvent: ev
-		})
-			.then(function(answer) {
-				$scope.alert = 'You said the information was "' + answer + '".';
-			}, function() {
-				$scope.alert = 'You cancelled the dialog.';
-			});
-	};
-	$scope.showSignIn = function(ev) {
-		$mdDialog.show({
-			controller: 'AuthenticationController',
-			templateUrl: 'modules/mean-tutorials/template/authentication/signin-dialog.tpl.html',
-			targetEvent: ev
-		})
-			.then(function(answer) {
-				$scope.alert = 'You said the information was "' + answer + '".';
-			}, function() {
-				$scope.alert = 'You cancelled the dialog.';
-			});
-	};
+	//$scope.showSignUp = function(ev) {
+	//	$mdDialog.show({
+	//		controller: 'AuthenticationController',
+	//		templateUrl: 'modules/mean-tutorials/template/authentication/signup-dialog.tpl.html',
+	//		targetEvent: ev
+	//	})
+	//		.then(function(answer) {
+	//			$scope.alert = 'You said the information was "' + answer + '".';
+	//		}, function() {
+	//			$scope.alert = 'You cancelled the dialog.';
+	//		});
+	//};
+	//
+	//$scope.showSignIn = function(ev) {
+	//	$mdDialog.show({
+	//		controller: 'AuthenticationController',
+	//		templateUrl: 'modules/mean-tutorials/template/authentication/signin-dialog.tpl.html',
+	//		targetEvent: ev
+	//	})
+	//		.then(function(answer) {
+	//			$scope.alert = 'You said the information was "' + answer + '".';
+	//		}, function() {
+	//			$scope.alert = 'You cancelled the dialog.';
+	//		});
+	//};
 
-	$scope.loginBtn = function(){
-		$state.go('signin');
-	};
-	$scope.signupBtn = function(){
-		$state.go('signup');
-	};
+	//$scope.loginBtn = function(){
+	//	$state.go('signin');
+	//};
+	//$scope.signupBtn = function(){
+	//	$state.go('signup');
+	//};
 
 
 	// This function should be combined later
@@ -4714,18 +4708,18 @@ function MeanHomeController(
 		);
 		//TweenMax.to($("md-backdrop.md"),0.5,{position:'fixed'});
 	};
-	function DialogController($scope, $mdDialog){
-		$scope.hide = function() {
-			$mdDialog.hide();
-			//console.log('cancel');
-		};
-		$scope.cancel = function() {
-			$mdDialog.cancel();
-		};
-		$scope.answer = function(answer) {
-			$mdDialog.hide(answer);
-		};
-	}
+	//function DialogController($scope, $mdDialog){
+	//	$scope.hide = function() {
+	//		$mdDialog.hide();
+	//		//console.log('cancel');
+	//	};
+	//	$scope.cancel = function() {
+	//		$mdDialog.cancel();
+	//	};
+	//	$scope.answer = function(answer) {
+	//		$mdDialog.hide(answer);
+	//	};
+	//}
 }
 MeanHomeController.$inject = ["$scope", "$state", "$http", "$mdDialog", "$mdSidenav", "$log", "Authentication"];
 
