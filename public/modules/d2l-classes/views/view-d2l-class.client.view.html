@@ -27,26 +27,11 @@
 		<md-whiteframe ng-if="calendarAvail" flex class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
 					   layout="column" layout-align="space-around start"
 				style="min-height: 350px;">
-			<h3 class="md-title">Calendar</h3>
+			<h3 class="md-title">칼렌더</h3>
 			<iframe ng-src="{{calendar()}}"
 					style=" border-width:0"; width='100%'; height="250px" frameborder="0" scrolling="no"></iframe>
 		</md-whiteframe>
-		<md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
-					   layout="column" layout-align="start start">
-			<h3 class="md-title"> Class Board </h3>
-			<div layout="column" layout-fill>
-				<md-whiteframe class="class-board md-whiteframe-z2" layout layout-align="start center">
-					<span class="class-board-desc md-body-1">
-						드디어 오픈을 하게 되었습니다.
-					</span>
-				</md-whiteframe>
-				<md-whiteframe class="class-board md-whiteframe-z2" layout layout-align="start center">
-					<span class="class-board-desc md-body-1">
-						전문적으로 교육을 하는 사람이 아니라서 다소 부족 하더라도 많이 이해 해주시길 바라겠습니다.
-					</span>
-				</md-whiteframe>
-			</div>
-		</md-whiteframe>
+		<class-board></class-board>
 	</div>
 
 	<!-- Class Lectures-->
