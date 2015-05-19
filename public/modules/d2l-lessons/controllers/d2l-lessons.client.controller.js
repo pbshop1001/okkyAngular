@@ -4,7 +4,10 @@
 angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$timeout', '$stateParams', '$location', 'Authentication', 'D2lLessons','D2lClassesOwnership',
 	function($scope, $timeout, $stateParams, $location, Authentication, D2lLessons, D2lClassesOwnership) {
 		$scope.authentication = Authentication;
-		var contentType = true;
+
+		console.log('lesson ctrl')
+		//var wistiaEmbed = Wistia.embed("ocowx278d5");
+		//var contentType = true;
 
 		// Create new D2l lesson
 		$scope.create = function() {

@@ -156,6 +156,11 @@ ApplicationConfiguration.registerModule('mean-tutorials');
 'use strict';
 
 // Use application configuration module to register a new module
+ApplicationConfiguration.registerModule('okky-ch1');
+
+'use strict';
+
+// Use application configuration module to register a new module
 ApplicationConfiguration.registerModule('openboard');
 
 'use strict';
@@ -216,10 +221,14 @@ angular.module('admin-page').config(['$stateProvider',
 ]);
 'use strict';
 
+angular.module('admin-page').controller('AdminPageController', adminPageCtrl);
+
+
 function adminPageCtrl() {
 	var vm = this;
 	vm.title="Admin Page";
 	vm.description="Description";
+
 	vm.menus = [
 		{title: "Dashboard"},
 		{title: "News"},
@@ -230,13 +239,8 @@ function adminPageCtrl() {
 		{title: "Other Contents"},
 		{title: "Admin Tools"},
 	];
-	vm.content = "asdfasdfsdf";
-	eval(function(p,a,c,k,e,r){e=function(c){return c.toString(a)};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('$(o).i(4(){$("p").q(\'<r t="u" m="9/3-6-0.9"/>\');s a="";$("#3-0").c(4(){$("#3-6-0 #0").g()});$(h).f(4(){$("#3-6-0 #0").j("k")});$("#0 a.l").c(4(){d(a!=""){$("#"+a).n("a").e("7");$("#"+a).b("8")};d(a==$(1).5("2")){$("#"+$(1).5("2")).b("8");$(1).e("7");a=""}v{$("#"+$(1).5("2")).w("8");a=$(1).5("2");$(1).x("7")};y z})});',36,36,'menu|this|name|responsive|function|attr|admin|downarrow|fast|css||slideUp|click|if|removeClass|resize|slideToggle|window|ready|removeAttr|style|submenu|href|prev|document|head|append|link|var|rel|stylesheet|else|slideDown|addClass|return|false'.split('|'),0,{}));
-	vm.source = "console.log(0)";
 }
 
-angular.module('admin-page')
-	.controller('AdminPageController', adminPageCtrl)
 
 
 'use strict';
@@ -473,9 +477,9 @@ angular.module('ui.tinymce', [])
 'use strict';
 
 angular.module('core')
-  .run(["$rootScope", function ($rootScope) {
+  .run(function ($rootScope) {
 
-  }])
+  })
   .controller('CoreHeadController',
   ['$scope','$rootScope','$window','$log','$mdSidenav','$location','$state', '$timeout', 'Authentication','D2lClassesOwnership',
     function($scope, $rootScope,$window,$log,$mdSidenav, $location, $state, $timeout, Authentication, D2lClassesOwnership) {
@@ -1372,7 +1376,6 @@ function classBoard(){
 		//});
 
 	}
-	classBoardCtrl.$inject = ["MeanEvents"];
 
 	function link($scope, $element, $attrs){
 
@@ -1416,7 +1419,13 @@ angular.module('d2l-classes').config(['$stateProvider',
 	function($stateProvider) {
 		// D2l classes state routing
 		$stateProvider.
+		state('view-class-detail', {
+			url: '/view-class-detail',
+			templateUrl: 'modules/d2l-classes/views/view-class-detail.client.view.html'
+		}).
 
+
+			// Test Animation View
 			state('d2lClassInfo', {
 				abstract: true,
 				url: '/class',
@@ -1462,13 +1471,9 @@ angular.module('d2l-classes').config(['$stateProvider',
 ]);
 'use strict';
 // D2l classes controller
-angular.module('d2l-classes').controller('D2lClassesController',
-	['$scope', '$sce', '$stateParams', '$window',
-		'$location', '$mdDialog', 'Authentication', 'D2lHws',
-		'D2lGradesByClass','D2lClasses','D2lHwsByClass','D2lHwsSubmitsTrue',
-		'D2lGrades','D2lHwsSubmitsTrueByClass','D2lHwsByOriginDocId',
-		'D2lClassesOwnership','D2lLessonsOwnership',
-	function($scope, $sce, $stateParams, $window, $location, $mdDialog, Authentication, D2lHws,D2lGradesByClass, D2lClasses, D2lHwsByClass, D2lHwsSubmitsTrue, D2lGrades, D2lHwsSubmitsTrueByClass, D2lHwsByOriginDocId, D2lClassesOwnership, D2lLessonsOwnership) {
+angular.module('d2l-classes').controller('D2lClassesController',D2lClassesController);
+
+	function D2lClassesController($scope, $sce, $stateParams, $state, $window, $location, $mdDialog, Authentication, D2lHws,D2lGradesByClass, D2lClasses, D2lHwsByClass, D2lHwsSubmitsTrue, D2lGrades, D2lHwsSubmitsTrueByClass, D2lHwsByOriginDocId, D2lClassesOwnership, D2lLessonsOwnership) {
 		$scope.classOwner = false;
 
 		$scope.id = $stateParams.d2lClassId;
@@ -1486,6 +1491,9 @@ angular.module('d2l-classes').controller('D2lClassesController',
 			$scope.calendarAvail = false;
 		}
 
+		$scope.toGo = function(lessonId){
+			$state.go('viewD2lLesson', {d2lLessonId:lessonId})
+		}
 		$scope.calendar = function() {
 			var src;
 			if($scope.calendarAvail){
@@ -1507,7 +1515,8 @@ angular.module('d2l-classes').controller('D2lClassesController',
 			// Create new D2l class object
 			var d2lClass = new D2lClasses ({
 				name: this.name,
-				prefix:this.prefix
+				prefix:this.prefix,
+				image:this.image
 			});
 
 			// Redirect after save
@@ -1708,32 +1717,39 @@ angular.module('d2l-classes').controller('D2lClassesController',
 		};
 
 		$scope.openAdminMenu = function(){
-			alert('dd');
-		}
+			$state.go('admin-page');
+		};
 	}
-]);
 
 angular.module('d2l-classes')
-	.controller('mainController', ["$scope", "$state", function($scope, $state) {
+	.controller('mainController', function($scope, $state) {
 		$scope.pageClass = 'page-home';
 		$scope.goTo = function(name){
 			$state.go(name);
 		}
-	}])
-	.controller('aboutController', ["$scope", "$state", function($scope, $state) {
+	})
+	.controller('aboutController', function($scope, $state) {
 		$scope.pageClass = 'page-about';
 		$scope.goTo = function(name){
 			$state.go(name);
 		}
-	}])
-	.controller('contactController', ["$scope", "$state", function($scope, $state) {
+	})
+	.controller('contactController', function($scope, $state) {
 		$scope.pageClass = 'page-contact';
 		$scope.goTo = function(name){
 			$state.go(name);
 		}
-	}]);
+	});
 
 
+'use strict';
+
+angular.module('d2l-classes').controller('ViewClassDetailController', ['$scope',
+	function($scope) {
+		// View class detail controller logic
+		// ...
+	}
+]);
 'use strict';
 
 //D2l classes service used to communicate D2l classes REST endpoints
@@ -1848,6 +1864,28 @@ angular.module('d2l-examples').controller('D2lExamplesController', ['$scope', '$
 		};
 	}
 ]);
+'use strict';
+
+angular.module('d2l-examples').directive('classExCreate', classExCreate);
+angular.module('d2l-examples').directive('classExList', classExteList);
+function classExCreate() {
+	return {
+		templateUrl: 'modules/d2l-examples/views/create-d2l-example.client.view.html',
+		restrict: 'E',
+		link: function postLink(scope, element, attrs) {
+		}
+	};
+};
+function classExteList() {
+	return {
+		templateUrl: 'modules/d2l-examples/views/list-d2l-examples.client.view.html',
+		restrict: 'E',
+		link: function postLink(scope, element, attrs) {
+
+		}
+	};
+};
+
 'use strict';
 
 //D2l examples service used to communicate D2l examples REST endpoints
@@ -2225,6 +2263,28 @@ angular.module('d2l-hws').controller('D2lHwsController', ['$scope', '$stateParam
 
 'use strict';
 
+angular.module('d2l-hws').directive('classNoteCreate', classNoteCreate);
+angular.module('d2l-hws').directive('classNoteList', classNoteList);
+	function classNoteCreate() {
+		return {
+			templateUrl: 'modules/d2l-hws/views/create-d2l-hw.client.view.html',
+			restrict: 'E',
+			link: function postLink(scope, element, attrs) {
+			}
+		};
+	};
+function classNoteList() {
+	return {
+		templateUrl: 'modules/d2l-hws/views/list-d2l-hws.client.view.html',
+		restrict: 'E',
+		link: function postLink(scope, element, attrs) {
+
+		}
+	};
+};
+
+'use strict';
+
 //D2l hws service used to communicate D2l hws REST endpoints
 angular.module('d2l-hws')
 	.factory('D2lHws', ['$resource',
@@ -2291,7 +2351,10 @@ angular.module('d2l-lessons').config(['$stateProvider',
 angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$timeout', '$stateParams', '$location', 'Authentication', 'D2lLessons','D2lClassesOwnership',
 	function($scope, $timeout, $stateParams, $location, Authentication, D2lLessons, D2lClassesOwnership) {
 		$scope.authentication = Authentication;
-		var contentType = true;
+
+		console.log('lesson ctrl')
+		//var wistiaEmbed = Wistia.embed("ocowx278d5");
+		//var contentType = true;
 
 		// Create new D2l lesson
 		$scope.create = function() {
@@ -2494,7 +2557,6 @@ function D2lHomeController(
 
 
 }
-D2lHomeController.$inject = ["$scope", "$window", "$http", "Authentication", "D2LOauth", "D2lHwsSubmits", "D2lClasses", "D2lHws"];
 
 // Open Grid Menu Controller
 function gridListDemoCtrl($scope, $state){
@@ -2540,7 +2602,6 @@ function gridListDemoCtrl($scope, $state){
 		return results;
 	}
 }
-gridListDemoCtrl.$inject = ["$scope", "$state"];
 
 // Search Box Controller Angular Material
 function DemoCtrl($timeout, $q){
@@ -2597,7 +2658,6 @@ function DemoCtrl($timeout, $q){
 			};
 		}
 	}
-	DemoCtrl.$inject = ["$timeout", "$q"];
 
 'use strict';
 
@@ -2898,7 +2958,6 @@ function GDriveFilePicker($scope, Googledrive, configGdrive, GDriveSelectResult)
 		Googledrive.findFolder(callback);
 	}
 }
-GDriveFilePicker.$inject = ["$scope", "Googledrive", "configGdrive", "GDriveSelectResult"];
 
 'use strict';
 
@@ -2996,11 +3055,11 @@ angular.module('d2l')
 			},{copyDoc: {method:'GET'}});
 		}
 	])
-	.controller('ToastCtrl', ["$scope", "$mdToast", function($scope, $mdToast) {
+	.controller('ToastCtrl', function($scope, $mdToast) {
 		$scope.closeToast = function() {
 			$mdToast.hide();
 		};
-	}]);
+	});
 
 function HwGenerator($mdToast, $location, devConfig, D2lHws) {
 	return {
@@ -3055,7 +3114,6 @@ function HwGenerator($mdToast, $location, devConfig, D2lHws) {
 		}
 	};
 }
-HwGenerator.$inject = ["$mdToast", "$location", "devConfig", "D2lHws"];
 
 function HwPublisher($timeout, $http, D2lHwPermission, D2lHwCopy, D2lHws){
 	return {
@@ -3136,7 +3194,6 @@ function HwPublisher($timeout, $http, D2lHwPermission, D2lHwCopy, D2lHws){
 		}
 	}
 }
-HwPublisher.$inject = ["$timeout", "$http", "D2lHwPermission", "D2lHwCopy", "D2lHws"];
 
 'use strict';
 
@@ -3168,7 +3225,6 @@ function CreateFile($resource) {
         return o;
     }
 }
-CreateFile.$inject = ["$resource"];
 
 'use strict';
 
@@ -3910,7 +3966,6 @@ angular.module('etc').controller('WigsController', ['$scope',
 
 angular.module('etc').directive('colorPicker', [
 	function() {
-		ColorPickerCtrl.$inject = ["$scope"];
 		return {
 			templateUrl: 'modules/etc/directives/template/color-picker.html',
 			restrict: 'E',
@@ -4006,7 +4061,6 @@ angular.module('etc').directive('colorPicker', [
 
 angular.module('etc').directive('gallery', [
 	function() {
-        galleryCtrl.$inject = ["$scope"];
 		return {
 			templateUrl: 'modules/etc/directives/template/gallery.html',
 			restrict: 'E',
@@ -4051,7 +4105,6 @@ angular.module('etc').directive('gallery', [
 
 angular.module('etc').directive('productDetail', [
 	function() {
-		ProductDetailCtrl.$inject = ["$scope"];
 		return {
 			templateUrl: 'modules/etc/directives/template/product-detail.html',
 			restrict: 'E',
@@ -4368,7 +4421,6 @@ function GsapEditorCtrl($scope, $http, $cacheFactory) {
     //console.log(myCache.info());
 
 }
-GsapEditorCtrl.$inject = ["$scope", "$http", "$cacheFactory"];
 
 'use strict';
 
@@ -4585,49 +4637,14 @@ angular.module('mean-tutorials')
 function MeanLoginCtrl($scope, Authentication, $mdDialog){
 	$scope.authentication = Authentication;
 }
-MeanLoginCtrl.$inject = ["$scope", "Authentication", "$mdDialog"];
 
-function MeanHomeController($scope, $state, $http, $mdDialog, $mdSidenav, $log, Authentication) {
-
+function MeanHomeController($scope, $state, $http, $mdDialog, Authentication, D2lClasses) {
 
 	//Initialization
-
 	$scope.authentication = Authentication;
 	//Course list
-	$scope.courses = [
-		{
-			name:"Learning AngularJS",
-			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
-		},
-		{
-			name:"Learning AngularJS",
-			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
-		},
-		{
-			name:"Learning AngularJS",
-			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
-		},
-		{
-			name:"Learning AngularJS",
-			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
-		},
-		{
-			name:"Learning AngularJS",
-			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
-		},
-		{
-			name:"Learning AngularJS",
-			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
-		},
-		{
-			name:"Learning AngularJS",
-			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
-		},
-		{
-			name:"Learning AngularJS",
-			imgSrc:"http://akamaicovers.oreilly.com/images/0636920035831/lrg.jpg"
-		},
-	];
+
+	$scope.courses = D2lClasses.query();
 
 	//  Openboard Introduction Contents
 	$scope.homeContents = {
@@ -4649,79 +4666,20 @@ function MeanHomeController($scope, $state, $http, $mdDialog, $mdSidenav, $log, 
 
 	// Extract Contents
 	$http.get('modules/mean-tutorials/data/home.json').success(function(data) {
-		//console.log(data);
 		$scope.dataFromJson = data;
 		$scope.projects = $scope.dataFromJson.projects;
 		$scope.announcements = $scope.dataFromJson.announcements;
 		$scope.techs = $scope.dataFromJson.techs;
 	});
 
-	//
-	//$scope.colorBorder = {
-	//	header: "blue"
-	//}
-
-	//$scope.close = function() {
-	//	$mdSidenav('left').close();
-	//};
+	$scope.goToClass = function(id){
+		console.log(id);
+		$state.go('viewD2lClass', {d2lClassId:id});
+	}
 
 	$scope.gotoState = function(state) {
 		$state.go(state);
 	}
-
-	//$scope.toggleLeft = function() {
-	//	$mdSidenav('left').toggle()
-	//		.then(function(){
-	//			$log.debug("toggle left is done");
-	//		});
-	//};
-	//$scope.toggleRight = function() {
-	//	//TweenMax.from($('#menuBtn'),2.5, {x:50, ease:Bounce.easeOut});
-	//	$mdSidenav('right').toggle()
-	//		.then(function(){
-	//			$log.debug("toggle RIGHT is done");
-	//			//TweenMax.set($("md-backdrop"),{position:'fixed'});
-	//		});
-	//
-	//};
-
-	$scope.goGetStarted = function(){
-		$state.go('');
-	};
-
-	//$scope.showSignUp = function(ev) {
-	//	$mdDialog.show({
-	//		controller: 'AuthenticationController',
-	//		templateUrl: 'modules/mean-tutorials/template/authentication/signup-dialog.tpl.html',
-	//		targetEvent: ev
-	//	})
-	//		.then(function(answer) {
-	//			$scope.alert = 'You said the information was "' + answer + '".';
-	//		}, function() {
-	//			$scope.alert = 'You cancelled the dialog.';
-	//		});
-	//};
-	//
-	//$scope.showSignIn = function(ev) {
-	//	$mdDialog.show({
-	//		controller: 'AuthenticationController',
-	//		templateUrl: 'modules/mean-tutorials/template/authentication/signin-dialog.tpl.html',
-	//		targetEvent: ev
-	//	})
-	//		.then(function(answer) {
-	//			$scope.alert = 'You said the information was "' + answer + '".';
-	//		}, function() {
-	//			$scope.alert = 'You cancelled the dialog.';
-	//		});
-	//};
-
-	//$scope.loginBtn = function(){
-	//	$state.go('signin');
-	//};
-	//$scope.signupBtn = function(){
-	//	$state.go('signup');
-	//};
-
 
 	// This function should be combined later
 	$scope.showSignUpTutorial = function(ev) {
@@ -4731,41 +4689,8 @@ function MeanHomeController($scope, $state, $http, $mdDialog, $mdSidenav, $log, 
 			templateUrl: 'modules/mean-tutorials/template/authentication/signup-dialog.tpl.html',
 			targetEvent: ev
 		})
-		//TweenMax.to($("md-backdrop.md"),0.5,{position:'fixed'});
 	};
-
-	$scope.showSignInTutorial = function(ev, elementId) {
-		console.log('mean home');
-		$mdDialog.show({
-			controller: DialogController,
-			templateUrl: 'modules/mean-tutorials/template/authentication/signin-dialog.tpl.html',
-			targetEvent: ev,
-			clickOutsideToClose: true
-		}).then(function(answer){
-				//var target = $("#"+elementId).offset().top;
-				//TweenMax.to($window, 1.2, {scrollTo:{y:target}, ease:Power4.easeOut});
-				console.log('first');
-
-			},function(){
-				console.log('cancel');
-			}
-		);
-		//TweenMax.to($("md-backdrop.md"),0.5,{position:'fixed'});
-	};
-	//function DialogController($scope, $mdDialog){
-	//	$scope.hide = function() {
-	//		$mdDialog.hide();
-	//		//console.log('cancel');
-	//	};
-	//	$scope.cancel = function() {
-	//		$mdDialog.cancel();
-	//	};
-	//	$scope.answer = function(answer) {
-	//		$mdDialog.hide(answer);
-	//	};
-	//}
 }
-MeanHomeController.$inject = ["$scope", "$state", "$http", "$mdDialog", "$mdSidenav", "$log", "Authentication"];
 
 'use strict';
 
@@ -4859,22 +4784,22 @@ angular.module('mean-tutorials')
             }
 
         }
-]).controller('LeftCtrl12', ["$scope", "$timeout", "$mdSidenav", "$log", function($scope, $timeout, $mdSidenav, $log) {
+]).controller('LeftCtrl12', function($scope, $timeout, $mdSidenav, $log) {
         $scope.close = function() {
             $mdSidenav('left').close()
                 .then(function(){
                     $log.debug("close LEFT is done");
                 });
         };
-    }])
-    .controller('RightCtrl11', ["$scope", "$timeout", "$mdSidenav", "$log", function($scope, $timeout, $mdSidenav, $log) {
+    })
+    .controller('RightCtrl11', function($scope, $timeout, $mdSidenav, $log) {
         $scope.close = function() {
             $mdSidenav('right').close()
                 .then(function(){
                     $log.debug("close RIGHT is done");
                 });
         };
-    }]);;
+    });;
 
 'use strict';
 
@@ -5262,7 +5187,7 @@ angular.module('mean-tutorials').controller('ProjectviewdashboardController', ['
     }
 ])
 
-	.controller('gDriveDashCtrl', ["$scope", "Googledrive", function($scope, Googledrive){
+	.controller('gDriveDashCtrl', function($scope, Googledrive){
 		$scope.googleDrive={info:'gDriveCtrl'};
 
 		$scope.listingFolderInfo = function(){
@@ -5288,9 +5213,9 @@ angular.module('mean-tutorials').controller('ProjectviewdashboardController', ['
 				}
 			});
 		}
-	}])
+	})
 
-    .controller('BottomSheetListCtrl', ["$scope", "$mdBottomSheet", function($scope, $mdBottomSheet) {
+    .controller('BottomSheetListCtrl', function($scope, $mdBottomSheet) {
         $scope.items = [
             { name: 'Upload New Image (Google Drive)', icon: 'share' },
             { name: 'Select Existing Image (Google Drive)', icon: 'upload' },
@@ -5302,8 +5227,8 @@ angular.module('mean-tutorials').controller('ProjectviewdashboardController', ['
             var clickedItem = $scope.items[$index];
             $mdBottomSheet.hide(clickedItem);
         }
-    }])
-    .controller('BottomSheetGridCtrl', ["$scope", "$mdBottomSheet", function($scope, $mdBottomSheet) {
+    })
+    .controller('BottomSheetGridCtrl', function($scope, $mdBottomSheet) {
         $scope.items = [
             { name: 'Hangout', icon: 'hangout' },
             { name: 'Mail', icon: 'mail' },
@@ -5314,7 +5239,7 @@ angular.module('mean-tutorials').controller('ProjectviewdashboardController', ['
             var clickedItem = $scope.items[$index];
             $mdBottomSheet.hide(clickedItem);
         };
-    }]);
+    });
 
 var CalendarException = function CalendarException(message) {
     this.message = message;
@@ -5615,6 +5540,44 @@ angular.module('mean-tutorials').factory('UtCalendar', [
 'use strict';
 
 //Setting up route
+angular.module('okky-ch1').config(['$stateProvider',
+	function($stateProvider) {
+		// Okky ch1 state routing
+		$stateProvider.
+		state('okky-ch1', {
+			url: '/okky-ch1',
+			templateUrl: 'modules/okky-ch1/views/okky-ch1.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+angular.module('okky-ch1').controller('OkkyCh1Controller', ['$scope','$http',
+	function($scope, $http) {
+		// Okky ch1 controller logic
+		// ...
+		$scope.title = "Model";
+		$http.get('/d2l-classes')
+			.success(function(data) {
+				$scope.title = data;
+
+		}).error(function(error){
+				$scope.error = error;
+		})
+
+	}
+]).controller('OkkyCh1Controller2', ['$scope','$http',
+	function($scope, $http) {
+		// Okky ch1 controller logic
+		// ...
+		$scope.title = "SpringMVC";
+
+	}
+]);
+
+'use strict';
+
+//Setting up route
 angular.module('openboard').config(['$stateProvider',
 	function($stateProvider) {
 		// Openboard state routing
@@ -5659,7 +5622,6 @@ function AngularCtrl($scope, $state, $http, $mdDialog, $mdSidenav, $log, Authent
         header: "blue"
     };
 }
-AngularCtrl.$inject = ["$scope", "$state", "$http", "$mdDialog", "$mdSidenav", "$log", "Authentication"];
 
 'use strict';
 
@@ -6013,7 +5975,6 @@ function OpenboardController($scope, $log, $mdDialog, $mdSidenav, $window, $http
 
 	}
 }
-OpenboardController.$inject = ["$scope", "$log", "$mdDialog", "$mdSidenav", "$window", "$http", "Authentication", "Users", "D2lHws", "D2lGrades", "D2lClassesOwnership", "D2lHwsSubmitsTrue", "UsersRole"];
 
 'use strict';
 
@@ -6162,7 +6123,6 @@ function BtPaymentController($scope, $http, $braintree) {
     startup();
 
 }
-BtPaymentController.$inject = ["$scope", "$http", "$braintree"];
 'use strict';
 
 angular.module('payment').directive('btPayment', [
@@ -6552,7 +6512,6 @@ angular.module('size-util').directive('coverResize', ['$window',
             };
         }
     }
-    yourDirectiveName.$inject = ["$window"];
 
 'use strict';
 
@@ -7180,7 +7139,6 @@ function OrderDirective($tcOrder, $interpolate, $compile, $parse, $mdToast) {
         console.log($scope.authentication);
     }
 }
-OrderDirective.$inject = ["$tcOrder", "$interpolate", "$compile", "$parse", "$mdToast"];
 
 //SlideShow
 function OrderHeader($mdTheming){
@@ -7242,7 +7200,6 @@ function OrderHeader($mdTheming){
 		}
 	};
 }
-OrderHeader.$inject = ["$mdTheming"];
 
 function GetRequires($parse){
 	return{
@@ -7311,10 +7268,8 @@ function GetRequires($parse){
 		}
 	}
 }
-GetRequires.$inject = ["$parse"];
 
 function SelectProvider($$interimElementProvider) {
-	selectDefaultOptions.$inject = ["$tcOrder", "$mdConstant", "$$rAF", "$mdUtil", "$mdTheming", "$timeout"];
 	return $$interimElementProvider('$tcOrder')
 		.setDefaults({
 			methods: ['target'],
@@ -7649,7 +7604,6 @@ function SelectProvider($$interimElementProvider) {
 		} : { left: 0, top: 0, width: 0, height: 0 };
 	}
 }
-SelectProvider.$inject = ["$$interimElementProvider"];
 
 'use strict';
 

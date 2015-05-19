@@ -1,43 +1,46 @@
 <section data-ng-controller="AdminPageController as vm">
-	<div style="position:fixed;" id="responsive-admin-menu">
-		<div id="responsive-menu">
-			<div class="menuicon">≡</div>
-		</div>
-		<!--<div id="logo"></div>-->
-		<div id="menu">
-			<div ng-repeat="menu in vm.menus">
-				<a href="" title="{{menu.title}}" class="submenu" name="media-sub"><i class="icon-eye-open"></i>
-					<span>{{menu.title}}</span></a>
-				<!-- Media Sub Menu -->
-				<div id="media-sub" >
-					<a ng-repeat="submenu in menu.submenu" href="" title="{{submenu.title}}"><i class="icon-film"></i><span>
-						{{submenu.title}}</span></a>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<div class="md-body-1" id="content-wrapper">
-		<admin-content></admin-content>
+	<h3 class="md-title">Admin</h3>
+	<md-tabs md-dynamic-height md-border-bottom>
+		<md-tab label="one">
+			<md-content class="md-padding">
+				<h1 class="md-title">Tab One</h1>
+				<class-note-create></class-note-create>
+			</md-content>
+		</md-tab>
+		<md-tab label="two">
+			<md-content class="md-padding">
+				<h1 class="md-title">Tab One</h1>
+				<class-note-list></class-note-list>
+			</md-content>
+		</md-tab>
+		<md-tab label="three">
+			<md-content class="md-padding">
+				<h1 class="md-title">Tab One</h1>
+				<p class="md-body-1">Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+			</md-content>
+		</md-tab>
+	</md-tabs>
+	<h3 class="md-title">Examples</h3>
+	<md-tabs md-dynamic-height md-border-bottom>
+		<md-tab label="one">
+			<md-content class="md-padding">
+				<h1 class="md-title">Tab One</h1>
+				<class-ex-create></class-ex-create>
+			</md-content>
+		</md-tab>
+		<md-tab label="two">
+			<md-content class="md-padding">
+				<h1 class="md-title">Tab One</h1>
+				<class-ex-list></class-ex-list>
+			</md-content>
+		</md-tab>
+		<md-tab label="three">
+			<md-content class="md-padding">
+				<h1 class="md-title">Tab One</h1>
+				<p class="md-body-1">Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+			</md-content>
+		</md-tab>
+	</md-tabs>
 
-			<h3 class="md-title">Angular 고수 치트키</h3>
-			<p> App 만들기 </p>
-		<div hljs language="javascript" source="'{{vm.source}}'"></div>
-
-	</div>
-
-
-
-
-	<a class="jsbin-embed" href="http://jsbin.com/biyozi/1/embed?html,console">ABCD</a><script src="http://static.jsbin.com/js/embed.js"></script>
-
-	<a class="jsbin-embed" href="http://jsbin.com/bifiya/4/embed?html,js,output">JS Bin</a>
-	<script src="http://static.jsbin.com/js/embed.js"></script>
-
-
-	<a class="jsbin-embed foo" href="http://jsbin.com/iwovaj/74/embed?js,output">
-		Simple Animation Tests</a>
-	<script src="http://static.jsbin.com/js/embed.js"></script>
-
-	<a class="jsbin-embed" href="http://jsbin.com/bifiya/4/embed?html,js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>
 </section>

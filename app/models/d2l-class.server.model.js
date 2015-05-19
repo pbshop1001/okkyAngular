@@ -25,6 +25,10 @@ var D2lClassSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
+	image:{
+		type:'String',
+		default:''
+	},
 	// Instructor
 	user: {
 		type: Schema.ObjectId,

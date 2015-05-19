@@ -3,7 +3,7 @@
 module.exports = {
 	db: 'mongodb://localhost/okkyangular-dev',
 	app: {
-		title: 'Open Board'
+		title: 'ng SKorea'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',

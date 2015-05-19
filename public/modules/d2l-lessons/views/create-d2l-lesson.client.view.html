@@ -1,12 +1,12 @@
-<section data-ng-controller="D2lLessonsController">
-    <div class="page-header">
-        <h1>New D2l lesson</h1>
+<section class="container" data-ng-controller="D2lLessonsController">
+    <div class="md-title">
+        <h1>강의 만들기</h1>
     </div>
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
+                    <label class="control-label" for="name">강의이름</label>
                     <div class="controls">
                         <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name">
                     </div>
@@ -19,9 +19,13 @@
                         <p class="hws-select-result">You have assigned for: {{ project.class ? project.class.prefix+" "+project.class.name : 'No class yet' }}</p>
                     </div>
 
-                    <label class="control-label" for="contentType">ContentType</label>
+                    <label class="control-label md-body-1" for="contentType">ContentType</label>
+                    <p class="md-body-1">강의 자료가 프리인지 아닌지</p>
                     <div class="controls">
-                        <input type="text" data-ng-model="contentType" id="contentType" class="form-control" placeholder="ContentType">
+                        <md-radio-group ng-model="contentType">
+                            <md-radio-button value=true class="md-primary"> Free </md-radio-button>
+                            <md-radio-button value=false class="md-primary"> Not Free </md-radio-button>
+                        </md-radio-group>
                     </div>
 
                     <label class="control-label" for="example">Example</label>
@@ -29,7 +33,7 @@
                         <input type="text" data-ng-model="example" id="example" class="form-control" placeholder="Example">
                     </div>
 
-                    <label class="control-label" for="body">Body</label>
+                    <label class="control-label" for="body">설명</label>
                     <div class="controls">
                         <input type="text" data-ng-model="body" id="body" class="form-control" placeholder="Body">
                     </div>

@@ -46,10 +46,10 @@
             <md-whiteframe style="overflow-x: scroll;"
                            class="md-whiteframe-z2 meanT-home-card ob-underbar-yellow"
                            layout="column" layout-align="space-around start">
-                <h3 class="md-title"><b>강의 리스트</b></h3>
+                <h3 class="md-title"><b>클래스 리스트</b></h3>
                 <div  layout="row" layout-align="center center">
-                    <md-card ng-repeat="lesson in courses" style="width:170px;">
-                        <img ng-src="{{lesson.imgSrc}}" alt="Washed Out">
+                    <md-card ng-repeat="lesson in courses" style="width:210px;" ng-click="goToClass(lesson._id)">
+                        <img ng-src="{{lesson.image}}" alt="Washed Out">
                         <md-card-content>
                             <div style="font-size:12px;">Course {{$index+1}}</div>
                             <p class="md-body-1">{{lesson.name}}</p>
@@ -60,22 +60,22 @@
 
             </md-whiteframe>
             <class-board></class-board>
-            <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-base"
-                           layout="column" layout-align="space-around start">
-                <h3 class="md-title">ng-SKorea 소개</h3>
-                <div class="md-body-1">
-                    AngularJS를 쉽게 접할 수 있도록 도와 드리기 위해서 강의를 개설 하게 되었습니다. ng-SKorea에서는 새로 나오는 책들을 가장 빠르게 접할수 있도록 도와드리며 책의 내용을 토대로 좀더 내용을 구체화 하거나 알기 쉽게 적기 위해 노력 하겠습니다.
-                    기존의 책에서 제공되어지는 코드들은 전체 코드를 제공하는 책들도 많지만 부분적인 코드만 제공 함으로써 AngularJS가 익숙하지 않은 분들이 소스 코드를 만들어 가시는데 도움을 드리고자 책에 나온 소스코드 전부를 다시 적어서 따로 congifuration 세팅을 하지 않아도
-                    바로 실행 할 수 있도록 도와 드릴것입니다.
-                </div>
+            <!--<md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-base"-->
+                           <!--layout="column" layout-align="space-around start">-->
+                <!--<h3 class="md-title">ng-SKorea 소개</h3>-->
+                <!--<div class="md-body-1">-->
+                    <!--AngularJS를 쉽게 접할 수 있도록 도와 드리기 위해서 강의를 개설 하게 되었습니다. ng-SKorea에서는 새로 나오는 책들을 가장 빠르게 접할수 있도록 도와드리며 책의 내용을 토대로 좀더 내용을 구체화 하거나 알기 쉽게 적기 위해 노력 하겠습니다.-->
+                    <!--기존의 책에서 제공되어지는 코드들은 전체 코드를 제공하는 책들도 많지만 부분적인 코드만 제공 함으로써 AngularJS가 익숙하지 않은 분들이 소스 코드를 만들어 가시는데 도움을 드리고자 책에 나온 소스코드 전부를 다시 적어서 따로 congifuration 세팅을 하지 않아도-->
+                    <!--바로 실행 할 수 있도록 도와 드릴것입니다.-->
+                <!--</div>-->
 
-                <!--<div hljs source="'<html><head><body></body></head></html>'"></div>-->
-                <!--<iframe width="100%" height="300" src="//jsfiddle.net/dakra/U3pVM/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>-->
-                <!--<a class="jsbin-embed" href="http://jsbin.com/bifiya/4/embed?html,js,output">JS Bin</a>-->
-                <!--<script src="http://static.jsbin.com/js/embed.js"></script>-->
+                <!--&lt;!&ndash;<div hljs source="'<html><head><body></body></head></html>'"></div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<iframe width="100%" height="300" src="//jsfiddle.net/dakra/U3pVM/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>&ndash;&gt;-->
+                <!--&lt;!&ndash;<a class="jsbin-embed" href="http://jsbin.com/bifiya/4/embed?html,js,output">JS Bin</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;<script src="http://static.jsbin.com/js/embed.js"></script>&ndash;&gt;-->
 
-                <!--<a class="jsbin-embed" href="http://jsbin.com/bifiya/4/embed?html,js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>-->
-            </md-whiteframe>
+                <!--&lt;!&ndash;<a class="jsbin-embed" href="http://jsbin.com/bifiya/4/embed?html,js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>&ndash;&gt;-->
+            <!--</md-whiteframe>-->
 
             <!--<openboard-ani1></openboard-ani1>-->
 
@@ -88,15 +88,15 @@
                 </p>
             </md-whiteframe>
 
-            <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
-                           layout="column" layout-align="space-around start">
-                <h3 class="docs-title-card-not-Center md-title">짧은 Video 강의에 많은 내용을..</h3>
-                <p class="md-body-1">지루한 강의는 가라 짧은 강의에 많은 여운을 남길수 있는 강의를 제공하는 것이 ng-sKorea의 목표 입니다</p>
+            <!--<md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"-->
+                           <!--layout="column" layout-align="space-around start">-->
+                <!--<h3 class="docs-title-card-not-Center md-title">짧은 Video 강의에 많은 내용을..</h3>-->
+                <!--<p class="md-body-1">지루한 강의는 가라 짧은 강의에 많은 여운을 남길수 있는 강의를 제공하는 것이 ng-sKorea의 목표 입니다</p>-->
 
-                <h3 class="docs-title-card-not-Center md-title"><b>Problem Solving에 대해서</b></h3>
-                <p class="md-body-1">어떤 문제가 닥치셔서 그 문제를 해결 하시려면 전체를 아셔야 문제가되는 곳을 빠르게 찾으시고 대처 방안을 찾으실수 있습니다.</p>
+                <!--<h3 class="docs-title-card-not-Center md-title"><b>Problem Solving에 대해서</b></h3>-->
+                <!--<p class="md-body-1">어떤 문제가 닥치셔서 그 문제를 해결 하시려면 전체를 아셔야 문제가되는 곳을 빠르게 찾으시고 대처 방안을 찾으실수 있습니다.</p>-->
 
-            </md-whiteframe>
+            <!--</md-whiteframe>-->
 
             <!--<md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"-->
                            <!--layout="column" layout-align="space-around start">-->

@@ -29,8 +29,8 @@ var D2lLessonSchema = new Schema({
 		ref: 'D2lClass'
 	},
 	contentType:{
-		type: Boolean,
-		default: true
+		type: 'String',
+		default: 'true'
 	},
 	example:[{
 		type: Schema.ObjectId,
@@ -40,7 +40,6 @@ var D2lLessonSchema = new Schema({
 		type:'String',
 		default: '',
 		trim: true
-
 	}
 });
 

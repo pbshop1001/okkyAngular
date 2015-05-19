@@ -1,16 +1,44 @@
-<section data-ng-controller="D2lLessonsController" data-ng-init="findOne()">
+<section class="container" data-ng-controller="D2lLessonsController" data-ng-init="findOne()">
     <div class="page-header">
         <h1>Edit D2l lesson</h1>
     </div>
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
             <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="d2lLesson.name" id="name" class="form-control" placeholder="Name" required>
-                    </div>
+
+                <label class="control-label" for="name">강의이름</label>
+                <div class="controls">
+                    <input type="text" data-ng-model="d2lLesson.name" id="name" class="form-control" placeholder="Name">
                 </div>
+
+                <div layout="column" layout-align="center center" style="height: 100px;">
+                    <md-select ng-model="d2lLesson.class" md-on-open="loadClasses()" style="min-width: 200px;">
+                        <md-select-label>{{ d2lLesson.class ? d2lLesson.class.name : 'Select Class' }}</md-select-label>
+                        <md-option ng-value="class" ng-repeat="class in classes">{{class.prefix}} {{class.name}}</md-option>
+                    </md-select>
+                    <p class="hws-select-result">You have assigned for: {{ project.class ? project.class.prefix+" "+project.class.name : 'No class yet' }}</p>
+                </div>
+
+                <label class="control-label md-body-1" for="contentType">ContentType</label>
+                <p class="md-body-1">강의 자료가 프리인지 아닌지</p>
+                <div class="controls">
+                    <md-radio-group ng-model="d2lLesson.contentType">
+                        <md-radio-button value="true" class="md-primary"> Free </md-radio-button>
+                        <md-radio-button value="false" class="md-primary"> Not Free </md-radio-button>
+                    </md-radio-group>
+                </div>
+
+                <label class="control-label" for="example">Example</label>
+                <div class="controls">
+                    <input type="text" ng-model="d2lLesson.example" id="example" class="form-control" placeholder="Example">
+                </div>
+
+                <label class="control-label" for="body">설명</label>
+                <div class="controls">
+                    <input type="text" ng-model="d2lLesson.body" id="body" class="form-control" placeholder="Body">
+                </div>
+
+
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">
                 </div>

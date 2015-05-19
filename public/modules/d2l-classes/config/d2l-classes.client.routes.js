@@ -5,7 +5,13 @@ angular.module('d2l-classes').config(['$stateProvider',
 	function($stateProvider) {
 		// D2l classes state routing
 		$stateProvider.
+		state('view-class-detail', {
+			url: '/view-class-detail',
+			templateUrl: 'modules/d2l-classes/views/view-class-detail.client.view.html'
+		}).
 
+
+			// Test Animation View
 			state('d2lClassInfo', {
 				abstract: true,
 				url: '/class',

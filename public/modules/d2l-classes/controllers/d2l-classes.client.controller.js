@@ -1,12 +1,8 @@
 'use strict';
 // D2l classes controller
-angular.module('d2l-classes').controller('D2lClassesController',
-	['$scope', '$sce', '$stateParams', '$window',
-		'$location', '$mdDialog', 'Authentication', 'D2lHws',
-		'D2lGradesByClass','D2lClasses','D2lHwsByClass','D2lHwsSubmitsTrue',
-		'D2lGrades','D2lHwsSubmitsTrueByClass','D2lHwsByOriginDocId',
-		'D2lClassesOwnership','D2lLessonsOwnership',
-	function($scope, $sce, $stateParams, $window, $location, $mdDialog, Authentication, D2lHws,D2lGradesByClass, D2lClasses, D2lHwsByClass, D2lHwsSubmitsTrue, D2lGrades, D2lHwsSubmitsTrueByClass, D2lHwsByOriginDocId, D2lClassesOwnership, D2lLessonsOwnership) {
+angular.module('d2l-classes').controller('D2lClassesController',D2lClassesController);
+
+	function D2lClassesController($scope, $sce, $stateParams, $state, $window, $location, $mdDialog, Authentication, D2lHws,D2lGradesByClass, D2lClasses, D2lHwsByClass, D2lHwsSubmitsTrue, D2lGrades, D2lHwsSubmitsTrueByClass, D2lHwsByOriginDocId, D2lClassesOwnership, D2lLessonsOwnership) {
 		$scope.classOwner = false;
 
 		$scope.id = $stateParams.d2lClassId;
@@ -24,6 +20,9 @@ angular.module('d2l-classes').controller('D2lClassesController',
 			$scope.calendarAvail = false;
 		}
 
+		$scope.toGo = function(lessonId){
+			$state.go('viewD2lLesson', {d2lLessonId:lessonId})
+		}
 		$scope.calendar = function() {
 			var src;
 			if($scope.calendarAvail){
@@ -45,7 +44,8 @@ angular.module('d2l-classes').controller('D2lClassesController',
 			// Create new D2l class object
 			var d2lClass = new D2lClasses ({
 				name: this.name,
-				prefix:this.prefix
+				prefix:this.prefix,
+				image:this.image
 			});
 
 			// Redirect after save
@@ -246,10 +246,9 @@ angular.module('d2l-classes').controller('D2lClassesController',
 		};
 
 		$scope.openAdminMenu = function(){
-			alert('dd');
-		}
+			$state.go('admin-page');
+		};
 	}
-]);
 
 angular.module('d2l-classes')
 	.controller('mainController', function($scope, $state) {
