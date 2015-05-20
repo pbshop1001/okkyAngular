@@ -1,8 +1,8 @@
 'use strict';
 
 // D2l lessons controller
-angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$timeout', '$stateParams', '$location', 'Authentication', 'D2lLessons','D2lClassesOwnership',
-	function($scope, $timeout, $stateParams, $location, Authentication, D2lLessons, D2lClassesOwnership) {
+angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$timeout', '$state', '$stateParams', '$location', 'Authentication', 'D2lLessons','D2lClassesOwnership','D2lExamples',
+	function($scope, $timeout, $state, $stateParams, $location, Authentication, D2lLessons, D2lClassesOwnership, D2lExamples) {
 		$scope.authentication = Authentication;
 
 		console.log('lesson ctrl')
@@ -17,7 +17,7 @@ angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$ti
 				name: this.name,
 				class: this.project.class._id,
 				contentType: this.contentType,
-				//example: this.example,
+				example: this.example,
 				body: this.body
 			});
 
@@ -51,6 +51,8 @@ angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$ti
 
 		// Update existing D2l lesson
 		$scope.update = function() {
+			$scope.d2lLesson.class = $scope.d2lLesson.class._id;
+			console.log('update');
 			var d2lLesson = $scope.d2lLesson;
 
 			d2lLesson.$update(function() {
@@ -70,6 +72,10 @@ angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$ti
 			$scope.d2lLesson = D2lLessons.get({ 
 				d2lLessonId: $stateParams.d2lLessonId
 			});
+			if($state.current.name === 'editD2lLesson')
+				$scope.d2lLesson.$promise.then(function(data){
+					$scope.d2lLesson.example = _.pluck(_.dropWhile(data.example, 'name link'),'_id');
+				});
 		};
 
 		// Load Class
@@ -79,5 +85,21 @@ angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$ti
 				$scope.classes = D2lClassesOwnership.query();
 			}, 650);
 		};
+
+		// check Box
+		$scope.loadExamples = function(){
+			return $timeout(function() {
+				$scope.examples = D2lExamples.query();
+			}, 650);
+		};
+		$scope.toggle = function (item, list) {
+			var idx = list.indexOf(item._id);
+			if (idx > -1) list.splice(idx, 1);
+			else list.push(item._id);
+		};
+		$scope.exists = function (item, list) {
+			return list.indexOf(item._id) > -1;
+		};
+
 	}
 ]);

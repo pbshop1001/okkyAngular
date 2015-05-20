@@ -89,7 +89,7 @@ exports.list = function(req, res) {
  * D2l lesson middleware
  */
 exports.d2lLessonByID = function(req, res, next, id) {
-	var populationQuery = [{path:'class', select:'name prefix'},{path:'user', select:'displayName'}];
+	var populationQuery = [{path:'class', select:'name prefix'},{path:'user', select:'displayName'}, {path:'example', select:'name link'}];
 	D2lLesson.findById(id).populate(populationQuery).exec(function(err, d2lLesson) {
 		if (err) return next(err);
 		if (! d2lLesson) return next(new Error('Failed to load D2l lesson ' + id));

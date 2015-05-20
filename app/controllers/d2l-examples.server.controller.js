@@ -87,7 +87,10 @@ exports.list = function(req, res) {
 /**
  * D2l example middleware
  */
-exports.d2lExampleByID = function(req, res, next, id) { 
+exports.d2lExampleByID = function(req, res, next, id) {
+
+	var populationQuery = [{path:'class', select:'name prefix'},{path:'user', select:'displayName'}];
+
 	D2lExample.findById(id).populate('user', 'displayName').exec(function(err, d2lExample) {
 		if (err) return next(err);
 		if (! d2lExample) return next(new Error('Failed to load D2l example ' + id));

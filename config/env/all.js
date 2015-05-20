@@ -19,13 +19,6 @@ module.exports = {
                 'public/lib/nvd3/nv.d3.min.css',
 				'public/lib/reveal.js/css/reveal.css',
 				'public/lib/highlightjs/styles/github.css',
-				//'public/lib/angular-material/default-theme.css',
-
-				//'public/lib/angular-material/themes/amber-theme.css',
-				//'public/lib/angular-material/themes/blue-grey-theme.css',
-				//'public/lib/angular-material/themes/brown-theme.css',
-				//'public/lib/angular-material/themes/cyan-theme.css',
-				//'public/lib/components-font-awesome/css/font-awesome.min.css',
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -39,18 +32,18 @@ module.exports = {
 				//'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 
-                'public/lib/jquery/dist/jquery.js',
-                //'public/lib/oclazyload/dist/ocLazyLoad.js',
+				'public/lib/jquery/dist/jquery.js',
+
 				'public/lib/angular-aria/angular-aria.js',
-				//'public/lib/hammerjs/hammer.js',
+
 				'public/lib/angular-material/angular-material.js',
 
-                //'public/lib/angular-ui-tinymce/src/tinymce.js',
+
 				'public/lib/gsap/src/uncompressed/TimelineMax.js',
 				'public/lib/gsap/src/uncompressed/TweenMax.js',
 				//'public/lib/ng-context-menu/dist/ng-context-menu.js',
 
-                'public/lib/gsap/src/uncompressed/utils/Draggable.js',
+        'public/lib/gsap/src/uncompressed/utils/Draggable.js',
 				//'public/lib/gsap/src/uncompressed/plugins/TextPlugin.js',
 				'public/lib/gsap/src/uncompressed/plugins/ScrollToPlugin.js',
 				'public/lib/gsap/src/uncompressed/plugins/ColorPropsPlugin.js',
@@ -65,9 +58,7 @@ module.exports = {
 				'public/lib/tremulajs/libs/jsBezier-0.6.js',
 				'public/lib/tremulajs/dist/Tremula.js',
                 */
-
-				'public/lib/Snap.svg/dist/snap.svg-min.js',
-				'public/lib/lodash/dist/lodash.min.js',
+				'public/lib/lodash/lodash.js',
 				//'public/lib/angular-google-maps/dist/angular-google-maps.js',
 
 				'public/lib/d3/d3.min.js',

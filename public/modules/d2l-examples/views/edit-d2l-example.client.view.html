@@ -1,6 +1,6 @@
-<section data-ng-controller="D2lExamplesController" data-ng-init="findOne()">
+<section class="container" data-ng-controller="D2lExamplesController" data-ng-init="findOne()">
     <div class="page-header">
-        <h1>Edit D2l example</h1>
+        <h1>Edit Example Code</h1>
     </div>
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
@@ -11,6 +11,24 @@
                         <input type="text" data-ng-model="d2lExample.name" id="name" class="form-control" placeholder="Name" required>
                     </div>
                 </div>
+
+
+
+                <div layout="column" layout-align="center center" style="height: 100px;">
+                    <md-select ng-model="d2lExample.class" md-on-open="loadClasses()" style="min-width: 200px;">
+                        <md-select-label>{{ d2lExample.class ? d2lExample.class.name : 'Select Class' }}</md-select-label>
+                        <md-option ng-value="class" ng-repeat="class in classes">{{class.prefix}} {{class.name}}</md-option>
+                    </md-select>
+                    <p class="hws-select-result">You have assigned for: {{ d2lExample.class ? d2lExample.class.prefix+" "+d2lExample.class.name : 'No class yet' }}</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="name">Link</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="d2lExample.link" id="link" class="form-control" placeholder="Link" required>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">
                 </div>

@@ -74,10 +74,6 @@ ApplicationConfiguration.registerModule('core');
 
 'use strict';
 
-// Use applicaion configuration module to register a new module
-ApplicationConfiguration.registerModule('crawlings');
-'use strict';
-
 // Use application configuration module to register a new module
 ApplicationConfiguration.registerModule('d2l-ads');
 
@@ -152,11 +148,6 @@ ApplicationConfiguration.registerModule('mean-events');
 
 // Use application configuration module to register a new module
 ApplicationConfiguration.registerModule('mean-tutorials');
-
-'use strict';
-
-// Use application configuration module to register a new module
-ApplicationConfiguration.registerModule('okky-ch1');
 
 'use strict';
 
@@ -972,137 +963,6 @@ angular.module('core').service('Menus', [
 'use strict';
 
 //Setting up route
-angular.module('crawlings').config(['$stateProvider',
-	function($stateProvider) {
-		// Crawlings state routing
-		$stateProvider.
-		state('scrap', {
-			url: '/scrap',
-			templateUrl: 'modules/crawlings/views/scrap.client.view.html'
-		}).
-		state('listCrawlings', {
-			url: '/crawlings',
-			templateUrl: 'modules/crawlings/views/list-crawlings.client.view.html'
-		}).
-		state('createCrawling', {
-			url: '/crawlings/create',
-			templateUrl: 'modules/crawlings/views/create-crawling.client.view.html'
-		}).
-		state('viewCrawling', {
-			url: '/crawlings/:crawlingId',
-			templateUrl: 'modules/crawlings/views/view-crawling.client.view.html'
-		}).
-		state('editCrawling', {
-			url: '/crawlings/:crawlingId/edit',
-			templateUrl: 'modules/crawlings/views/edit-crawling.client.view.html'
-		});
-	}
-]);
-'use strict';
-
-// Crawlings controller
-angular.module('crawlings').controller('CrawlingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Crawlings',
-	function($scope, $stateParams, $location, Authentication, Crawlings) {
-		$scope.authentication = Authentication;
-
-		// Create new Crawling
-		$scope.create = function() {
-			// Create new Crawling object
-			var crawling = new Crawlings ({
-				name: this.name
-			});
-
-			// Redirect after save
-			crawling.$save(function(response) {
-				$location.path('crawlings/' + response._id);
-
-				// Clear form fields
-				$scope.name = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
-
-		// Remove existing Crawling
-		$scope.remove = function(crawling) {
-			if ( crawling ) { 
-				crawling.$remove();
-
-				for (var i in $scope.crawlings) {
-					if ($scope.crawlings [i] === crawling) {
-						$scope.crawlings.splice(i, 1);
-					}
-				}
-			} else {
-				$scope.crawling.$remove(function() {
-					$location.path('crawlings');
-				});
-			}
-		};
-
-		// Update existing Crawling
-		$scope.update = function() {
-			var crawling = $scope.crawling;
-
-			crawling.$update(function() {
-				$location.path('crawlings/' + crawling._id);
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
-
-		// Find a list of Crawlings
-		$scope.find = function() {
-			$scope.crawlings = Crawlings.query();
-		};
-
-		// Find existing Crawling
-		$scope.findOne = function() {
-			$scope.crawling = Crawlings.get({ 
-				crawlingId: $stateParams.crawlingId
-			});
-		};
-	}
-]);
-'use strict';
-
-angular.module('crawlings').controller('ScrapController', ['$scope','$http',
-	function($scope, $http) {
-
-		$scope.scrapResult = "";
-		$scope.scrap = function(){
-
-			$http.get('/scrap').
-				success(function(data, status, headers, config) {
-					// this callback will be called asynchronously
-					// when the response is available
-					console.log(data);
-					$scope.scrapResult = data;
-				}).
-				error(function(data, status, headers, config) {
-					// called asynchronously if an error occurs
-					// or server returns response with an error status.
-				});
-		}
-
-	}
-]);
-'use strict';
-
-//Crawlings service used to communicate Crawlings REST endpoints
-angular.module('crawlings').factory('Crawlings', ['$resource',
-	function($resource) {
-		return $resource('crawlings/:crawlingId', { crawlingId: '@_id'
-		}, {
-			update: {
-				method: 'PUT'
-			}
-		});
-	}
-]);
-'use strict';
-
-//Setting up route
 angular.module('d2l-ads').config(['$stateProvider',
 	function($stateProvider) {
 		// D2l ads state routing
@@ -1801,15 +1661,19 @@ angular.module('d2l-examples').config(['$stateProvider',
 'use strict';
 
 // D2l examples controller
-angular.module('d2l-examples').controller('D2lExamplesController', ['$scope', '$stateParams', '$location', 'Authentication', 'D2lExamples',
-	function($scope, $stateParams, $location, Authentication, D2lExamples) {
+angular.module('d2l-examples').controller('D2lExamplesController', ['$scope', '$stateParams', '$location', 'Authentication', 'D2lExamples','D2lClassesOwnership',
+	function($scope, $stateParams, $location, Authentication, D2lExamples, D2lClassesOwnership) {
 		$scope.authentication = Authentication;
+
+		$scope.classes = D2lClassesOwnership.query();
 
 		// Create new D2l example
 		$scope.create = function() {
 			// Create new D2l example object
 			var d2lExample = new D2lExamples ({
-				name: this.name
+				name: this.name,
+				class: this.class._id,
+				link: this.link
 			});
 
 			// Redirect after save
@@ -1842,6 +1706,7 @@ angular.module('d2l-examples').controller('D2lExamplesController', ['$scope', '$
 
 		// Update existing D2l example
 		$scope.update = function() {
+			$scope.d2lExample.class = $scope.d2lExample.class._id;
 			var d2lExample = $scope.d2lExample;
 
 			d2lExample.$update(function() {
@@ -1862,6 +1727,8 @@ angular.module('d2l-examples').controller('D2lExamplesController', ['$scope', '$
 				d2lExampleId: $stateParams.d2lExampleId
 			});
 		};
+
+
 	}
 ]);
 'use strict';
@@ -2348,8 +2215,8 @@ angular.module('d2l-lessons').config(['$stateProvider',
 'use strict';
 
 // D2l lessons controller
-angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$timeout', '$stateParams', '$location', 'Authentication', 'D2lLessons','D2lClassesOwnership',
-	function($scope, $timeout, $stateParams, $location, Authentication, D2lLessons, D2lClassesOwnership) {
+angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$timeout', '$state', '$stateParams', '$location', 'Authentication', 'D2lLessons','D2lClassesOwnership','D2lExamples',
+	function($scope, $timeout, $state, $stateParams, $location, Authentication, D2lLessons, D2lClassesOwnership, D2lExamples) {
 		$scope.authentication = Authentication;
 
 		console.log('lesson ctrl')
@@ -2364,7 +2231,7 @@ angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$ti
 				name: this.name,
 				class: this.project.class._id,
 				contentType: this.contentType,
-				//example: this.example,
+				example: this.example,
 				body: this.body
 			});
 
@@ -2398,6 +2265,8 @@ angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$ti
 
 		// Update existing D2l lesson
 		$scope.update = function() {
+			$scope.d2lLesson.class = $scope.d2lLesson.class._id;
+			console.log('update');
 			var d2lLesson = $scope.d2lLesson;
 
 			d2lLesson.$update(function() {
@@ -2417,6 +2286,10 @@ angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$ti
 			$scope.d2lLesson = D2lLessons.get({ 
 				d2lLessonId: $stateParams.d2lLessonId
 			});
+			if($state.current.name === 'editD2lLesson')
+				$scope.d2lLesson.$promise.then(function(data){
+					$scope.d2lLesson.example = _.pluck(_.dropWhile(data.example, 'name link'),'_id');
+				});
 		};
 
 		// Load Class
@@ -2426,6 +2299,22 @@ angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$ti
 				$scope.classes = D2lClassesOwnership.query();
 			}, 650);
 		};
+
+		// check Box
+		$scope.loadExamples = function(){
+			return $timeout(function() {
+				$scope.examples = D2lExamples.query();
+			}, 650);
+		};
+		$scope.toggle = function (item, list) {
+			var idx = list.indexOf(item._id);
+			if (idx > -1) list.splice(idx, 1);
+			else list.push(item._id);
+		};
+		$scope.exists = function (item, list) {
+			return list.indexOf(item._id) > -1;
+		};
+
 	}
 ]);
 'use strict';
@@ -5534,44 +5423,6 @@ angular.module('mean-tutorials').factory('UtCalendar', [
                     });
             });
         }
-	}
-]);
-
-'use strict';
-
-//Setting up route
-angular.module('okky-ch1').config(['$stateProvider',
-	function($stateProvider) {
-		// Okky ch1 state routing
-		$stateProvider.
-		state('okky-ch1', {
-			url: '/okky-ch1',
-			templateUrl: 'modules/okky-ch1/views/okky-ch1.client.view.html'
-		});
-	}
-]);
-'use strict';
-
-angular.module('okky-ch1').controller('OkkyCh1Controller', ['$scope','$http',
-	function($scope, $http) {
-		// Okky ch1 controller logic
-		// ...
-		$scope.title = "Model";
-		$http.get('/d2l-classes')
-			.success(function(data) {
-				$scope.title = data;
-
-		}).error(function(error){
-				$scope.error = error;
-		})
-
-	}
-]).controller('OkkyCh1Controller2', ['$scope','$http',
-	function($scope, $http) {
-		// Okky ch1 controller logic
-		// ...
-		$scope.title = "SpringMVC";
-
 	}
 ]);
 

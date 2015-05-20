@@ -18,14 +18,16 @@
 			<span data-ng-bind="d2lLesson.user.displayName"></span>
 		</em>
 	</small>
-
 	<h3 class="md-title">강의 소개</h3>
 	<p class="md-body-1">{{d2lLesson.body}}</p>
-
+	<h3 class="md-title">Examples</h3>
+		<div class="md-body-1" ng-repeat="ex in d2lLesson.example">
+			<a href="{{ex.link}}" target="_blank">{{ex.name}}</a>
+		</div>
 	<h3 class="md-title">Videos</h3>
 		<!--<div id="wistia_ocowx278d5" class="wistia_embed" style="width:640px;height:360px;">&nbsp;</div>-->
+
 	<h3 class="md-title">Documents</h3>
 
-	<div disqus="d2lLesson.class._id" style="margin:auto; margin-left: 20px; margin-right:20px;	"></div>
-
+	<div disqus="d2lLesson._id" style="margin:auto; margin-left: 20px; margin-right:20px;	"></div>
 </section>

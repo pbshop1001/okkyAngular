@@ -1,15 +1,19 @@
 'use strict';
 
 // D2l examples controller
-angular.module('d2l-examples').controller('D2lExamplesController', ['$scope', '$stateParams', '$location', 'Authentication', 'D2lExamples',
-	function($scope, $stateParams, $location, Authentication, D2lExamples) {
+angular.module('d2l-examples').controller('D2lExamplesController', ['$scope', '$stateParams', '$location', 'Authentication', 'D2lExamples','D2lClassesOwnership',
+	function($scope, $stateParams, $location, Authentication, D2lExamples, D2lClassesOwnership) {
 		$scope.authentication = Authentication;
+
+		$scope.classes = D2lClassesOwnership.query();
 
 		// Create new D2l example
 		$scope.create = function() {
 			// Create new D2l example object
 			var d2lExample = new D2lExamples ({
-				name: this.name
+				name: this.name,
+				class: this.class._id,
+				link: this.link
 			});
 
 			// Redirect after save
@@ -42,6 +46,7 @@ angular.module('d2l-examples').controller('D2lExamplesController', ['$scope', '$
 
 		// Update existing D2l example
 		$scope.update = function() {
+			$scope.d2lExample.class = $scope.d2lExample.class._id;
 			var d2lExample = $scope.d2lExample;
 
 			d2lExample.$update(function() {
@@ -62,5 +67,7 @@ angular.module('d2l-examples').controller('D2lExamplesController', ['$scope', '$
 				d2lExampleId: $stateParams.d2lExampleId
 			});
 		};
+
+
 	}
 ]);
