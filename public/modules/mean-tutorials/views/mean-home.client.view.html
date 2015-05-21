@@ -31,7 +31,7 @@
             </div>
         </md-content>
 
-        <md-content class="md-padding meanT-homeSecondRow" style="overflow:hidden">
+        <md-content class="md-padding meanT-homeSecondRow">
             <div class="meanT-headSubTitle md-body-1" show-sm hide-gt-sm>
                 <strong>{{homeContents.mainTitle}}</strong> {{homeContents.subTitleText}}<br/><br/>
                 <div layout="row" layout-margin layout-align="center center">
@@ -43,10 +43,14 @@
             </div>
 
 
-            <md-whiteframe style="overflow-x: scroll;"
+            <md-whiteframe
+                    id="courses"
+                    style="overflow-x: auto;"
                            class="md-whiteframe-z2 meanT-home-card ob-underbar-yellow"
                            layout="column" layout-align="space-around start">
-                <h3 class="md-title"><b>클래스 리스트</b></h3>
+                <h3 class="md-title">
+                    <b>클래스 리스트</b>
+                </h3>
                 <div  layout="row" layout-align="center center">
                     <md-card ng-repeat="lesson in courses" style="width:210px;" ng-click="goToClass(lesson._id)">
                         <img src={{lesson.image}} alt="Washed Out">
