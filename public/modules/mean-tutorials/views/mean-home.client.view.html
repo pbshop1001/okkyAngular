@@ -49,7 +49,7 @@
                 <h3 class="md-title"><b>클래스 리스트</b></h3>
                 <div  layout="row" layout-align="center center">
                     <md-card ng-repeat="lesson in courses" style="width:210px;" ng-click="goToClass(lesson._id)">
-                        <img ng-src="{{lesson.image}}" alt="Washed Out">
+                        <img src={{lesson.image}} alt="Washed Out">
                         <md-card-content>
                             <div style="font-size:12px;">Course {{$index+1}}</div>
                             <p class="md-body-1">{{lesson.name}}</p>

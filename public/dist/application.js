@@ -136,6 +136,10 @@ ApplicationConfiguration.registerModule('g-drive');
 
 'use strict';
 
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('googledocs');
+'use strict';
+
 // Use application configuration module to register a new module
 ApplicationConfiguration.registerModule('gsap-editor');
 
@@ -2215,8 +2219,8 @@ angular.module('d2l-lessons').config(['$stateProvider',
 'use strict';
 
 // D2l lessons controller
-angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$timeout', '$state', '$stateParams', '$location', 'Authentication', 'D2lLessons','D2lClassesOwnership','D2lExamples',
-	function($scope, $timeout, $state, $stateParams, $location, Authentication, D2lLessons, D2lClassesOwnership, D2lExamples) {
+angular.module('d2l-lessons').controller('D2lLessonsController', D2lLessonsController);
+	function D2lLessonsController($scope, $timeout, $state, $stateParams, $mdDialog, $location, Authentication, D2lLessons, D2lClassesOwnership, D2lExamples, GoogledocsByLesson) {
 		$scope.authentication = Authentication;
 
 		console.log('lesson ctrl')
@@ -2306,17 +2310,104 @@ angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$ti
 				$scope.examples = D2lExamples.query();
 			}, 650);
 		};
+
 		$scope.toggle = function (item, list) {
 			var idx = list.indexOf(item._id);
 			if (idx > -1) list.splice(idx, 1);
 			else list.push(item._id);
 		};
+
 		$scope.exists = function (item, list) {
 			return list.indexOf(item._id) > -1;
 		};
 
+		$scope.loadGDocs = function(){
+			$scope.gdocs = GoogledocsByLesson.query({lessonId: $stateParams.d2lLessonId});
+		};
+
+		$scope.showNewAssign = function(ev){
+			$mdDialog.show({
+				controller: D2lHwDialogCtrl,
+				templateUrl: 'modules/openboard/template/tutorial/newAssign-dialog.tpl.html',
+				targetEvent: ev,
+				clickOutsideToClose: false,
+				preserveScope: false,
+				locals: {project:{gdocId: ''}},
+				bindToController: true,
+				//onComplete: reset
+
+			}).then(
+				function(){
+					//$log.debug('cancel');
+				},
+				function(){
+					//$log.debug('created Assignment');
+					$scope.hws = D2lHwsByClass.get({classId: $scope.d2lClass._id},function(result){
+						$scope.hwsCopy = [].concat(result);
+					});
+				}
+			);
+
+			function D2lHwDialogCtrl(scope, $timeout, $mdDialog, D2lHws, D2lClassesOwnership, GDriveSelectResult){
+
+				scope.$on('handleEmit', function(event, args) {
+					//console.log('broadcast is invoked');
+					scope.project.gdocId=args.message;
+					scope.$digest();
+				});
+				scope.cancel = function(){
+					$mdDialog.cancel();
+					scope.docs = "";
+					scope.project = '';
+					scope.projectForm = '';
+					args.message = '';
+					scope.$digest();
+					//console.log('B');;
+				};
+				scope.docs = GDriveSelectResult;
+				scope.project = {gdocId : scope.docs.id};
+
+				var dDate = new Date();
+				dDate.setHours(23,59,59,999);
+
+				scope.project = {
+					dDate: dDate
+					//gdocId : scope.docs.id
+					//desc: 'Nuclear Missile Defense System',
+				};
+
+				scope.loadClasses = function() {
+					//console.log('Load Class is invoked');
+					return $timeout(function() {
+						scope.classes = D2lClassesOwnership.query();
+					}, 650);
+				};
+
+				scope.createNewRecord = function() {
+					//console.log('Create');
+					// Create new D2l hw object
+					scope.project.dDate.setHours(23,59,59,999);
+					var d2lHw = new D2lHws (scope.project);
+					d2lHw.class = d2lHw.class._id;
+
+					// Redirect after save
+					d2lHw.$save(function(response) {
+						//$location.path('d2l-hws/' + response._id);
+						// Clear form fields
+						scope.name = '';
+						scope.project.gdocId = '';
+						scope.projectForm = null;
+						$mdDialog.cancel();
+						scope.project = null;
+
+					}, function(errorResponse) {
+						scope.error = errorResponse.data.message;
+					});
+				};
+			}
+		};
 	}
-]);
+
 'use strict';
 
 //D2l lessons service used to communicate D2l lessons REST endpoints
@@ -2338,7 +2429,17 @@ angular.module('d2l-lessons').factory('D2lLessons', ['$resource',
 			}
 		});
 	}
-]);;
+]).factory('D2lLessonsByClass', ['$resource',
+	function($resource) {
+		return $resource('/d2l-lessonsByClassId/:d2lClassId', { d2lClassId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+])
+;
 'use strict';
 
 //Setting up route
@@ -4272,6 +4373,138 @@ angular.module('g-drive').factory('Googledrive', [
 'use strict';
 
 //Setting up route
+angular.module('googledocs').config(['$stateProvider',
+	function($stateProvider) {
+		// Googledocs state routing
+		$stateProvider.
+		state('listGoogledocs', {
+			url: '/googledocs',
+			templateUrl: 'modules/googledocs/views/list-googledocs.client.view.html'
+		}).
+		state('createGoogledoc', {
+			url: '/googledocs/create',
+			templateUrl: 'modules/googledocs/views/create-googledoc.client.view.html'
+		}).
+		state('viewGoogledoc', {
+			url: '/googledocs/:googledocId',
+			templateUrl: 'modules/googledocs/views/view-googledoc.client.view.html'
+		}).
+		state('editGoogledoc', {
+			url: '/googledocs/:googledocId/edit',
+			templateUrl: 'modules/googledocs/views/edit-googledoc.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+// Googledocs controller
+angular.module('googledocs').controller('GoogledocsController', GoogledocsController);
+
+	function GoogledocsController($scope, $stateParams, $location, $timeout, Authentication, Googledocs, D2lClassesOwnership, D2lLessonsByClass) {
+		$scope.authentication = Authentication;
+
+		// Create new Googledoc
+		$scope.create = function() {
+			// Create new Googledoc object
+			var googledoc = new Googledocs ({
+				name: this.name,
+				link: this.link,
+				contentType: this.contentType,
+				class: this.class._id,
+				lesson: this.lesson._id
+			});
+
+			// Redirect after save
+			googledoc.$save(function(response) {
+				$location.path('googledocs/' + response._id);
+
+				// Clear form fields
+				$scope.name = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Remove existing Googledoc
+		$scope.remove = function(googledoc) {
+			if ( googledoc ) { 
+				googledoc.$remove();
+
+				for (var i in $scope.googledocs) {
+					if ($scope.googledocs [i] === googledoc) {
+						$scope.googledocs.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.googledoc.$remove(function() {
+					$location.path('googledocs');
+				});
+			}
+		};
+
+		// Update existing Googledoc
+		$scope.update = function() {
+			var googledoc = $scope.googledoc;
+
+			googledoc.$update(function() {
+				$location.path('googledocs/' + googledoc._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Find a list of Googledocs
+		$scope.find = function() {
+			$scope.googledocs = Googledocs.query();
+		};
+
+		// Find existing Googledoc
+		$scope.findOne = function() {
+			$scope.googledoc = Googledocs.get({ 
+				googledocId: $stateParams.googledocId
+			});
+		};
+
+		// Load Class
+		$scope.loadClasses = function() {
+			//console.log('Load Class is invoked');
+			return $timeout(function() {
+				$scope.classes = D2lClassesOwnership.query();
+			}, 650);
+		};
+
+		$scope.loadLessons = function(classId) {
+			return $timeout(function() {
+				$scope.lessons = D2lLessonsByClass.query({d2lClassId: classId});
+			}, 650);
+		}
+	}
+
+'use strict';
+
+//Googledocs service used to communicate Googledocs REST endpoints
+angular.module('googledocs').factory('Googledocs', ['$resource',
+	function($resource) {
+		return $resource('googledocs/:googledocId', { googledocId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]).factory('GoogledocsByLesson', ['$resource',
+	function($resource) {
+		return $resource('googledocsByLesson/:lessonId', { lessonId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);
+'use strict';
+
+//Setting up route
 angular.module('gsap-editor').config(['$stateProvider',
 	function($stateProvider) {
 		// Gsap editor state routing
@@ -4531,8 +4764,8 @@ function MeanHomeController($scope, $state, $http, $mdDialog, Authentication, D2
 
 	//Initialization
 	$scope.authentication = Authentication;
-	//Course list
 
+	//Course list
 	$scope.courses = D2lClasses.query();
 
 	//  Openboard Introduction Contents

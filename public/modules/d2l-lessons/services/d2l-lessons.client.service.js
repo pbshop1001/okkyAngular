@@ -19,4 +19,14 @@ angular.module('d2l-lessons').factory('D2lLessons', ['$resource',
 			}
 		});
 	}
-]);;
+]).factory('D2lLessonsByClass', ['$resource',
+	function($resource) {
+		return $resource('/d2l-lessonsByClassId/:d2lClassId', { d2lClassId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+])
+;

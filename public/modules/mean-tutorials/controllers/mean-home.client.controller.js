@@ -12,8 +12,8 @@ function MeanHomeController($scope, $state, $http, $mdDialog, Authentication, D2
 
 	//Initialization
 	$scope.authentication = Authentication;
-	//Course list
 
+	//Course list
 	$scope.courses = D2lClasses.query();
 
 	//  Openboard Introduction Contents

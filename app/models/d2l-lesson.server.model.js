@@ -36,6 +36,10 @@ var D2lLessonSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'D2lExample'
 	}],
+	docs:[{
+		type: Schema.ObjectId,
+		ref: 'Googledoc'
+	}],
 	body:{
 		type:'String',
 		default: '',

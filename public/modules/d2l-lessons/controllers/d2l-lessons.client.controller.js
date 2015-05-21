@@ -1,8 +1,8 @@
 'use strict';
 
 // D2l lessons controller
-angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$timeout', '$state', '$stateParams', '$location', 'Authentication', 'D2lLessons','D2lClassesOwnership','D2lExamples',
-	function($scope, $timeout, $state, $stateParams, $location, Authentication, D2lLessons, D2lClassesOwnership, D2lExamples) {
+angular.module('d2l-lessons').controller('D2lLessonsController', D2lLessonsController);
+	function D2lLessonsController($scope, $timeout, $state, $stateParams, $mdDialog, $location, Authentication, D2lLessons, D2lClassesOwnership, D2lExamples, GoogledocsByLesson) {
 		$scope.authentication = Authentication;
 
 		console.log('lesson ctrl')
@@ -92,14 +92,100 @@ angular.module('d2l-lessons').controller('D2lLessonsController', ['$scope', '$ti
 				$scope.examples = D2lExamples.query();
 			}, 650);
 		};
+
 		$scope.toggle = function (item, list) {
 			var idx = list.indexOf(item._id);
 			if (idx > -1) list.splice(idx, 1);
 			else list.push(item._id);
 		};
+
 		$scope.exists = function (item, list) {
 			return list.indexOf(item._id) > -1;
 		};
 
+		$scope.loadGDocs = function(){
+			$scope.gdocs = GoogledocsByLesson.query({lessonId: $stateParams.d2lLessonId});
+		};
+
+		$scope.showNewAssign = function(ev){
+			$mdDialog.show({
+				controller: D2lHwDialogCtrl,
+				templateUrl: 'modules/openboard/template/tutorial/newAssign-dialog.tpl.html',
+				targetEvent: ev,
+				clickOutsideToClose: false,
+				preserveScope: false,
+				locals: {project:{gdocId: ''}},
+				bindToController: true,
+				//onComplete: reset
+
+			}).then(
+				function(){
+					//$log.debug('cancel');
+				},
+				function(){
+					//$log.debug('created Assignment');
+					$scope.hws = D2lHwsByClass.get({classId: $scope.d2lClass._id},function(result){
+						$scope.hwsCopy = [].concat(result);
+					});
+				}
+			);
+
+			function D2lHwDialogCtrl(scope, $timeout, $mdDialog, D2lHws, D2lClassesOwnership, GDriveSelectResult){
+
+				scope.$on('handleEmit', function(event, args) {
+					//console.log('broadcast is invoked');
+					scope.project.gdocId=args.message;
+					scope.$digest();
+				});
+				scope.cancel = function(){
+					$mdDialog.cancel();
+					scope.docs = "";
+					scope.project = '';
+					scope.projectForm = '';
+					args.message = '';
+					scope.$digest();
+					//console.log('B');;
+				};
+				scope.docs = GDriveSelectResult;
+				scope.project = {gdocId : scope.docs.id};
+
+				var dDate = new Date();
+				dDate.setHours(23,59,59,999);
+
+				scope.project = {
+					dDate: dDate
+					//gdocId : scope.docs.id
+					//desc: 'Nuclear Missile Defense System',
+				};
+
+				scope.loadClasses = function() {
+					//console.log('Load Class is invoked');
+					return $timeout(function() {
+						scope.classes = D2lClassesOwnership.query();
+					}, 650);
+				};
+
+				scope.createNewRecord = function() {
+					//console.log('Create');
+					// Create new D2l hw object
+					scope.project.dDate.setHours(23,59,59,999);
+					var d2lHw = new D2lHws (scope.project);
+					d2lHw.class = d2lHw.class._id;
+
+					// Redirect after save
+					d2lHw.$save(function(response) {
+						//$location.path('d2l-hws/' + response._id);
+						// Clear form fields
+						scope.name = '';
+						scope.project.gdocId = '';
+						scope.projectForm = null;
+						$mdDialog.cancel();
+						scope.project = null;
+
+					}, function(errorResponse) {
+						scope.error = errorResponse.data.message;
+					});
+				};
+			}
+		};
 	}
-]);
