@@ -7,7 +7,14 @@ angular.module('admin-page').config(['$stateProvider',
 		$stateProvider.
 		state('admin-page', {
 			url: '/admin-page',
-			templateUrl: 'modules/admin-page/views/admin-page.client.view.html'
+			templateUrl: 'modules/admin-page/views/admin-page.client.view.html',
+				onEnter: function(){
+					console.log('onEnter');
+				},
+				onExit: function(){
+					console.log('onExit');
+
+				}
 		});
 	}
 ]);

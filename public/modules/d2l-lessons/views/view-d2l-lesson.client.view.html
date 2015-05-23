@@ -28,7 +28,10 @@
 		<!--<div id="wistia_ocowx278d5" class="wistia_embed" style="width:640px;height:360px;">&nbsp;</div>-->
 
 	<h3 class="md-title">Documents</h3>
-	<div ng-repeat="gdoc in gdocs" class="md-body-1">{{gdoc.name}}</div>
+	<div ng-repeat="gdoc in gdocs" class="md-body-1">
+		<div>{{gdoc.name}}</div>
+		<md-button class="md-warn md-raised" style="font-size:0.8em" ng-click="linkGDoc(gdoc)">Open</md-button>
+	</div>
 
 	<div disqus="d2lLesson._id" style="margin:auto; margin-left: 20px; margin-right:20px;	"></div>
 </section>

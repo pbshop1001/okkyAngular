@@ -130,6 +130,16 @@
                 <md-icon md-svg-src="modules/d2l/img/flat-svg/podium_with_speaker.svg"></md-icon>
                 <md-grid-tile-footer><h3>All Classes</h3></md-grid-tile-footer>
             </md-grid-tile>
+            <md-grid-tile
+                    ng-if="authentication.user.roles[0]==='admin'"
+                    id="adminPage"
+                    md-rowspan="1"
+                    md-colspan="1"
+                    class="red"
+                    ng-click="goTo('admin-page')">
+                <md-icon md-svg-src="modules/d2l/img/flat-svg/podium_with_speaker.svg"></md-icon>
+                <md-grid-tile-footer><h3>Admin</h3></md-grid-tile-footer>
+            </md-grid-tile>
         </md-grid-list>
     </md-content>
     <div style="  position: inherit;

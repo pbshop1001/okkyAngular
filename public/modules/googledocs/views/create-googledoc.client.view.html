@@ -12,6 +12,18 @@
                     </div>
                 </div>
 
+                <div layout layout-sm='column' ng-controller="GDriveFilePickerController">
+                    <label>Select File</label>
+                    <div flex></div>
+                    <md-button type="button" class="md-raised md-primary" style="font-size:11px" ng-click="init()">Open Picker</md-button>
+                </div>
+
+                <label>Google Doc ID</label>
+                <input required id="gdocId" name="gdocId" ng-disabled="true" ng-model="gdocId">
+                <div ng-messages="projectForm.gdocId.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+
                 <div class="form-group">
                     <label class="control-label" for="link">Link</label>
                     <div class="controls">

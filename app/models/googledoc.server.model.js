@@ -28,6 +28,10 @@ var GoogledocSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'D2lClass'
 	},
+	gdocId:{
+		type: String,
+		default:''
+	},
 	lesson:{
 		type: Schema.ObjectId,
 		ref: 'D2lLesson'

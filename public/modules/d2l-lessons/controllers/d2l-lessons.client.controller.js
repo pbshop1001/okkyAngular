@@ -2,13 +2,15 @@
 
 // D2l lessons controller
 angular.module('d2l-lessons').controller('D2lLessonsController', D2lLessonsController);
-	function D2lLessonsController($scope, $timeout, $state, $stateParams, $mdDialog, $location, Authentication, D2lLessons, D2lClassesOwnership, D2lExamples, GoogledocsByLesson) {
+	function D2lLessonsController($scope, $timeout, $state, $stateParams,
+	                              $mdDialog, $location, $window, Authentication,
+	                              D2lLessons, D2lClassesOwnership, D2lExamples,
+	                              GoogledocsByLesson) {
 		$scope.authentication = Authentication;
 
 		console.log('lesson ctrl')
 		//var wistiaEmbed = Wistia.embed("ocowx278d5");
 		//var contentType = true;
-
 		// Create new D2l lesson
 		$scope.create = function() {
 			console.log(this.class);
@@ -187,5 +189,20 @@ angular.module('d2l-lessons').controller('D2lLessonsController', D2lLessonsContr
 					});
 				};
 			}
+		};
+
+		$scope.linkGDoc = function(doc){
+			console.log('dd');
+			var AppScriptAPI = 'https://script.google.com/macros/s/AKfycbzMWif8iQmlLZbno9fSUSWWwA9mL4_OEae1nKxcnbxSt980kOpy/exec?'
+			//var AppScriptAPI = 'https://script.google.com/macros/s/AKfycbzoXxZDgzjLOJdqGUGYCWSpIT7n2sHyvnIo2W7E5jmXI_2sryj3/exec?';
+			var param = 'docId='+doc.gdocId+
+				//'&userId='+authentication.user.username+
+				'&title='+doc.name+
+				//'&dDate='+hw.dDate+
+				//'&userIdRef='+Authentication.user._id+
+				//'&instructorRef='+hw.class.user+
+				'&classId='+doc.class._id;
+			//console.log(hw.dDate);
+			$window.open(AppScriptAPI+param);
 		};
 	}

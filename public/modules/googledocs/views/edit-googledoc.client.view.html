@@ -11,6 +11,51 @@
                         <input type="text" data-ng-model="googledoc.name" id="name" class="form-control" placeholder="Name" required>
                     </div>
                 </div>
+
+                <div layout layout-sm='column' ng-controller="GDriveFilePickerController">
+                    <label>Select File</label>
+                    <div flex></div>
+                    <md-button type="button" class="md-raised md-primary" style="font-size:11px" ng-click="init()">Open Picker</md-button>
+                </div>
+
+                <label>Google Doc ID</label>
+                <input required id="gdocId" name="gdocId" ng-disabled="true" ng-model="googledoc.gdocId">
+                <div ng-messages="projectForm.gdocId.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="link">Link</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="googledoc.link" id="link" class="form-control" placeholder="Link" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="type">Content Type</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="googledoc.contentType" id="type" class="form-control" placeholder="Content Type" required>
+                    </div>
+                </div>
+
+                <label class="control-label" for="class">Class</label>
+                <div layout="column" layout-align="center center" style="height: 100px;">
+                    <md-select ng-model="googledoc.class" md-on-open="loadClasses()" style="min-width: 200px;">
+                        <md-select-label>{{ googledoc.class ? googledoc.class.name : 'Select Class' }}</md-select-label>
+                        <md-option ng-value="class" ng-repeat="class in classes">{{class.prefix}} {{class.name}}</md-option>
+                    </md-select>
+                    <p class="hws-select-result">You have assigned for: {{ googledoc.class ? googledoc.class.prefix+" "+googledoc.class.name : 'No class yet' }}</p>
+                </div>
+
+                <div layout="column" layout-align="center center" style="height: 100px;">
+                    <md-select ng-model="googledoc.lesson" md-on-open="loadLessons(googledoc.class._id)" style="min-width: 200px;">
+                        <md-select-label>{{ googledoc.lesson ? googledoc.lesson.name : 'Select Class' }}</md-select-label>
+                        <md-option ng-value="lesson" ng-repeat="lesson in lessons">{{lesson.name}}</md-option>
+                    </md-select>
+                    <p class="hws-select-result">You have assigned for: {{ googledoc.lesson ? googledoc.lesson.name : 'No lesson yet' }}</p>
+                </div>
+
+
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">
                 </div>

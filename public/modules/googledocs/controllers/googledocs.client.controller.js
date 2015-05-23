@@ -14,7 +14,8 @@ angular.module('googledocs').controller('GoogledocsController', GoogledocsContro
 				link: this.link,
 				contentType: this.contentType,
 				class: this.class._id,
-				lesson: this.lesson._id
+				lesson: this.lesson._id,
+				gdocId: this.gdocId
 			});
 
 			// Redirect after save
@@ -81,4 +82,10 @@ angular.module('googledocs').controller('GoogledocsController', GoogledocsContro
 				$scope.lessons = D2lLessonsByClass.query({d2lClassId: classId});
 			}, 650);
 		}
+
+		$scope.$on('handleEmit', function(event, args) {
+			console.log('broadcast is invoked');
+			$scope.gdocId=args.message;
+			$scope.$digest();
+		});
 	}

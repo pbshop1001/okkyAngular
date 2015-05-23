@@ -14,6 +14,8 @@ angular.module('core')
       $scope.classroom = false;
       $scope.goTo = function(name){
         $state.go(name);
+        $scope.toggleLeft();
+
       };
       $scope.currentState = function(){};
       $scope.onchangeRoute = function(){};
@@ -32,9 +34,6 @@ angular.module('core')
             //TweenMax.set($("md-backdrop"),{position:'fixed'});
           });
       };
-      var scrollTo = function(){
-        console.log('scrollTo funciton');
-      };
 
       $scope.change = function(){
         console.log("changed");
@@ -44,7 +43,6 @@ angular.module('core')
       };
 
       $scope.loadUsers = function() {
-
         return $timeout(function() {
           $scope.users = D2lClassesOwnership.query();
         }, 650);
@@ -55,6 +53,7 @@ angular.module('core')
         title: "Svg-",
         background: ""
       });
+
       function buildGridModel(tileTmpl){
         var it, results = [ ];
         for (var j=0; j<6; j++) {
@@ -168,6 +167,5 @@ angular.module('core')
           $window.location.href = 'auth/signout';
         }
       }
-
     }
 ]);

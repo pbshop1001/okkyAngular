@@ -1,7 +1,14 @@
 <section data-ng-controller="AdminPageController as vm">
 
-	<h3 class="md-title">Admin</h3>
-	<md-tabs md-dynamic-height md-border-bottom>
+	<p>Selected Value: <span class="radioValue">{{ vm.defaultMenu }}</span> </p>
+	<md-radio-group class="md-body-1" layout="row" ng-model="vm.defaultMenu">
+		<md-radio-button ng-repeat="menu in vm.availMenus" value="{{menu}}" class="md-primary">{{menu}}</md-radio-button>
+	</md-radio-group>
+
+	<md-content ng-if="vm.class">
+		<h3 class="md-title">Admin</h3>
+		<md-tabs md-dynamic-height md-border-bottom>
+
 		<md-tab label="one">
 			<md-content class="md-padding">
 				<h1 class="md-title">Tab One</h1>
@@ -21,8 +28,12 @@
 			</md-content>
 		</md-tab>
 	</md-tabs>
-	<h3 class="md-title">Examples</h3>
-	<md-tabs md-dynamic-height md-border-bottom>
+	</md-content>
+
+
+	<md-content ng-if="vm.example">
+		<h3 class="md-title">Examples</h3>
+		<md-tabs md-dynamic-height md-border-bottom>
 		<md-tab label="one">
 			<md-content class="md-padding">
 				<h1 class="md-title">Tab One</h1>
@@ -42,5 +53,28 @@
 			</md-content>
 		</md-tab>
 	</md-tabs>
+	</md-content>
 
+	<md-content ng-if="vm.gDocs">
+		<h3 class="md-title">Google Docs</h3>
+		<md-tabs md-dynamic-height md-border-bottom>
+		<md-tab label="one">
+			<md-content class="md-padding">
+				<h1 class="md-title">Tab One</h1>
+				<gdocs-create></gdocs-create>
+			</md-content>
+		</md-tab>
+		<md-tab label="two">
+			<md-content class="md-padding">
+				<h1 class="md-title">Tab One</h1>
+				<gdocs-list></gdocs-list>
+			</md-content>
+		</md-tab>
+		<md-tab label="three">
+			<md-content class="md-padding">
+				<gdocs-edit></gdocs-edit>
+			</md-content>
+		</md-tab>
+	</md-tabs>
+	</md-content>
 </section>

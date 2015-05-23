@@ -210,7 +210,14 @@ angular.module('admin-page').config(['$stateProvider',
 		$stateProvider.
 		state('admin-page', {
 			url: '/admin-page',
-			templateUrl: 'modules/admin-page/views/admin-page.client.view.html'
+			templateUrl: 'modules/admin-page/views/admin-page.client.view.html',
+				onEnter: function(){
+					console.log('onEnter');
+				},
+				onExit: function(){
+					console.log('onExit');
+
+				}
 		});
 	}
 ]);
@@ -219,8 +226,70 @@ angular.module('admin-page').config(['$stateProvider',
 angular.module('admin-page').controller('AdminPageController', adminPageCtrl);
 
 
-function adminPageCtrl() {
+function adminPageCtrl($scope, $location, $mdDialog, Authentication) {
+
+	$scope.authentication = Authentication;
+	$scope.user = Authentication.user;
+
+	function DialogController($scope, $mdDialog){
+		$scope.hide = function() {
+			$mdDialog.hide();
+		};
+		$scope.cancel = function() {
+			$mdDialog.cancel();
+		};
+		$scope.answer = function(answer) {
+			$mdDialog.hide(answer);
+		};
+	}
+
+
+	$scope.showSignInTutorial = function() {
+		$mdDialog.show({
+			controller: DialogController,
+			templateUrl: 'modules/openboard/template/authentication/signin-dialog.tpl.html',
+			//targetEvent: ev,
+			clickOutsideToClose: true
+		}).then(function(answer){
+				//var target = $("#"+elementId).offset().top;
+				//TweenMax.to($window, 1.2, {scrollTo:{y:target}, ease:Power4.easeOut});
+			},function(){
+				//console.log('cancel');
+			}
+		);
+		TweenMax.to($("md-backdrop"),0.5,{position:'fixed'});
+	};
+
+	console.log($scope.authentication.user);
+	// If user is signed in then redirect back home
+	if ($scope.authentication.user ==="") {
+		$scope.showSignInTutorial();
+	}
+
 	var vm = this;
+	vm.defaultMenu = 'Class';
+	vm.availMenus = ['Class', 'Example', 'gDocs'];
+
+	vm.class = true;
+	vm.example = false;
+	vm.gDocs = false;
+
+	$scope.$watch('vm.defaultMenu', function(newVar) {
+		if(newVar ==="Class"){
+			vm.class = true;
+			vm.example = false;
+			vm.gDocs = false;
+		}else if(newVar ==="Example"){
+			vm.class = false;
+			vm.example = true;
+			vm.gDocs = false;
+		}else if(newVar ==="gDocs"){
+			vm.class = false;
+			vm.example = false;
+			vm.gDocs = true;
+		}
+	});
+
 	vm.title="Admin Page";
 	vm.description="Description";
 
@@ -485,6 +554,8 @@ angular.module('core')
       $scope.classroom = false;
       $scope.goTo = function(name){
         $state.go(name);
+        $scope.toggleLeft();
+
       };
       $scope.currentState = function(){};
       $scope.onchangeRoute = function(){};
@@ -503,9 +574,6 @@ angular.module('core')
             //TweenMax.set($("md-backdrop"),{position:'fixed'});
           });
       };
-      var scrollTo = function(){
-        console.log('scrollTo funciton');
-      };
 
       $scope.change = function(){
         console.log("changed");
@@ -515,7 +583,6 @@ angular.module('core')
       };
 
       $scope.loadUsers = function() {
-
         return $timeout(function() {
           $scope.users = D2lClassesOwnership.query();
         }, 650);
@@ -526,6 +593,7 @@ angular.module('core')
         title: "Svg-",
         background: ""
       });
+
       function buildGridModel(tileTmpl){
         var it, results = [ ];
         for (var j=0; j<6; j++) {
@@ -639,7 +707,6 @@ angular.module('core')
           $window.location.href = 'auth/signout';
         }
       }
-
     }
 ]);
 
@@ -2220,13 +2287,15 @@ angular.module('d2l-lessons').config(['$stateProvider',
 
 // D2l lessons controller
 angular.module('d2l-lessons').controller('D2lLessonsController', D2lLessonsController);
-	function D2lLessonsController($scope, $timeout, $state, $stateParams, $mdDialog, $location, Authentication, D2lLessons, D2lClassesOwnership, D2lExamples, GoogledocsByLesson) {
+	function D2lLessonsController($scope, $timeout, $state, $stateParams,
+	                              $mdDialog, $location, $window, Authentication,
+	                              D2lLessons, D2lClassesOwnership, D2lExamples,
+	                              GoogledocsByLesson) {
 		$scope.authentication = Authentication;
 
 		console.log('lesson ctrl')
 		//var wistiaEmbed = Wistia.embed("ocowx278d5");
 		//var contentType = true;
-
 		// Create new D2l lesson
 		$scope.create = function() {
 			console.log(this.class);
@@ -2405,6 +2474,21 @@ angular.module('d2l-lessons').controller('D2lLessonsController', D2lLessonsContr
 					});
 				};
 			}
+		};
+
+		$scope.linkGDoc = function(doc){
+			console.log('dd');
+			var AppScriptAPI = 'https://script.google.com/macros/s/AKfycbzMWif8iQmlLZbno9fSUSWWwA9mL4_OEae1nKxcnbxSt980kOpy/exec?'
+			//var AppScriptAPI = 'https://script.google.com/macros/s/AKfycbzoXxZDgzjLOJdqGUGYCWSpIT7n2sHyvnIo2W7E5jmXI_2sryj3/exec?';
+			var param = 'docId='+doc.gdocId+
+				//'&userId='+authentication.user.username+
+				'&title='+doc.name+
+				//'&dDate='+hw.dDate+
+				//'&userIdRef='+Authentication.user._id+
+				//'&instructorRef='+hw.class.user+
+				'&classId='+doc.class._id;
+			//console.log(hw.dDate);
+			$window.open(AppScriptAPI+param);
 		};
 	}
 
@@ -4411,7 +4495,8 @@ angular.module('googledocs').controller('GoogledocsController', GoogledocsContro
 				link: this.link,
 				contentType: this.contentType,
 				class: this.class._id,
-				lesson: this.lesson._id
+				lesson: this.lesson._id,
+				gdocId: this.gdocId
 			});
 
 			// Redirect after save
@@ -4478,7 +4563,56 @@ angular.module('googledocs').controller('GoogledocsController', GoogledocsContro
 				$scope.lessons = D2lLessonsByClass.query({d2lClassId: classId});
 			}, 650);
 		}
+
+		$scope.$on('handleEmit', function(event, args) {
+			console.log('broadcast is invoked');
+			$scope.gdocId=args.message;
+			$scope.$digest();
+		});
 	}
+
+'use strict';
+
+angular.module('googledocs').directive('gdocsCreate', gdocsCreate);
+angular.module('googledocs').directive('gdocsEdit', gdocsEdit);
+angular.module('googledocs').directive('gdocsList', gdocsList);
+angular.module('googledocs').directive('gdocsView', gdocsView);
+
+function gdocsCreate() {
+	return {
+		templateUrl: 'modules/googledocs/views/create-googledoc.client.view.html',
+		restrict: 'E',
+		link: function postLink(scope, element, attrs) {
+		}
+	};
+}
+
+function gdocsEdit() {
+	return {
+		templateUrl: 'modules/googledocs/views/edit-googledoc.client.view.html',
+		restrict: 'E',
+		link: function postLink(scope, element, attrs) {
+		}
+	};
+}
+
+function gdocsList() {
+	return {
+		templateUrl: 'modules/googledocs/views/list-googledocs.client.view.html',
+		restrict: 'E',
+		link: function postLink(scope, element, attrs) {
+		}
+	};
+}
+
+function gdocsView() {
+	return {
+		templateUrl: 'modules/googledocs/views/view-googledoc.client.view.html',
+		restrict: 'E',
+		link: function postLink(scope, element, attrs) {
+		}
+	};
+}
 
 'use strict';
 
@@ -8684,7 +8818,6 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
 angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication',
 	function($scope, $http, $location, Users, Authentication) {
 		$scope.user = Authentication.user;
-
 		// If user is not signed in then redirect back home
 		if (!$scope.user) $location.path('/');
 

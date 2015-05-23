@@ -87,8 +87,9 @@ exports.list = function(req, res) {
 /**
  * Googledoc middleware
  */
-exports.googledocByID = function(req, res, next, id) { 
-	Googledoc.findById(id).populate('user', 'displayName').exec(function(err, googledoc) {
+exports.googledocByID = function(req, res, next, id) {
+	var populationQuery = [{path:'class', select:'name prefix'}, {path:'lesson', select:'name'},];
+	Googledoc.findById(id).populate(populationQuery).exec(function(err, googledoc) {
 		if (err) return next(err);
 		if (! googledoc) return next(new Error('Failed to load Googledoc ' + id));
 		req.googledoc = googledoc ;
