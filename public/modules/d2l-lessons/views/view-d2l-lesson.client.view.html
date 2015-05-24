@@ -1,37 +1,57 @@
-<section class="container" data-ng-controller="D2lLessonsController" data-ng-init="findOne(); loadGDocs();">
-	<div class="page-header">
-		<h1 data-ng-bind="d2lLesson.name"></h1>
-	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == d2lLesson.user._id))">
-		<a class="btn btn-primary" href="/#!/d2l-lessons/{{d2lLesson._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="d2lLesson.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="d2lLesson.user.displayName"></span>
-		</em>
-	</small>
-	<h3 class="md-title">강의 소개</h3>
-	<p class="md-body-1">{{d2lLesson.body}}</p>
-	<h3 class="md-title">Examples</h3>
-		<div class="md-body-1" ng-repeat="ex in d2lLesson.example">
-			<a href="{{ex.link}}" target="_blank">{{ex.name}}</a>
-		</div>
-	<h3 class="md-title">Videos</h3>
-		<!--<div id="wistia_ocowx278d5" class="wistia_embed" style="width:640px;height:360px;">&nbsp;</div>-->
+<section style="background-color: whitesmoke;" class="container" data-ng-controller="D2lLessonsController" data-ng-init="findOne(); loadGDocs();">
 
-	<h3 class="md-title">Documents</h3>
-	<div ng-repeat="gdoc in gdocs" class="md-body-1">
-		<div>{{gdoc.name}}</div>
-		<md-button class="md-warn md-raised" style="font-size:0.8em" ng-click="linkGDoc(gdoc)">Open</md-button>
-	</div>
+		<h1 data-ng-bind="d2lLesson.name"></h1>
+
+	<!--<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == d2lLesson.user._id))">-->
+		<!--<a class="btn btn-primary" href="/#!/d2l-lessons/{{d2lLesson._id}}/edit">-->
+			<!--<i class="glyphicon glyphicon-edit"></i>-->
+		<!--</a>-->
+		<!--<a class="btn btn-primary" data-ng-click="remove();">-->
+			<!--<i class="glyphicon glyphicon-trash"></i>-->
+		<!--</a>-->
+	<!--</div>-->
+	<!--<small>-->
+		<!--<em class="text-muted">-->
+			<!--Posted on-->
+			<!--<span data-ng-bind="d2lLesson.created | date:'mediumDate'"></span>-->
+			<!--by-->
+			<!--<span data-ng-bind="d2lLesson.user.displayName"></span>-->
+		<!--</em>-->
+	<!--</small>-->
+	<!--<h3 class="md-title">강의 소개</h3>-->
+	<!--<p class="md-body-1">{{d2lLesson.body}}</p>-->
+
+	<p class="md-caption">{{d2lLesson.body}}</p>
+
+	<md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-green"
+				   layout="column" layout-align="space-around start">
+
+		<h3 class="md-title">Examples</h3>
+		<div layout="row" class="md-body-1">
+			<md-button class="md-raised md-primary" ng-repeat="ex in d2lLesson.example">
+				<a style="color:white" href="{{ex.link}}" target="_blank">{{ex.name}}</a>
+			</md-button>
+		</div>
+	</md-whiteframe>
+
+	<md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-green"
+				   layout="column" layout-align="space-around start">
+		<h3 class="md-title">Videos</h3>
+		<div id="wistia_ocowx278d5" class="wistia_embed" style="width:640px;height:360px;">&nbsp;</div>
+	</md-whiteframe>
+
+
+	<md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-green"
+				   layout="column" layout-align="space-around start">
+
+		<h3 class="md-title">Documents</h3>
+		<div ng-repeat="gdoc in gdocs" class="md-body-1">
+			<div>{{gdoc.name}}</div>
+			<md-button class="md-warn md-raised" style="font-size:0.8em" ng-click="linkGDoc(gdoc)">Open</md-button>
+		</div>
+	</md-whiteframe>
+
+
 
 	<div disqus="d2lLesson._id" style="margin:auto; margin-left: 20px; margin-right:20px;	"></div>
 </section>

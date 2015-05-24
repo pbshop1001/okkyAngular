@@ -9,8 +9,8 @@ angular.module('d2l-lessons').controller('D2lLessonsController', D2lLessonsContr
 		$scope.authentication = Authentication;
 
 		console.log('lesson ctrl')
-		//var wistiaEmbed = Wistia.embed("ocowx278d5");
-		//var contentType = true;
+		var wistiaEmbed = Wistia.embed("ocowx278d5");
+		var contentType = true;
 		// Create new D2l lesson
 		$scope.create = function() {
 			console.log(this.class);

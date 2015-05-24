@@ -1,80 +1,54 @@
 <section data-ng-controller="AdminPageController as vm">
-
-	<p>Selected Value: <span class="radioValue">{{ vm.defaultMenu }}</span> </p>
 	<md-radio-group class="md-body-1" layout="row" ng-model="vm.defaultMenu">
 		<md-radio-button ng-repeat="menu in vm.availMenus" value="{{menu}}" class="md-primary">{{menu}}</md-radio-button>
 	</md-radio-group>
 
 	<md-content ng-if="vm.class">
-		<h3 class="md-title">Admin</h3>
+		<h3 class="md-title">Class</h3>
 		<md-tabs md-dynamic-height md-border-bottom>
-
-		<md-tab label="one">
-			<md-content class="md-padding">
-				<h1 class="md-title">Tab One</h1>
-				<class-note-create></class-note-create>
-			</md-content>
-		</md-tab>
-		<md-tab label="two">
-			<md-content class="md-padding">
-				<h1 class="md-title">Tab One</h1>
-				<class-note-list></class-note-list>
-			</md-content>
-		</md-tab>
-		<md-tab label="three">
-			<md-content class="md-padding">
-				<h1 class="md-title">Tab One</h1>
-				<p class="md-body-1">Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-			</md-content>
-		</md-tab>
-	</md-tabs>
+			<md-tab label="Class create">
+				<md-content class="md-padding">
+					<class-note-create></class-note-create>
+				</md-content>
+			</md-tab>
+			<md-tab label="Class list">
+				<md-content class="md-padding">
+					<class-note-list></class-note-list>
+				</md-content>
+			</md-tab>
+		</md-tabs>
 	</md-content>
 
-
 	<md-content ng-if="vm.example">
-		<h3 class="md-title">Examples</h3>
+		<h3 class="md-title">Example</h3>
 		<md-tabs md-dynamic-height md-border-bottom>
-		<md-tab label="one">
-			<md-content class="md-padding">
-				<h1 class="md-title">Tab One</h1>
-				<class-ex-create></class-ex-create>
-			</md-content>
-		</md-tab>
-		<md-tab label="two">
-			<md-content class="md-padding">
-				<h1 class="md-title">Tab One</h1>
-				<class-ex-list></class-ex-list>
-			</md-content>
-		</md-tab>
-		<md-tab label="three">
-			<md-content class="md-padding">
-				<h1 class="md-title">Tab One</h1>
-				<p class="md-body-1">Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-			</md-content>
-		</md-tab>
-	</md-tabs>
+			<md-tab label="Example create">
+				<md-content class="md-padding">
+					<class-ex-create></class-ex-create>
+				</md-content>
+			</md-tab>
+			<md-tab label="Example list">
+				<md-content class="md-padding">
+
+					<class-ex-list></class-ex-list>
+				</md-content>
+			</md-tab>
+		</md-tabs>
 	</md-content>
 
 	<md-content ng-if="vm.gDocs">
 		<h3 class="md-title">Google Docs</h3>
 		<md-tabs md-dynamic-height md-border-bottom>
-		<md-tab label="one">
-			<md-content class="md-padding">
-				<h1 class="md-title">Tab One</h1>
-				<gdocs-create></gdocs-create>
-			</md-content>
-		</md-tab>
-		<md-tab label="two">
-			<md-content class="md-padding">
-				<h1 class="md-title">Tab One</h1>
-				<gdocs-list></gdocs-list>
-			</md-content>
-		</md-tab>
-		<md-tab label="three">
-			<md-content class="md-padding">
-				<gdocs-edit></gdocs-edit>
-			</md-content>
-		</md-tab>
-	</md-tabs>
+			<md-tab label="Google doc create">
+				<md-content class="md-padding">
+					<gdocs-create></gdocs-create>
+				</md-content>
+			</md-tab>
+			<md-tab label="Goole doc list">
+				<md-content class="md-padding">
+					<gdocs-list></gdocs-list>
+				</md-content>
+			</md-tab>
+		</md-tabs>
 	</md-content>
 </section>

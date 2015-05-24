@@ -1,0 +1,36 @@
+.gray {
+    background: rgba(122, 122, 122, 0.44); }
+.green {
+    background: #b9f6ca; }
+.yellow {
+    background: #ffff8d; }
+.blue {
+    background: #84ffff; }
+.darkBlue {
+    background: #80d8ff; }
+.deepBlue {
+    background: #448aff; }
+.purple {
+    background: #b388ff; }
+.lightPurple {
+    background: #8c9eff; }
+.red {
+    background: #ff8a80; }
+.pink {
+    background: #ff80ab; }
+
+.class-footer-text {
+    margin: 0;
+    font-weight: 700;
+    width: 100%;
+    text-align: center;
+    padding-left:10px;
+}
+
+.class-footer{
+    background: rgba(0, 0, 0, 0.68);
+    height: 50px; }
+
+.pupil {
+    animation: eye-shift ease 0.5s infinite;
+}

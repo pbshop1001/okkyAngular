@@ -4,7 +4,6 @@
             <!--z-index:1000;-->
         <!--}-->
     <!--</style>-->
-
     <div ng-hide="false" class="meanT-headToolBar">
         <div class="meanT-brandName">
             <a href="/#!/versioning" target="_blank">Version: 0.0.1</a>
@@ -42,28 +41,51 @@
                 </div>
             </div>
 
-
-            <md-whiteframe
-                    id="courses"
-                    style="overflow-x: auto;"
-                           class="md-whiteframe-z2 meanT-home-card ob-underbar-yellow"
-                           layout="column" layout-align="space-around start">
-                <h3 class="md-title">
-                    <b>클래스 리스트</b>
-                </h3>
-                <div  layout="row" layout-align="center center">
-                    <md-card ng-repeat="lesson in courses" style="width:210px;" ng-click="goToClass(lesson._id)">
-                        <img src={{lesson.image}} alt="Washed Out">
-                        <md-card-content>
-                            <div style="font-size:12px;">Course {{$index+1}}</div>
-                            <p class="md-body-1">{{lesson.name}}</p>
-                        </md-card-content>
-                    </md-card>
-                </div>
-
-
-            </md-whiteframe>
             <class-board></class-board>
+
+            <div style="text-align:center">
+                <h3 class="md-title"><b>클래스 리스트</b></h3>
+            </div>
+
+            <div class="container" style="margin-bottom: 10px; max-width: 650px;">
+
+                <md-grid-list
+                        md-cols-sm="2" md-cols-md="2" md-cols-gt-md="2"
+                        md-row-height="5:7"
+                        md-gutter="8px" md-gutter-gt-sm="4px">
+                    <md-grid-tile ng-repeat="lesson in courses"
+                                  rowspan="1"
+                                  colspan="1"
+                                  class="gray" >
+                        <img style="width: 70%; height: 70%;" src="{{lesson.image}}">
+                        <!--<md-icon style="width: 50%; height: 100%;" md-svg-src="modules/d2l-classes/img/svg/ninja.svg"></md-icon>-->
+                        <md-grid-tile-footer class="class-footer">
+                            <h3 class="md-title class-footer-text">{{lesson.name}}</h3>
+                        </md-grid-tile-footer>
+                    </md-grid-tile>
+                </md-grid-list>
+            </div>
+
+            <!--<md-whiteframe-->
+                    <!--class="md-whiteframe-z2 meanT-home-card ob-underbar-yellow"-->
+                    <!--layout="column">-->
+                <!--<h3 class="md-title"><b>클래스 리스트</b></h3>-->
+
+                <!--&lt;!&ndash;<md-list-item ng-repeat="lesson in courses">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<p class="md-body-1"> {{ lesson.name }} </p>&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<md-checkbox class="md-secondary" ng-model="topping.wanted"></md-checkbox>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;</md-list-item>&ndash;&gt;-->
+
+
+                    <!--&lt;!&ndash;<md-card ng-repeat="lesson in courses" ng-click="goToClass(lesson._id)">&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<img src={{lesson.image}} alt="Washed Out">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;<md-card-content>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div style="font-size:12px;">Course {{$index+1}}</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<p class="md-body-1">{{lesson.name}}</p>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</md-card-content>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</md-card>&ndash;&gt;-->
+            <!--</md-whiteframe>-->
+
             <!--<md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-base"-->
                            <!--layout="column" layout-align="space-around start">-->
                 <!--<h3 class="md-title">ng-SKorea 소개</h3>-->
@@ -99,41 +121,40 @@
 
                 <!--<h3 class="docs-title-card-not-Center md-title"><b>Problem Solving에 대해서</b></h3>-->
                 <!--<p class="md-body-1">어떤 문제가 닥치셔서 그 문제를 해결 하시려면 전체를 아셔야 문제가되는 곳을 빠르게 찾으시고 대처 방안을 찾으실수 있습니다.</p>-->
-
             <!--</md-whiteframe>-->
 
-            <!--<md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"-->
-                           <!--layout="column" layout-align="space-around start">-->
-                <!--<h3 class="docs-title-card-not-Center md-title">Upcoming Project</h3>-->
+            <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
+                           layout="column" layout-align="space-around start">
+                <h3 class="docs-title-card-not-Center md-title">Upcoming Project</h3>
 
-                <!--<p class="md-body-1"><b>Watch Game e-Learning for kids</b></p>-->
-                <!--<md-chips>-->
-                    <!--<md-chip>Web Animation</md-chip>-->
-                    <!--<md-chip>Touch Control</md-chip>-->
-                    <!--<md-chip>Responsive Design</md-chip>-->
-                <!--</md-chips>-->
-                <!--<p class="md-body-1"><b>e-Commerce</b></p>-->
-                <!--<md-chips>-->
-                    <!--<md-chip>Payment Gateway Interaction</md-chip>-->
-                    <!--<md-chip>Admin & Customer Pages</md-chip>-->
-                    <!--<md-chip>High Performance Transition</md-chip>-->
-                    <!--<md-chip>Responsive Design</md-chip>-->
-                <!--</md-chips>-->
-                <!--<p class="md-body-1"><b>Scrapped Data Analysis </b></p>-->
-                <!--<md-chips>-->
-                    <!--<md-chip>NodeJS Crawler</md-chip>-->
-                    <!--<md-chip>Virtual browser</md-chip>-->
-                    <!--<md-chip>Handling Authentication</md-chip>-->
-                    <!--<md-chip>Visualization</md-chip>-->
-                <!--</md-chips>-->
-                <!--<p class="md-body-1"><b>Social Business Platform</b></p>-->
-                <!--<md-chips>-->
-                    <!--<md-chip>Social Network API</md-chip>-->
-                    <!--<md-chip>Order Management</md-chip>-->
-                    <!--<md-chip>Progress Notification</md-chip>-->
-                    <!--<md-chip>Geo Logical Analysis</md-chip>-->
-                <!--</md-chips>-->
-            <!--</md-whiteframe>-->
+                <p class="md-body-1"><b>Watch Game e-Learning for kids</b></p>
+                <md-chips>
+                    <md-chip>Web Animation</md-chip>
+                    <md-chip>Touch Control</md-chip>
+                    <md-chip>Responsive Design</md-chip>
+                </md-chips>
+                <p class="md-body-1"><b>e-Commerce</b></p>
+                <md-chips>
+                    <md-chip>Payment Gateway Interaction</md-chip>
+                    <md-chip>Admin & Customer Pages</md-chip>
+                    <md-chip>High Performance Transition</md-chip>
+                    <md-chip>Responsive Design</md-chip>
+                </md-chips>
+                <p class="md-body-1"><b>Scrapped Data Analysis </b></p>
+                <md-chips>
+                    <md-chip>NodeJS Crawler</md-chip>
+                    <md-chip>Virtual browser</md-chip>
+                    <md-chip>Handling Authentication</md-chip>
+                    <md-chip>Visualization</md-chip>
+                </md-chips>
+                <p class="md-body-1"><b>Social Business Platform</b></p>
+                <md-chips>
+                    <md-chip>Social Network API</md-chip>
+                    <md-chip>Order Management</md-chip>
+                    <md-chip>Progress Notification</md-chip>
+                    <md-chip>Geo Logical Analysis</md-chip>
+                </md-chips>
+            </md-whiteframe>
             <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-base"
                            layout="column" layout-align="center center">
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">

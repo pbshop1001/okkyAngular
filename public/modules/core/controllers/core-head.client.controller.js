@@ -14,11 +14,14 @@ angular.module('core')
       $scope.classroom = false;
       $scope.goTo = function(name){
         $state.go(name);
-        $scope.toggleLeft();
-
+        $scope.close();
       };
-      $scope.currentState = function(){};
-      $scope.onchangeRoute = function(){};
+
+      $scope.close = function () {
+        $mdSidenav('left').close().then(function(){
+          $log.debug("left is done");
+        });;
+      };
 
       $scope.toggleLeft = function() {
         $mdSidenav('left').toggle()
