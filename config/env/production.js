@@ -78,6 +78,11 @@ module.exports = {
 				'public/lib/highlightjs/highlight.pack.js',
 				'public/lib/angular-highlightjs/build/angular-highlightjs.min.js',
 
+				'public/lib/pixi/bin/pixi.js',
+				'public/3rd/particle-engine.js',
+				'public/3rd/simplexnoise.js',
+				'public/3rd/moments.js'
+
 			]
 		},
 		css: 'public/dist/application.min.css',

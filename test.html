@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+<canvas id="myCanvas" width="600" height="250" style="border:1px solid black;">
+</canvas>
+
+
+<script>
+    window.onload  = function(){
+        var canvas =  document.getElementById("myCanvas");
+        var Context = canvas.getContext("2d ");
+        var imageObj = new Image();
+        imageObj.src = "public/modules/mean-tutorials/img/google_docs.png";
+        imageObj.onload = function(){
+// source rectangular area
+            var sourceX = 550;
+            var sourceY = 300;
+            var sourceWidth = 128;
+            var sourceHeight = 128;
+// destination image size and position
+            var destWidth = sourceWidth;
+            var destHeight = sourceHeight;
+            var destX = canvas.width / 2 - destWidth / 2;
+            var destY = canvas.height / 2 - destHeight / 2;
+            Context.drawImage(this,sourceX,sourceY,sourceWidth,sourceHeight,
+                    sourceHeight,sourceHeight,destX,destY,200,200);
+        };
+    };
+</script>
+</body>
+</html>

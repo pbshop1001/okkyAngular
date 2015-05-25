@@ -64,6 +64,11 @@ ApplicationConfiguration.registerModule('admin-page');
 
 'use strict';
 
+// Use application configuration module to register a new module
+ApplicationConfiguration.registerModule('animations');
+
+'use strict';
+
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('articles');
 
@@ -307,6 +312,1595 @@ function adminPageCtrl($scope, $location, $mdDialog, Authentication) {
 
 
 
+
+angular.module('animations').directive('aniAce',
+	function() {
+		return {
+			templateUrl: 'modules/animations/directives/template/ani-ace.html',
+			restrict: 'E',
+			controller: aniAceCtrl,
+
+			link: function postLink(scope, element, attrs) {
+			} // End link
+		};
+
+		function aniAceCtrl($scope){
+
+
+			var COLORS = [ '0x694D8B', '0xd83784', '0xd62b2e', '0xe5de3a', '0x74b74a', '0x15a1c5' ];
+
+			var renderer;
+			var stage;
+			var vizGroup;
+			var momentGroup;
+			var momentAce;
+			var animationTimer;
+			var toRAD = Math.PI/180;
+			var matchVizViewConfig = {
+				isWebGL: true
+			};
+
+			var aceBallTrailer;
+			var aceBall;
+			var aceCircle1;
+			var aceCircle2;
+			var aceCircleOutline1;
+			var aceCircleOutline2;
+			var aceRectangle;
+			var aceCircle3;
+			var aceCircle4;
+			var aceCircle5;
+			var aceCircle6;
+			var aceCircle7;
+			var aceCircle8;
+			var aceCircle9;
+			var aceLightning1,
+				aceLightning2,
+				aceLightning3,
+				aceLightning4,
+				aceLightning5,
+				aceLightning6,
+				aceLightning7,
+				aceLightning8,
+				aceLightning9,
+				aceTitle;
+
+			var aceAnimationOut;
+			var aceAnimationIn;
+
+			function initBeast(){
+				momentGroup = new PIXI.DisplayObjectContainer();
+				stage.addChild(momentGroup);
+				drawBeast();
+				createAce();
+			}
+
+			function hideMoments() {
+				clearTimeout(animationTimer);
+				momentAce.visible = false;
+				if (__PE)
+					__PE.reset();
+			}
+
+			function generateRandomNumber(min, max) {
+				var random = Math.floor(Math.random() * (max - min + 1)) + min;
+				return random;
+			}
+
+			var __PE; // reference to active particle engine;
+
+			function drawBeast(){
+				if (__PE)
+					__PE.step();
+			}
+
+			function resizeBeast(){
+				if (momentGroup){
+					momentGroup.x = renderer.width/2;
+					momentGroup.y = renderer.height/2;
+				}
+			}
+
+			function passParticlesToRAF(PE) {
+				__PE = PE;
+			}
+
+
+			/////////////////////////
+
+			var aceRectArray = [];
+			var aceExplosionArray1 = [];
+			var aceExplosionArray2 = [];
+			var aceColors = ["0x8cc63f", "0x00b2ef"];
+
+//////////////// PARTICLE STUFF /////////////////
+			var aceParticles 	= new ParticleEngine(window.innerWidth, 500);
+			var aceEmitters 	= [];
+			var aceParticleContainer;
+			var aceEm_TennisBalls,
+				aceEm_LightningBolts,
+				aceEm_ThinShards,
+				aceEm_Circles;
+/////////////////////////////////////////////////
+
+			function createAce() {
+				momentAce = new PIXI.DisplayObjectContainer();
+				momentGroup.addChild(momentAce);
+				var imagePath = "modules/animations/directives/template/img/";
+				var assetsToLoader = [
+					imagePath+"lightning1.png",
+					imagePath+"lightning2.png",
+					imagePath+"lightning3.png",
+					imagePath+"lightning4.png",
+					imagePath+"lightning5.png",
+					imagePath+"lightning6.png",
+					imagePath+"lightning7.png",
+					imagePath+"lightning8.png",
+					imagePath+"lightning9.png"
+				];
+				var loader = new PIXI.AssetLoader(assetsToLoader);
+				loader.onComplete = onAssetsLoaded;
+				loader.load();
+
+				function onAssetsLoaded() {
+
+					//////////////// PARTICLE STUFF /////////////////
+					aceParticleContainer = new PIXI.DisplayObjectContainer();
+					momentAce.addChild(aceParticleContainer);
+
+					aceEm_TennisBalls = new Emitter({
+							type		:	"chaos",
+							count		:	50
+						},
+						{ 	type 		:	SimpleParticle,
+							image		:	imagePath+"ball-white.png",
+							life		: 	800.0,
+							spin		: 	[-0.03, 0.03],
+							speed		: 	[1, 3],
+							scale		: 	[0.01,0.02],
+							colors		: 	[aceColors[0], aceColors[1], 0xffffff],
+							fade		: 	0.2,
+							blendMode 	:	PIXI.blendModes.NORMAL
+						}
+					);
+
+					aceEm_LightningBolts = new Emitter({
+							type		:	"linear",
+							count		:	35,
+							angle		:	135
+						},
+						{ 	type 		:	SimpleParticle,
+							image		:	imagePath+"lightning-white.png",
+							life		: 	1000.0,
+							spin		: 	[0,0],
+							speed		: 	[0.05, 1],
+							scale		: 	[0.05,0.5],
+							colors		: 	[aceColors[0], aceColors[1]],
+							fade		: 	0.2,
+							blendMode 	:	PIXI.blendModes.NORMAL
+						}
+					);
+
+					aceEm_ThinShards = new Emitter({
+							type		:	"linear",
+							count		:	50,
+							angle		:	-45
+						},
+						{ 	type 		:	SimpleParticle,
+							image		:	imagePath+"shard2-white.png",
+							life		: 	1000.0,
+							spin		: 	[0,0],
+							speed		: 	[0.05, 1],
+							scale		: 	[0.05, 1],
+							colors		: 	[aceColors[0], aceColors[1]],
+							fade		: 	0.2,
+							blendMode 	:	PIXI.blendModes.NORMAL
+						}
+					);
+
+					aceEm_Circles = new Emitter({
+							type		:	"point",
+							count		:	50
+						},
+						{ 	type 		:	CircleParticle,
+							size 		: 	15,
+							life		: 	800.0,
+							spin		: 	[-0.00, 0.00],
+							speed		: 	[1, 3],
+							scale		: 	[.25,1],
+							colors		: 	[aceColors[0], aceColors[1]],
+							fade		: 	0.4,
+							blendMode 	:	PIXI.blendModes.NORMAL
+						}
+					);
+
+					aceEmitters.push(aceEm_TennisBalls);
+					aceEmitters.push(aceEm_LightningBolts);
+					aceEmitters.push(aceEm_ThinShards);
+					aceEmitters.push(aceEm_Circles);
+
+					aceParticles.addEmitters(aceEmitters);
+
+					aceParticleContainer.addChild(aceEm_TennisBalls.doc);
+					aceParticleContainer.addChild(aceEm_LightningBolts.doc);
+					aceParticleContainer.addChild(aceEm_ThinShards.doc);
+					aceParticleContainer.addChild(aceEm_Circles.doc);
+					/////////////////////////////////////////////////
+
+					aceCircleOutline1 = new PIXI.Graphics();
+					aceCircleOutline1.lineStyle(3, aceColors[0], 1);
+					aceCircleOutline1.drawCircle(0, 0, 75);
+					aceCircleOutline1.endFill();
+					if (matchVizViewConfig.isWebGL) aceCircleOutline1.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceCircleOutline1);
+
+					aceCircleOutline2 = new PIXI.Graphics();
+					aceCircleOutline2.lineStyle(5, aceColors[1], 1);
+					aceCircleOutline2.drawCircle(0, 0, 25);
+					aceCircleOutline2.endFill();
+					if (matchVizViewConfig.isWebGL) aceCircleOutline2.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceCircleOutline2);
+
+					// CREATE SOME RECTANGLES
+					for (var i = 0; i < 3; i++) {
+						aceRectangle = new PIXI.Graphics();
+						if (matchVizViewConfig.isWebGL) aceRectangle.blendMode = PIXI.blendModes.MULTIPLY;
+						aceRectangle.pivot.x = 2000;
+						aceRectangle.pivot.y = 50;
+						aceRectangle.rotation = (15 * toRAD);
+						momentAce.addChild(aceRectangle);
+						aceRectArray.push(aceRectangle);
+					}
+
+					// CREATE SOME EXPLOSION PIECES
+					for (var i = 0; i < 6; i++) {
+						var aceParticle = new PIXI.Graphics();
+						var randomParticleType = generateRandomNumber(0,5);
+
+						switch (randomParticleType) {
+							case 0:
+								aceParticle.lineStyle(2, aceColors[0], 1);
+								aceParticle.drawCircle(0, 0, generateRandomNumber(5, 15));
+								break;
+							default:
+								aceParticle.beginFill(aceColors[1], .5);
+								aceParticle.drawCircle(0, 0, generateRandomNumber(2, 10));
+						}
+						aceParticle.endFill();
+						if (matchVizViewConfig.isWebGL) aceParticle.blendMode = PIXI.blendModes.MULTIPLY;
+						momentAce.addChild(aceParticle);
+						aceExplosionArray2.push(aceParticle);
+					}
+
+					aceBallTrailer = new PIXI.Graphics();
+					aceBallTrailer.pivot.x = 5;
+					aceBallTrailer.pivot.y = 0;
+					if (matchVizViewConfig.isWebGL) aceBallTrailer.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceBallTrailer);
+
+					aceBall = new PIXI.Graphics();
+					if (matchVizViewConfig.isWebGL) aceBall.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceBall);
+
+					aceCircle1 = new PIXI.Graphics();
+					if (matchVizViewConfig.isWebGL) aceCircle1.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceCircle1);
+
+					aceCircle2 = new PIXI.Graphics();
+					if (matchVizViewConfig.isWebGL) aceCircle2.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceCircle2);
+
+					aceCircle3 = new PIXI.Graphics();
+					if (matchVizViewConfig.isWebGL) aceCircle3.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceCircle3);
+
+					aceCircle4 = new PIXI.Graphics();
+					if (matchVizViewConfig.isWebGL) aceCircle4.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceCircle4);
+
+					aceCircle5 = new PIXI.Graphics();
+					if (matchVizViewConfig.isWebGL) aceCircle5.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceCircle5);
+
+					aceLightning1 = PIXI.Texture.fromImage(imagePath+"lightning1.png");
+					aceLightning1 = new PIXI.Sprite(aceLightning1);
+					aceLightning1.anchor.x = 0.5;
+					aceLightning1.anchor.y = 0.5;
+					aceLightning1.tint = aceColors[0];
+					if (matchVizViewConfig.isWebGL) aceLightning1.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceLightning1);
+
+					aceLightning2 = PIXI.Texture.fromImage(imagePath+"lightning2.png");
+					aceLightning2 = new PIXI.Sprite(aceLightning2);
+					aceLightning2.anchor.x = 0.5;
+					aceLightning2.anchor.y = 0.5;
+					aceLightning2.tint = aceColors[1];
+					if (matchVizViewConfig.isWebGL) aceLightning2.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceLightning2);
+
+					aceLightning3 = PIXI.Texture.fromImage(imagePath+"lightning3.png");
+					aceLightning3 = new PIXI.Sprite(aceLightning3);
+					aceLightning3.anchor.x = 0.5;
+					aceLightning3.anchor.y = 0.5;
+					aceLightning3.tint = aceColors[0];
+					if (matchVizViewConfig.isWebGL) aceLightning3.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceLightning3);
+
+					aceLightning4 = PIXI.Texture.fromImage(imagePath+"lightning4.png");
+					aceLightning4 = new PIXI.Sprite(aceLightning4);
+					aceLightning4.anchor.x = 0.5;
+					aceLightning4.anchor.y = 0.5;
+					aceLightning4.tint = aceColors[1];
+					if (matchVizViewConfig.isWebGL) aceLightning4.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceLightning4);
+
+					aceLightning5 = PIXI.Texture.fromImage(imagePath+"lightning5.png");
+					aceLightning5 = new PIXI.Sprite(aceLightning5);
+					aceLightning5.anchor.x = 0.5;
+					aceLightning5.anchor.y = 0.5;
+					aceLightning5.tint = aceColors[1];
+					if (matchVizViewConfig.isWebGL) aceLightning5.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceLightning5);
+
+					aceLightning6 = PIXI.Texture.fromImage(imagePath+"lightning6.png");
+					aceLightning6 = new PIXI.Sprite(aceLightning6);
+					aceLightning6.anchor.x = 0.5;
+					aceLightning6.anchor.y = 0.5;
+					aceLightning6.tint = aceColors[0];
+					if (matchVizViewConfig.isWebGL) aceLightning6.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceLightning6);
+
+					aceLightning7 = PIXI.Texture.fromImage(imagePath+"lightning7.png");
+					aceLightning7 = new PIXI.Sprite(aceLightning7);
+					aceLightning7.anchor.x = 0.5;
+					aceLightning7.anchor.y = 0.5;
+					aceLightning7.tint = aceColors[1];
+					if (matchVizViewConfig.isWebGL) aceLightning7.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceLightning7);
+
+					aceLightning8 = PIXI.Texture.fromImage(imagePath+"lightning8.png");
+					aceLightning8 = new PIXI.Sprite(aceLightning8);
+					aceLightning8.anchor.x = 0.5;
+					aceLightning8.anchor.y = 0.5;
+					aceLightning8.tint = aceColors[0];
+					if (matchVizViewConfig.isWebGL) aceLightning8.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceLightning8);
+
+					aceLightning9 = PIXI.Texture.fromImage(imagePath+"lightning9.png");
+					aceLightning9 = new PIXI.Sprite(aceLightning9);
+					aceLightning9.anchor.x = 0.5;
+					aceLightning9.anchor.y = 0.5;
+					aceLightning9.tint = aceColors[0];
+					if (matchVizViewConfig.isWebGL) aceLightning9.blendMode = PIXI.blendModes.MULTIPLY;
+					momentAce.addChild(aceLightning9);
+
+					aceTitle = new PIXI.Text("GREAT", { font: "80px Droid Sans", fill: "#ffffff" });
+					aceTitle.anchor.x = 0.5;
+					aceTitle.anchor.y = 0.5;
+					momentAce.addChild(aceTitle);
+
+					//TweenMax.to($('#icon_ace'), 1, {css:{ display: 'inline-block', autoAlpha: 1}, delay: 0});
+				}
+
+				momentAce.visible = false;
+			}
+
+
+			function redrawAce() {
+				var tempColorOrder = 1 + Math.floor(Math.random()*2);
+				if (tempColorOrder === 1) {
+					aceColors = ["0x8cc63f", "0x00b2ef"];
+				} else {
+					aceColors = ["0x00b2ef", "0x8cc63f"];
+				}
+
+				aceBallTrailer.clear();
+				aceBallTrailer.beginFill(aceColors[0], .25);
+				aceBallTrailer.drawRect(0, 0, 10, 400);
+				aceBallTrailer.endFill();
+
+				aceBall.clear();
+				aceBall.beginFill(aceColors[0], 1);
+				aceBall.drawCircle(0, 0, 100);
+				aceBall.endFill();
+				aceBall.beginFill(aceColors[0], .5);
+				aceBall.drawCircle(-7, -7, 90);
+				aceBall.endFill();
+
+				aceCircle1.clear();
+				aceCircle1.beginFill(aceColors[0], .20);
+				aceCircle1.drawCircle(0, 0, 115);
+				aceCircle1.endFill();
+
+				aceCircle2.clear();
+				aceCircle2.beginFill(aceColors[0], .5);
+				aceCircle2.drawCircle(0, 0, 115);
+				aceCircle2.endFill();
+
+				aceCircle3.clear();
+				aceCircle3.beginFill(aceColors[0], .4);
+				aceCircle3.drawCircle(0, 0, 115);
+				aceCircle3.endFill();
+
+				aceCircle4.clear();
+				aceCircle4.beginFill(aceColors[0], .40);
+				aceCircle4.drawCircle(0, 0, 85);
+				aceCircle4.endFill();
+
+				aceCircle5.clear();
+				aceCircle5.beginFill(aceColors[1], 1);
+				aceCircle5.drawCircle(0, 0, 45);
+				aceCircle5.endFill();
+
+				aceLightning1.tint = aceColors[0];
+				aceLightning2.tint = aceColors[1];
+				aceLightning3.tint = aceColors[0];
+				aceLightning4.tint = aceColors[1];
+				aceLightning5.tint = aceColors[1];
+				aceLightning6.tint = aceColors[0];
+				aceLightning7.tint = aceColors[1];
+				aceLightning8.tint = aceColors[0];
+				aceLightning9.tint = aceColors[0];
+
+				for (var i = 0; i < 3; i++) {
+					aceRectArray[i].clear();
+					aceRectArray[i].beginFill(aceColors[1], 1);
+					aceRectArray[i].drawRect(0, 0, 4000, 100);
+					aceRectArray[i].endFill();
+				}
+
+			}
+
+			function explodeAce() {
+				hideMoments();
+				redrawAce();
+
+				//////////////// PARTICLE STUFF /////////////////
+				var w = window.innerWidth;
+				var h = 500; //window.innerHeight;
+
+				var i = 0;
+				var em;
+				while ( i < aceEmitters.length ) {
+					em = aceEmitters[i++];
+					em.w = w;
+					em.h = h;
+					em.reset();
+				}
+
+				// hAX
+				passParticlesToRAF(aceParticles);
+
+				/////////////////////////////////////////////////
+
+				aceAnimationIn =  new TimelineMax({ paused: true});
+
+				aceAnimationIn.fromTo( aceBall, .75,{ x: 0, y: 250, scaleX: 0.05, scaleY: 0.05, alpha: 0},{ x: 0, y: -200, scaleX: 0.05, scaleY: 0.05, alpha: 1, ease: Expo.easeOut });
+				aceAnimationIn.to( aceBall, .75, { x: 0, y: -100, ease: Expo.easeIn });
+				aceAnimationIn.to( aceBall, .5, { bezier: {values:[{ x: 200, y: 0 }, { x: 300, y: 200 }] }, scaleX: 0.25, scaleY: 0.25, alpha: 1, ease: Quad.easeOut });
+				aceAnimationIn.to( aceBall, .5, { bezier: {values:[{ x: 50, y: 0 }, {x: 0, y: 0 }]}, alpha: 0, scaleX: 10, scaleY: 10, ease: Quad.easeOut }, "-=.25");
+
+				// TRAILER
+				aceAnimationIn.add(TweenMax.fromTo( aceBallTrailer, 1,{ x: 0, y: 250, scaleY: 5, alpha: 1 },{ x: 0, y: -200, scaleY: 0.75, alpha: 0, ease: Expo.easeOut }), 0);
+
+				// BALL EXPLOSION
+				aceAnimationIn.add(TweenMax.fromTo( aceCircleOutline1, 1,{ x: 0, y: -100, scaleX: 0.1, scaleY: 0, alpha: 1 },{ x: 0, y: -100, scaleX: 1, scaleY: 1, alpha: 0, ease: Expo.easeOut }), 1.5);
+				aceAnimationIn.add(TweenMax.fromTo( aceCircleOutline2, 1,{ x: 0, y: -100, scaleX: 0.1, scaleY: 0, alpha: 1 },{ x: 0, y: -100, scaleX: 1, scaleY: 1, alpha: 0, ease: Expo.easeOut }), 1.5);
+
+				//////////////// PARTICLE STUFF /////////////////
+				aceAnimationIn.add(TweenMax.fromTo( aceParticleContainer, 1, { alpha: 0}, { alpha: 1 }), 0);
+				aceAnimationIn.add(TweenMax.fromTo( aceEm_TennisBalls.doc, 1, { scaleX: 0.0, scaleY: 0.0}, {  scaleX: 1.0, scaleY: 1.0, ease: Quart.easeInOut }), 1.5);
+				aceAnimationIn.add(TweenMax.fromTo( aceEm_LightningBolts.doc, 0.75,{ scaleX: 0.0, scaleY: 0.0, x: 600 , y: -600, alpha: 0}, { scaleX: 1.0, scaleY: 1.0, x: 0, y: 0, alpha: 1, ease: Quart.easeInOut }), 1.5);
+				aceAnimationIn.add(TweenMax.fromTo( aceEm_ThinShards.doc, 0.75,{ scaleX: 0.0, scaleY: 0.0, x: -600,  y: 600, alpha: 0}, { scaleX: 1.0, scaleY: 1.0, x: 0, y: 0, alpha: 1, ease: Quart.easeInOut }), 1.5);
+				aceAnimationIn.add(TweenMax.fromTo( aceEm_Circles.doc, 0.75,{ scaleX: 0.0, scaleY: 0.0, x: -600,  y: 600, alpha: 0}, { scaleX: 1.0, scaleY: 1.0, x: 0, y: 0, alpha: 1, ease: Quart.easeInOut }), 1.5);
+				/////////////////////////////////////////////////
+
+				// PARTICLE EXPLOSIONS 1
+				for (var i = 0; i < aceExplosionArray2.length; i++) {
+					var circle = aceExplosionArray2[i];
+					var destinationX = generateRandomNumber(-100, 100);
+					var destinationY = generateRandomNumber(-200, 0);
+					aceAnimationIn.add(TweenMax.fromTo( circle, 1,{ x: 0, y: -100, scaleX: 0, scaleY: 0, alpha: 0 },{ x: destinationX, y: destinationY, scaleX: 1, scaleY: 1, alpha: 1, ease: Quart.easeOut }), 1.5);
+				}
+
+				// MOVE PANELS
+				aceAnimationIn.add(TweenMax.fromTo( aceRectArray[0], 2.25,{ x: 0, y: 1500 },{ x: 0, y: 50, ease: Expo.easeOut }), 0);
+				aceAnimationIn.add(TweenMax.fromTo( aceRectArray[1], 2.25,{ x: 0, y: 1500 },{ x: 0, y: 50, ease: Expo.easeOut }), 0);
+				aceAnimationIn.add(TweenMax.fromTo( aceRectArray[2], 2.25,{ x: 0, y: 1500 },{ x: 0, y: 50, ease: Expo.easeOut }), 0);
+
+				aceAnimationIn.add(TweenMax.fromTo( aceRectArray[0], 1.5,{ scaleY: 2, rotation: (25 * toRAD), alpha: 0 },{ scaleY: 1, rotation: (-15 * toRAD), alpha: .5, ease: Quad.easeInOut }), 0);
+				aceAnimationIn.add(TweenMax.fromTo( aceRectArray[1], 1.5,{ scaleY: 2, rotation: (25* toRAD), alpha: 0 },{ scaleY: .5, rotation: (-15 * toRAD), alpha: .5, ease: Quad.easeInOut }), 0);
+				aceAnimationIn.add(TweenMax.fromTo( aceRectArray[2], 1.5,{ scaleY: 2, rotation: (25 * toRAD), alpha: 0 },{ scaleY: .25, rotation: (-15 * toRAD), alpha: .5, ease: Quad.easeInOut }), 0);
+
+				aceAnimationIn.add(TweenMax.to( aceRectArray[0], 1.0,{ scaleY: .5, rotation: (-10 * toRAD), ease: Quad.easeInOut }), 1.5);
+				aceAnimationIn.add(TweenMax.to( aceRectArray[1], 1.0,{ scaleY: .25, rotation: (-10 * toRAD), ease: Quad.easeInOut }), 1.5);
+				aceAnimationIn.add(TweenMax.to( aceRectArray[2], 1.0,{ scaleY: 0, rotation: (-10 * toRAD), ease: Quad.easeInOut }), 1.5);
+				aceAnimationIn.add(TweenMax.to( aceRectArray[0], .5,{ alpha: 0 }), 1.5);
+				aceAnimationIn.add(TweenMax.to( aceRectArray[1], .5,{ alpha: 0 }), 1.5);
+				aceAnimationIn.add(TweenMax.to( aceRectArray[2], .5,{alpha: 0 }), 1.5);
+
+				// FINAL CIRCLE EXPLOSION
+				aceAnimationIn.add(TweenMax.fromTo( aceCircle1, 1.25,{ x: 250, y: 50, scaleX: 0, scaleY: 0},{ x: 0, y: 0, scaleX: 1, scaleY: 1, ease: Expo.easeOut }), 1.75);
+				aceAnimationIn.add(TweenMax.fromTo( aceCircle2, 1.5,{ x: 250, y: 50, scaleX: 0, scaleY: 0},{ x: -10, y: -10, scaleX: 1, scaleY: 1, ease: Elastic.easeOut }), 1.75);
+				aceAnimationIn.add(TweenMax.fromTo( aceCircle3, 1.75,{ x: 250, y: 50, scaleX: 0, scaleY: 0},{ x: 5, y: 2, scaleX: 1, scaleY: 1, ease: Elastic.easeOut }), 1.75);
+				aceAnimationIn.add(TweenMax.fromTo( aceCircle4, 1.25,{ x: 250, y: 50, scaleX: 0, scaleY: 0},{ x: -25, y: -25, scaleX: 1, scaleY: 1, ease: Elastic.easeOut }), 1.75);
+				aceAnimationIn.add(TweenMax.fromTo( aceCircle5, 1.5,{ x: 250, y: 50, scaleX: 0, scaleY: 0},{ x: 50, y: 70, scaleX: 1, scaleY: 1, ease: Elastic.easeOut }), 1.75);
+
+				aceAnimationIn.add(TweenMax.fromTo( aceTitle, 2,{ x: 50, y: 0, scaleX: 0, scaleY: 0, rotation: 2, alpha: 0 },{ x: 0, y: 0, scaleX: 1, scaleY: 1, rotation: 0, alpha: 1, ease: Elastic.easeOut }), 1.75);
+
+				aceAnimationIn.add(TweenMax.fromTo( aceLightning1, 1.0,{ scaleX: 0, scaleY: 0, x: 250, y: -180 },{ scaleX: 1, scaleY: 1, x: 40, y: -130, ease: Elastic.easeOut }), 1.80);
+				aceAnimationIn.add(TweenMax.fromTo( aceLightning2, 1.15,{ scaleX: 0, scaleY: 0, x: 250, y: -150 },{ scaleX: 1, scaleY: 1, x: 100, y: -100, ease: Elastic.easeOut }), 1.80);
+				aceAnimationIn.add(TweenMax.fromTo( aceLightning3, 1.25,{ scaleX: 0, scaleY: 0, x: 250, y: -110 },{ scaleX: 1, scaleY: 1, x: 140, y: -60, ease: Elastic.easeOut }), 1.80);
+				aceAnimationIn.add(TweenMax.fromTo( aceLightning4, 1.75,{ scaleX: 0, scaleY: 0, x: 250, y: -40 },{ scaleX: 1, scaleY: 1, x: 160, y: 10, ease: Elastic.easeOut }), 1.80);
+				aceAnimationIn.add(TweenMax.fromTo( aceLightning5, 1.45,{ scaleX: 0, scaleY: 0, x: 250, y: -30 },{ scaleX: 1, scaleY: 1, x: 100, y: 20, ease: Elastic.easeOut }), 1.80);
+				aceAnimationIn.add(TweenMax.fromTo( aceLightning6, 1.55,{ scaleX: 0, scaleY: 0, x: 250, y: 40 },{ scaleX: 1, scaleY: 1, x: -60, y: 90, ease: Elastic.easeOut }), 1.80);
+				aceAnimationIn.add(TweenMax.fromTo( aceLightning7, 1.65,{ scaleX: 0, scaleY: 0, x: 250, y: 10 },{ scaleX: 1, scaleY: 1, x: -120, y: 60, ease: Elastic.easeOut }), 1.80);
+				aceAnimationIn.add(TweenMax.fromTo( aceLightning8, 1.75,{ scaleX: 0, scaleY: 0, x: 250, y: -10 },{ scaleX: 1, scaleY: 1, x: -170, y: 40, ease: Elastic.easeOut }), 1.80);
+				aceAnimationIn.add(TweenMax.fromTo( aceLightning9, 1.85,{ scaleX: 0, scaleY: 0, x: 250, y: -40 },{ scaleX: 1, scaleY: 1, x: -70, y: -90, ease: Elastic.easeOut }), 1.80);
+
+				// SHAKE RATTLE & ROLL
+				aceAnimationIn.add(TweenMax.fromTo( momentAce, 0.75,{ x: 5, y: 5 },{ x: 0, y: 0, ease: RoughEase.ease.config({ strength: 15, points: 50 }) }), 1.75);
+				aceAnimationIn.add(TweenMax.to( momentAce, 0,{ x: 0, y: 0 }), 0);
+
+				aceAnimationIn.timeScale(1.25);
+				aceAnimationIn.play();
+
+				momentAce.visible = true;
+
+				animationTimer = setTimeout(destroyAce,6000);
+			}
+
+			function destroyAce() {
+
+				function scaleZero(){
+					//TweenMax.to(["#visualizer", "ani-ace", "#icon_ace"], 2, {scale:0});
+					TweenMax.set(["#visualizer",],{display:"none"});
+				}
+				aceAnimationOut =  new TimelineMax({ paused: true, onComplete:scaleZero});
+
+				//////////////// PARTICLE STUFF /////////////////
+				aceAnimationOut.add(TweenMax.to( aceParticleContainer, 1.0, { alpha: 0 }), 0);
+				aceAnimationOut.add(TweenMax.to( aceEm_TennisBalls.doc, 1.0,{ scaleX: 0, scaleY: 0, ease: Quart.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceEm_ThinShards.doc, 1.0,{ x: 600, y: -600,ease: Quart.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceEm_LightningBolts.doc, 1.0,{ x: -600, y: 600, ease: Quart.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceEm_Circles.doc, 1.0,{ scaleX: 0.5, scaleY: 0.5, ease: Quart.easeInOut }), 0);
+				/////////////////////////////////////////////////
+
+				aceAnimationOut.add(TweenMax.to( aceCircle1, 1.1,{ x: 0, y: 0, scaleX: 0, scaleY: 0, ease: Expo.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceCircle2, 1.0,{ x: 0, y: 0, scaleX: 0, scaleY: 0, ease: Expo.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceCircle3, .9,{ x: 0, y: 0, scaleX: 0, scaleY: 0, ease: Expo.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceCircle4, .8,{ x: 0, y: 0, scaleX: 0, scaleY: 0, ease: Expo.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceCircle5, .7,{ x: 0, y: 0, scaleX: 0, scaleY: 0, ease: Expo.easeInOut }), 0);
+
+				aceAnimationOut.add(TweenMax.to( aceTitle, .6,{ scaleX: 0, scaleY: 0, x: 0, y: 0, alpha: 0, ease: Expo.easeInOut }), 0);
+
+				aceAnimationOut.add(TweenMax.to( aceLightning1, 1.0,{ scaleX: 0, scaleY: 0, x: 0, y: 0, ease: Expo.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceLightning2, 1.0,{ scaleX: 0, scaleY: 0, x: 0, y: 0, ease: Expo.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceLightning3, 1.0,{ scaleX: 0, scaleY: 0, x: 0, y: 0, ease: Expo.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceLightning4, 1.0,{ scaleX: 0, scaleY: 0, x: 0, y: 0, ease: Expo.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceLightning5, 1.0,{ scaleX: 0, scaleY: 0, x: 0, y: 0, ease: Expo.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceLightning6, 1.0,{ scaleX: 0, scaleY: 0, x: 0, y: 0, ease: Expo.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceLightning7, 1.0,{ scaleX: 0, scaleY: 0, x: 0, y: 0, ease: Expo.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceLightning8, 1.0,{ scaleX: 0, scaleY: 0, x: 0, y: 0, ease: Expo.easeInOut }), 0);
+				aceAnimationOut.add(TweenMax.to( aceLightning9, 1.0,{ scaleX: 0, scaleY: 0, x: 0, y: 0, ease: Expo.easeInOut }), 0);
+
+				aceAnimationOut.add(TweenMax.fromTo( aceRectArray[0], .75,{ x: 500, y: -800, scaleY: 5, alpha: 0, rotation: (-15 * toRAD) },{ x: 0, y: 0, scaleY: 0, alpha: 1, rotation: (-15 * toRAD), ease: Expo.easeIn }), 0);
+				aceAnimationOut.add(TweenMax.fromTo( aceRectArray[1], .75,{ x: -500, y: 800, scaleY: 5, alpha: 0, rotation: (-15 * toRAD) },{ x: 0, y: 0, scaleY: 0, alpha: 1, rotation: (-15 * toRAD), ease: Expo.easeIn }), 0);
+
+				for (var i = 0; i < aceExplosionArray2.length; i++) {
+					var circle = aceExplosionArray2[i];
+					var duration = 1 + (i * .02);
+					aceAnimationOut.add(TweenMax.to( circle, (duration),{ x: 0, y: 0, scaleX: 0, scaleY: 0, alpha: 0, ease: Expo.easeInOut }), 0);
+				}
+
+				aceAnimationOut.timeScale(1);
+				aceAnimationOut.play();
+				animationTimer = setTimeout(hideMoments, 2000);
+			}
+
+			function init(){
+
+				stage = new PIXI.Stage(0xf6f6f6);
+				renderer = new PIXI.autoDetectRenderer(600, 600,null,false,true);
+				$("#visualizer").append(renderer.view);
+
+				vizGroup = new PIXI.DisplayObjectContainer();
+				stage.addChild(vizGroup);
+
+				initBeast();
+
+				$( window ).resize(onResize);
+				$( window ).scroll(onScroll);
+				onResize();
+
+				requestAnimFrame(animate);
+				TweenMax.set(["#visualizer"],{display:"none"});
+			}
+
+			function onScroll(){
+				updateViewportRect();
+			}
+
+			function animate() {
+				renderer.render(stage);
+				requestAnimationFrame( animate );
+				drawBeast();
+			}
+
+			function onResize(){
+				renderer.resize(window.innerWidth,window.innerHeight);
+				vizGroup.x = renderer.width/5;
+				vizGroup.y = renderer.height/5;
+				resizeBeast();
+			}
+
+			init();
+
+			$scope.ace = function(){
+				TweenMax.set(["#visualizer"],{display:"block"});
+				explodeAce();
+				return false;
+			}
+		}
+	}
+);
+'use strict';
+
+angular.module('animations').directive('aniHome',
+	function() {
+		return {
+			templateUrl: 'modules/animations/directives/template/ani-home.html',
+			restrict: 'E',
+			controller: aniHomeCtrl,
+
+			link: function postLink(scope, element, attrs) {
+			} // End link
+		};
+
+		function aniHomeCtrl($scope){
+
+			var renderer;
+			var stage;
+			var momentGroup;
+			var momentHomepage;
+			var animationTimer;
+
+
+			//////////////// PARTICLE STUFF /////////////////
+			var homepageParticles 	= new ParticleEngine(window.innerWidth/2, window.innerHeight/2);
+			var homepageEmitters 	= [];
+			var homepageParticleContainer;
+			var homepageEm_Plusses,
+				homepageEm_CirclesOutlined,
+				homepageEm_CirclesFilled,
+				homepageEm_ThinShard,
+				homepageEm_Triangles,
+				homepageEm_ThinShards,
+
+				homepageEm_CirclesTiny,
+				homepageEm_Triangles2,
+				homepageEm_CirclesOutlined2,
+				homepageLeftInner,
+				homepageRightInner,
+				homepageLeft2Inner,
+				homepageRight2Inner,
+				homepageSwarmArray;
+
+			var homepageLeftGroup1,homepageLeftGroup2,homepageRightGroup1,homepageRightGroup2,homepageLeft2Group2,homepageRight2Group1,homepageRight2Group2;
+			var homepageLogo, homepageSwarmAnimation1, homepageLeftAnimX, homepageLeft2Wrapper,  homepageLeft2Group1,homepageRight2Wrapper,
+				homepageRightAnimX, homepageLeftAnimY, homepageRightAnimY, homepageLeftAnimY2, homepageRightAnimY2;
+
+			var homepageLeftWrapper,
+				homepageRightWrapper,
+				homepageSwarmContainer1,
+				homepageSwarmContainer2,
+				homepageSwarmTri,
+				homepageLeftAngle1_1,
+				homepageLeftAngle1_2,
+				homepageLeftAngle2_1,
+				homepageLeftAngle2_2,
+
+				homepageRightAngle1_1,
+				homepageRightAngle1_2,
+				homepageRightAngle2_1,
+				homepageRightAngle2_2,
+
+				homepageLeft2Angle1_1,
+				homepageLeft2Angle1_2,
+				homepageLeft2Angle2_1,
+				homepageLeft2Angle2_2,
+
+				homepageRight2Angle1_1,
+				homepageRight2Angle1_2,
+				homepageRight2Angle2_1,
+				homepageRight2Angle2_2
+
+			var isHomepageActive = false;
+
+			var simplexNoise = new SimplexNoise();
+			var noiseTime = 0;
+
+
+			function initBeast(){
+				momentGroup = new PIXI.DisplayObjectContainer();
+				stage.addChild(momentGroup);
+				drawBeast();
+				createHomepage();
+			}
+
+			function hideMoments() {
+				clearTimeout(animationTimer);
+				momentHomepage.visible = false;
+				if (__PE)
+					__PE.reset();
+			}
+
+			function generateRandomNumber(min, max) {
+				var random = Math.floor(Math.random() * (max - min + 1)) + min;
+				return random;
+			}
+
+			var __PE; // reference to active particle engine;
+
+			function drawBeast(){
+				if (__PE)
+					__PE.step();
+			}
+
+			function resizeBeast(){
+				if (momentGroup){
+					momentGroup.x = renderer.width/2;
+					momentGroup.y = renderer.height/2;
+				}
+			}
+
+			function passParticlesToRAF(PE) {
+				__PE = PE;
+			}
+
+/////////////////////////////////////////////////
+
+			function createHomepage() {
+				momentHomepage = new PIXI.DisplayObjectContainer();
+				momentGroup.addChild(momentHomepage);
+
+				var assetsToLoader = [
+					"modules/animations/img/ani-home/angle-white.png",
+					"modules/animations/img/ani-home/shard3-white.png",
+					"modules/animations/img/ani-home/glow.png",
+					"modules/animations/img/ani-home/triangle2-white.png",
+					"modules/animations/img/ani-home/logo.png"
+				];
+				var loader = new PIXI.AssetLoader(assetsToLoader);
+				loader.onComplete = onAssetsLoaded;
+				loader.load();
+
+				function onAssetsLoaded() {
+
+					initCurves();
+
+					//////////////// PARTICLE STUFF /////////////////
+					homepageParticleContainer = new PIXI.DisplayObjectContainer();
+					momentHomepage.addChild(homepageParticleContainer);
+
+					homepageEm_CirclesOutlined = new Emitter({
+							type		:	"chaos",
+							count		:	50
+						},
+						{ 	type 		:	CircleOutlinedParticle,
+							size 		: 	20,
+							life		: 	800.0,
+							spin		: 	[0, 0],
+							speed		: 	[0.01, 0.05],
+							scale		: 	[.25,1],
+							colors		: 	[0xffffff,0xffffff],
+							fade		: 	0,
+							blendMode 	:	PIXI.blendModes.NORMAL
+						}
+					);
+					homepageEm_CirclesFilled = new Emitter({
+							type		:	"chaos",
+							count		:	50
+						},
+						{ 	type 		:	CircleFilledParticle,
+							size 		: 	8,
+							life		: 	800.0,
+							spin		: 	[0, 0],
+							speed		: 	[0.01, .05],
+							scale		: 	[0.1,1],
+							colors		: 	[0xffffff,0xffffff],
+							fade		: 	0,
+							blendMode 	:	PIXI.blendModes.NORMAL
+						}
+					);
+
+					homepageEm_Triangles = new Emitter({
+							type		:	"chaos",
+							count		:	50
+						},
+						{ 	type 		:	PolygonParticle,
+							size 		: 	8,
+							numSides	:	3,
+							life		: 	1000.0,
+							spin		: 	[-0.01, 0.05],
+							speed		: 	[0.01, 0.05],
+							scale		: 	[0.25, 1],
+							colors		: 	[0xffffff, 0xffffff],
+							fade		: 	0,
+							blendMode 	:	PIXI.blendModes.NORMAL
+						}
+					);
+
+					homepageEm_ThinShards = new Emitter({
+							type		:	"linear",
+							count		:	10,
+							angle		:	-45
+						},
+						{ 	type 		:	SimpleParticle,
+							image		:	"modules/animations/img/ani-home/shard3-white.png",
+							life		: 	1000.0,
+							spin		: 	[0,0],
+							speed		: 	[0.1, 0.2],
+							scale		: 	[0.5, 1],
+							colors		: 	[0xffffff, 0xffffff],
+							fade		: 	0,
+							blendMode 	:	PIXI.blendModes.NORMAL
+						}
+					);
+					homepageEm_CirclesTiny = new Emitter({
+							type		:	"chaos",
+							count		:	25
+						},
+						{ 	type 		:	CircleFilledParticle,
+							size 		: 	4,
+							life		: 	800.0,
+							spin		: 	[0, 0],
+							speed		: 	[0.1, .3],
+							scale		: 	[0.25,1],
+							colors		: 	[0x3ab6de,0xa8028c],
+							fade		: 	.1,
+							blendMode 	:	PIXI.blendModes.NORMAL
+						}
+					);
+
+
+					homepageEm_Triangles2 = new Emitter({
+							type		:	"chaos",
+							count		:	10
+						},
+						{ 	type 		:	PolygonParticle,
+							size 		: 	8,
+							numSides	:	3,
+							life		: 	1000.0,
+							spin		: 	[0.05, 0.05],
+							speed		: 	[0.15, 0.25],
+							scale		: 	[0.25, 1],
+							colors		: 	[0x6c1ee6, 0xeca31c, 0x53d497],
+							fade		: 	0,
+							blendMode 	:	PIXI.blendModes.NORMAL
+						}
+					);
+
+					homepageEm_CirclesOutlined2 = new Emitter({
+							type		:	"chaos",
+							count		:	10
+						},
+						{ 	type 		:	CircleOutlinedParticle,
+							size 		: 	20,
+							life		: 	800.0,
+							spin		: 	[0, 0],
+							speed		: 	[0.25, 0.5],
+							scale		: 	[.25,1],
+							colors		: 	[0x832273,0x832273],
+							fade		: 	0.4,
+							blendMode 	:	PIXI.blendModes.NORMAL
+						}
+					);
+
+					homepageEmitters.push(homepageEm_CirclesOutlined);
+					homepageEmitters.push(homepageEm_CirclesFilled);
+					homepageEmitters.push(homepageEm_Triangles);
+					homepageEmitters.push(homepageEm_ThinShards);
+					homepageEmitters.push(homepageEm_CirclesTiny);
+					homepageEmitters.push(homepageEm_Triangles2);
+					homepageEmitters.push(homepageEm_CirclesOutlined2);
+
+					homepageParticles.addEmitters(homepageEmitters);
+
+					homepageParticleContainer.addChild(homepageEm_CirclesOutlined.doc);
+					homepageParticleContainer.addChild(homepageEm_CirclesFilled.doc);
+					homepageParticleContainer.addChild(homepageEm_Triangles.doc);
+					homepageParticleContainer.addChild(homepageEm_ThinShards.doc);
+					homepageParticleContainer.addChild(homepageEm_CirclesTiny.doc);
+					homepageParticleContainer.addChild(homepageEm_Triangles2.doc);
+					homepageParticleContainer.addChild(homepageEm_CirclesOutlined2.doc);
+					/////////////////////////////////////////////////
+
+					// CENTERED GLOW
+					var homepageTextureGlow = PIXI.Texture.fromImage("modules/animations/img/ani-home/glow.png");
+					var homepageGlow = new PIXI.Sprite(homepageTextureGlow);
+					homepageGlow.anchor.x = 0.5;
+					homepageGlow.anchor.y = 0.5;
+					homepageGlow.alpha = 0.75;
+					momentHomepage.addChild(homepageGlow);
+
+					// SWARMING ARROWS
+					homepageSwarmContainer1 = new PIXI.DisplayObjectContainer();
+					homepageSwarmContainer2 = new PIXI.DisplayObjectContainer();
+					homepageSwarmArray = [];
+
+					var homepageTextureTriangle = PIXI.Texture.fromImage("modules/animations/img/ani-home/triangle2-white.png");
+					for (var i = 0; i < 10; i++) {
+						homepageSwarmTri = new PIXI.Sprite(homepageTextureTriangle);
+						homepageSwarmTri.anchor.x = 0.5;
+						homepageSwarmTri.anchor.y = 0.5;
+						homepageSwarmTri.tint = 0x6e1ce8;
+						homepageSwarmArray.push(homepageSwarmTri);
+						if (i < 5) {
+							homepageSwarmContainer1.addChild(homepageSwarmTri);
+						} else {
+							homepageSwarmContainer2.addChild(homepageSwarmTri);
+						}
+					}
+					momentHomepage.addChild(homepageSwarmContainer1);
+					momentHomepage.addChild(homepageSwarmContainer2);
+
+
+					// BEGIN MOVING ANGLES
+					// LEFT ANGLES
+					var homepageTextureAngle = PIXI.Texture.fromImage("modules/animations/img/ani-home/angle-white.png");
+
+					homepageLeftWrapper = new PIXI.DisplayObjectContainer();
+					homepageLeftInner = new PIXI.DisplayObjectContainer();
+					homepageLeftGroup1 = new PIXI.DisplayObjectContainer();
+
+					// RED ANGLE 1
+					homepageLeftAngle1_1 = new PIXI.Sprite(homepageTextureAngle);
+					homepageLeftAngle1_1.anchor.x = 0;
+					homepageLeftAngle1_1.anchor.y = 1;
+					homepageLeftAngle1_1.position.x = -250;
+					homepageLeftAngle1_1.position.y = -500;
+					homepageLeftAngle1_1.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageLeftGroup1.addChild(homepageLeftAngle1_1);
+
+					// RED ANGLE 2
+					homepageLeftAngle1_2 = new PIXI.Sprite(homepageTextureAngle);
+					homepageLeftAngle1_2.anchor.x = 0;
+					homepageLeftAngle1_2.anchor.y = 1;
+					homepageLeftAngle1_2.position.x = -300;
+					homepageLeftAngle1_2.position.y = -525;
+					homepageLeftAngle1_2.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageLeftGroup1.addChild(homepageLeftAngle1_2);
+					homepageLeftInner.addChild(homepageLeftGroup1);
+
+					homepageLeftGroup2 = new PIXI.DisplayObjectContainer();
+					// BLUE ANGLE 1
+					homepageLeftAngle2_1 = new PIXI.Sprite(homepageTextureAngle);
+					homepageLeftAngle2_1.anchor.x = 0;
+					homepageLeftAngle2_1.anchor.y = 1;
+					homepageLeftAngle2_1.position.x = 0;
+					homepageLeftAngle2_1.position.y = 100;
+					homepageLeftAngle2_1.alpha = .5;
+					homepageLeftAngle2_1.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageLeftGroup2.addChild(homepageLeftAngle2_1);
+
+					// BLUE ANGLE 2
+					homepageLeftAngle2_2 = new PIXI.Sprite(homepageTextureAngle);
+					homepageLeftAngle2_2.anchor.x = 0;
+					homepageLeftAngle2_2.anchor.y = 1;
+					homepageLeftAngle2_2.position.x = -150;
+					homepageLeftAngle2_2.position.y = 100;
+					homepageLeftAngle2_2.alpha = .5;
+					homepageLeftAngle2_2.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageLeftGroup2.addChild(homepageLeftAngle2_2);
+
+					homepageLeftInner.addChild(homepageLeftGroup2);
+					homepageLeftWrapper.addChild(homepageLeftInner);
+					momentHomepage.addChild(homepageLeftWrapper);
+
+
+					// RIGHT ANGLES
+					homepageRightWrapper = new PIXI.DisplayObjectContainer();
+					homepageRightInner = new PIXI.DisplayObjectContainer();
+					homepageRightGroup1 = new PIXI.DisplayObjectContainer();
+
+					// RED ANGLE 1
+					homepageRightAngle1_1 = new PIXI.Sprite(homepageTextureAngle);
+					homepageRightAngle1_1.anchor.x = 0;
+					homepageRightAngle1_1.anchor.y = 1;
+					homepageRightAngle1_1.position.x = -250;
+					homepageRightAngle1_1.position.y = -500;
+					homepageRightAngle1_1.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageRightGroup1.addChild(homepageRightAngle1_1);
+
+					// RED ANGLE 2
+					homepageRightAngle1_2 = new PIXI.Sprite(homepageTextureAngle);
+					homepageRightAngle1_2.anchor.x = 0;
+					homepageRightAngle1_2.anchor.y = 1;
+					homepageRightAngle1_2.position.x = -300;
+					homepageRightAngle1_2.position.y = -525;
+					homepageRightAngle1_2.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageRightGroup1.addChild(homepageRightAngle1_2);
+					homepageRightInner.addChild(homepageRightGroup1);
+
+					homepageRightGroup2 = new PIXI.DisplayObjectContainer();
+					// BLUE ANGLE 1
+					homepageRightAngle2_1 = new PIXI.Sprite(homepageTextureAngle);
+					homepageRightAngle2_1.anchor.x = 0;
+					homepageRightAngle2_1.anchor.y = 1;
+					homepageRightAngle2_1.position.x = 0;
+					homepageRightAngle2_1.position.y = 100;
+					homepageRightAngle2_1.alpha = .5;
+					homepageRightAngle2_1.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageRightGroup2.addChild(homepageRightAngle2_1);
+
+					// BLUE ANGLE 2
+					homepageRightAngle2_2 = new PIXI.Sprite(homepageTextureAngle);
+					homepageRightAngle2_2.anchor.x = 0;
+					homepageRightAngle2_2.anchor.y = 1;
+					homepageRightAngle2_2.position.x = -150;
+					homepageRightAngle2_2.position.y = 100;
+					homepageRightAngle2_2.alpha = .5;
+					homepageRightAngle2_2.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageRightGroup2.addChild(homepageRightAngle2_2);
+
+					homepageRightInner.addChild(homepageRightGroup2);
+					homepageRightWrapper.addChild(homepageRightInner);
+					momentHomepage.addChild(homepageRightWrapper);
+
+
+					// LEFT ANGLES V2
+					homepageLeft2Wrapper = new PIXI.DisplayObjectContainer();
+					homepageLeft2Inner = new PIXI.DisplayObjectContainer();
+					homepageLeft2Group1 = new PIXI.DisplayObjectContainer();
+
+					// RED ANGLE 1
+					homepageLeft2Angle1_1 = new PIXI.Sprite(homepageTextureAngle);
+					homepageLeft2Angle1_1.anchor.x = 0;
+					homepageLeft2Angle1_1.anchor.y = 1;
+					homepageLeft2Angle1_1.position.x = -250;
+					homepageLeft2Angle1_1.position.y = -500;
+					homepageLeft2Angle1_1.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageLeft2Group1.addChild(homepageLeft2Angle1_1);
+
+					// RED ANGLE 2
+					homepageLeft2Angle1_2 = new PIXI.Sprite(homepageTextureAngle);
+					homepageLeft2Angle1_2.anchor.x = 0;
+					homepageLeft2Angle1_2.anchor.y = 1;
+					homepageLeft2Angle1_2.position.x = -300;
+					homepageLeft2Angle1_2.position.y = -525;
+					homepageLeft2Angle1_2.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageLeft2Group1.addChild(homepageLeft2Angle1_2);
+					homepageLeft2Inner.addChild(homepageLeft2Group1);
+
+					homepageLeft2Group2 = new PIXI.DisplayObjectContainer();
+					// BLUE ANGLE 1
+					homepageLeft2Angle2_1 = new PIXI.Sprite(homepageTextureAngle);
+					homepageLeft2Angle2_1.anchor.x = 0;
+					homepageLeft2Angle2_1.anchor.y = 1;
+					homepageLeft2Angle2_1.position.x = 0;
+					homepageLeft2Angle2_1.position.y = 100;
+					homepageLeft2Angle2_1.alpha = .5;
+					homepageLeft2Angle2_1.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageLeft2Group2.addChild(homepageLeft2Angle2_1);
+
+					// BLUE ANGLE 2
+					homepageLeft2Angle2_2 = new PIXI.Sprite(homepageTextureAngle);
+					homepageLeft2Angle2_2.anchor.x = 0;
+					homepageLeft2Angle2_2.anchor.y = 1;
+					homepageLeft2Angle2_2.position.x = -150;
+					homepageLeft2Angle2_2.position.y = 100;
+					homepageLeft2Angle2_2.alpha = .5;
+					homepageLeft2Angle2_2.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageLeft2Group2.addChild(homepageLeft2Angle2_2);
+
+					homepageLeft2Inner.addChild(homepageLeft2Group2);
+					homepageLeft2Wrapper.addChild(homepageLeft2Inner);
+					momentHomepage.addChild(homepageLeft2Wrapper);
+
+
+					// RIGHT ANGLES
+					homepageRight2Wrapper = new PIXI.DisplayObjectContainer();
+					homepageRight2Inner = new PIXI.DisplayObjectContainer();
+					homepageRight2Group1 = new PIXI.DisplayObjectContainer();
+
+					// RED ANGLE 1
+					homepageRight2Angle1_1 = new PIXI.Sprite(homepageTextureAngle);
+					homepageRight2Angle1_1.anchor.x = 0;
+					homepageRight2Angle1_1.anchor.y = 1;
+					homepageRight2Angle1_1.position.x = -250;
+					homepageRight2Angle1_1.position.y = -500;
+					homepageRight2Angle1_1.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageRight2Group1.addChild(homepageRight2Angle1_1);
+
+					// RED ANGLE 2
+					homepageRight2Angle1_2 = new PIXI.Sprite(homepageTextureAngle);
+					homepageRight2Angle1_2.anchor.x = 0;
+					homepageRight2Angle1_2.anchor.y = 1;
+					homepageRight2Angle1_2.position.x = -300;
+					homepageRight2Angle1_2.position.y = -525;
+					homepageRight2Angle1_2.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageRight2Group1.addChild(homepageRight2Angle1_2);
+					homepageRight2Inner.addChild(homepageRight2Group1);
+
+					homepageRight2Group2 = new PIXI.DisplayObjectContainer();
+					// BLUE ANGLE 1
+					homepageRight2Angle2_1 = new PIXI.Sprite(homepageTextureAngle);
+					homepageRight2Angle2_1.anchor.x = 0;
+					homepageRight2Angle2_1.anchor.y = 1;
+					homepageRight2Angle2_1.position.x = 0;
+					homepageRight2Angle2_1.position.y = 100;
+					homepageRight2Angle2_1.alpha = .5;
+					homepageRight2Angle2_1.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageRight2Group2.addChild(homepageRight2Angle2_1);
+
+					// BLUE ANGLE 2
+					homepageRight2Angle2_2 = new PIXI.Sprite(homepageTextureAngle);
+					homepageRight2Angle2_2.anchor.x = 0;
+					homepageRight2Angle2_2.anchor.y = 1;
+					homepageRight2Angle2_2.position.x = -150;
+					homepageRight2Angle2_2.position.y = 100;
+					homepageRight2Angle2_2.alpha = .5;
+					homepageRight2Angle2_2.blendMode = PIXI.blendModes.MULTIPLY;
+					homepageRight2Group2.addChild(homepageRight2Angle2_2);
+
+					homepageRight2Inner.addChild(homepageRight2Group2);
+					homepageRight2Wrapper.addChild(homepageRight2Inner);
+					momentHomepage.addChild(homepageRight2Wrapper);
+
+					// LOGO
+					var homepageTextureLogo = PIXI.Texture.fromImage("modules/animations/img/ani-home/logo.png");
+					homepageLogo = new PIXI.Sprite(homepageTextureLogo);
+					homepageLogo.anchor.x = 0.5;
+					homepageLogo.anchor.y = 0.5;
+					homepageLogo.alpha = 0.75;
+					momentHomepage.addChild(homepageLogo);
+
+
+					//$('#icon_homepage').click(function(){
+					//	if (momentHomepage.visible == false) explodeHomepage();
+					//	return false;
+					//});
+					//
+					//TweenMax.to($('#icon_homepage'), 1, {css:{ display: 'inline-block', autoAlpha: 1}, delay: 0});
+
+				}
+
+				momentHomepage.visible = false;
+			}
+
+			function redrawHomepage() {
+				homepageSwarmTri.tint = 0x6e1ce8;
+
+				homepageLeftAngle1_1.tint = 0xd9182d;
+				homepageLeftAngle1_2.tint = 0xd9182d;
+				homepageLeftAngle2_1.tint = 0x00b2ef;
+				homepageLeftAngle2_2.tint = 0x00b2ef;
+
+				homepageRightAngle1_1.tint = 0xd9182d;
+				homepageRightAngle1_2.tint = 0xd9182d;
+				homepageRightAngle2_1.tint = 0x00b2ef;
+				homepageRightAngle2_2.tint = 0x00b2ef;
+
+				homepageLeft2Angle1_1.tint = 0xd9182d;
+				homepageLeft2Angle1_2.tint = 0xd9182d;
+				homepageLeft2Angle2_1.tint = 0x00b2ef;
+				homepageLeft2Angle2_2.tint = 0x00b2ef;
+
+				homepageRight2Angle1_1.tint = 0xd9182d;
+				homepageRight2Angle1_2.tint = 0xd9182d;
+				homepageRight2Angle2_1.tint = 0x00b2ef;
+				homepageRight2Angle2_2.tint = 0x00b2ef;
+			}
+
+			function explodeHomepage() {
+				isHomepageActive = true;
+
+				hideMoments();
+				redrawHomepage();
+
+				// KILL THE TWEENS
+				TweenMax.killTweensOf(homepageLeftInner);
+				TweenMax.killTweensOf(homepageRightInner);
+				TweenMax.killTweensOf(homepageLeft2Inner);
+				TweenMax.killTweensOf(homepageRight2Inner);
+				for (var i = 0; i < homepageSwarmArray.length; i++) {
+					var triangle = homepageSwarmArray[i];
+					TweenMax.killTweensOf(triangle);
+				}
+
+				//////////////// PARTICLE STUFF /////////////////
+
+				var w = window.innerWidth/2;
+				var h = window.innerHeight/2;
+
+				var i = 0;
+				var em;
+				while ( i < homepageEmitters.length ) {
+					em = homepageEmitters[i++];
+					em.w = w;
+					em.h = h;
+					em.reset();
+				}
+
+				passParticlesToRAF(homepageParticles);
+
+
+				/////////////////////////////////////////////////
+				homepageSwarmAnimation1 =  new TimelineMax({ paused: true, repeat: 2, onRepeat: function() {
+					var tempColor = homepageSwarmArray[0].tint;
+					if (tempColor == 16627731 ) {
+						tempColor = 0x6e1ce8;
+					} else  {
+						tempColor = 0xfdb813
+					}
+					for (var i = 0; i < homepageSwarmArray.length; i++) {
+						var triangle = homepageSwarmArray[i];
+						triangle.tint = tempColor;
+					}
+				}});
+				for (var i = 0; i < homepageSwarmArray.length; i++) {
+					var triangle = homepageSwarmArray[i],
+						tempX = 0,
+						tempY = 0,
+						tempScale = .5,
+						tempDelay  = (i * .05),
+						tempAlpha  =  1 - (i * .15),
+						tempAnchorX = 0.5,
+						tempAnchorY = 0.5
+
+					switch (i) {
+						case 0:
+						case 5:
+							tempAnchorX = 0.5;
+							tempAnchorY = 0.5;
+							break;
+						case 1:
+						case 6:
+							tempAnchorX = 1.1;
+							tempAnchorY = 1.7;
+							tempScale = .35;
+							break;
+						case 2:
+						case 7:
+							tempAnchorX = 0.1;
+							tempAnchorY = 1.7;
+							tempScale = .4;
+							break;
+						case 3:
+						case 8:
+							tempAnchorX = 1.25;
+							tempAnchorY = 2.25;
+							break;
+						case 4:
+						case 9:
+							tempAnchorX = -0.25;
+							tempAnchorY = 2.25;
+							break;
+						default:
+							break;
+					}
+					if (i < 5) {
+					} else {
+						//tempX = 0;
+						tempDelay  = ((i-5) * .05) + .25;
+						tempAlpha  =  1 - ((i-5) * .15);
+					}
+					homepageSwarmAnimation1.add(TweenMax.fromTo( triangle, 2,{ x: tempX, y: tempY, scaleX: 0, scaleY: 0, alpha: 0 },{ x: tempX, y: tempY, scaleX: tempScale, scaleY: tempScale, delay: tempDelay, alpha: tempAlpha, ease: Expo.easeInOut }), 0);
+					homepageSwarmAnimation1.add(TweenMax.fromTo( triangle, 2,{ anchorX: 0, anchorY: 0, rotation: -5 },{ anchorX: tempAnchorX, anchorY: tempAnchorY, rotation: 0, delay: tempDelay, ease: Elastic.easeInOut }), 0);
+					homepageSwarmAnimation1.add(TweenMax.to( triangle, 1,{ y: 400, scaleX: (tempScale * .85), scaleY: (tempScale * .85), delay: tempDelay, ease: Expo.easeInOut }), 1.5);
+					homepageSwarmAnimation1.add(TweenMax.to( triangle, .75,{ scaleX: 0, scaleY: 0, anchorX: 0, anchorY: 0, rotation: 10, alpha: 0, delay: tempDelay, ease: Expo.easeIn }), 2.25);
+					homepageSwarmAnimation1.add(TweenMax.to( triangle, .1,{ alpha: 0 }), 4.9);
+				}
+
+				// X MOVEMENT
+				homepageLeftAnimX =  new TimelineMax({ paused: true, repeat: 2 });
+				homepageLeftAnimX.add(TweenMax.fromTo( homepageLeftInner, 2, { x: 0 },{ x: -50, ease: Quad.easeInOut }), 0);
+				homepageLeftAnimX.add(TweenMax.to( homepageLeftInner, 2, { x: 0, ease: Quad.easeInOut }), 2);
+
+				homepageLeftAnimX.add(TweenMax.fromTo( homepageLeft2Inner, 2, { x: 0 },{ x: -50, ease: Quad.easeInOut }), 0);
+				homepageLeftAnimX.add(TweenMax.to( homepageLeft2Inner, 2, { x: 0, ease: Quad.easeInOut }), 2);
+
+				homepageRightAnimX =  new TimelineMax({ paused: true, repeat: 2 });
+				homepageRightAnimX.add(TweenMax.fromTo( homepageRightInner, 2, { x: 0 },{ x: -50, ease: Quad.easeInOut }), 0);
+				homepageRightAnimX.add(TweenMax.to( homepageRightInner, 2, { x: 0, ease: Quad.easeInOut }), 2);
+
+				homepageRightAnimX.add(TweenMax.fromTo( homepageRight2Inner, 2, { x: 0 },{ x: -50, ease: Quad.easeInOut }), 0);
+				homepageRightAnimX.add(TweenMax.to( homepageRight2Inner, 2, { x: 0, ease: Quad.easeInOut }), 2);
+
+				// Y MOVEMENT
+				homepageLeftAnimY =  new TimelineMax({ paused: true, repeat: 1 });
+				homepageLeftAnimY.add(TweenMax.fromTo( homepageLeftInner, 2, { y: 200},{ y: 100, ease: Expo.easeInOut }), 1.5);
+				homepageLeftAnimY.add(TweenMax.to( homepageLeftInner, 2, { y: 200, ease: Expo.easeInOut }), 5);
+
+				homepageRightAnimY =  new TimelineMax({ paused: true, repeat: 1 });
+				homepageRightAnimY.add(TweenMax.fromTo( homepageRightInner, 2, { y: 200 },{ y: 100, ease: Expo.easeInOut }), 1.5);
+				homepageRightAnimY.add(TweenMax.to( homepageRightInner, 2, { y: 200, ease: Expo.easeInOut }), 5);
+
+				// HIDDEN STUFF
+				homepageLeftAnimY2 =  new TimelineMax({ paused: true, repeat: 1 });
+				homepageLeftAnimY2.add(TweenMax.fromTo( homepageLeft2Inner, 2, { y: 200, alpha: 0 },{ y: 200, alpha: 1, ease: Expo.easeInOut }), 1.5);
+				homepageLeftAnimY2.add(TweenMax.to( homepageLeft2Inner, 2, { alpha: 0, ease: Expo.easeInOut }), 5);
+
+				homepageRightAnimY2 =  new TimelineMax({ paused: true, repeat: 1 });
+				homepageRightAnimY2.add(TweenMax.fromTo( homepageRight2Inner, 2, { y: 200, alpha: 0 },{ y: 200, alpha: 1, ease: Expo.easeInOut }), 1.5);
+				homepageRightAnimY2.add(TweenMax.to( homepageRight2Inner, 2, { alpha: 0, ease: Expo.easeInOut }), 5);
+
+				homepageLeftAnimX.timeScale(1.5);
+				homepageRightAnimX.timeScale(1.5);
+				homepageLeftAnimY.timeScale(1.5);
+				homepageRightAnimY.timeScale(1.5);
+				homepageLeftAnimY2.timeScale(1.5);
+				homepageRightAnimY2.timeScale(1.5);
+
+				homepageSwarmAnimation1.time(0);
+				homepageLeftAnimX.time(0);
+				homepageRightAnimX.time(0);
+				homepageLeftAnimY.time(0);
+				homepageRightAnimY.time(0);
+				homepageLeftAnimY2.time(0);
+				homepageRightAnimY2.time(0);
+
+				homepageSwarmAnimation1.play();
+				homepageLeftAnimX.play();
+				homepageRightAnimX.play();
+				homepageLeftAnimY.play();
+				homepageRightAnimY.play();
+				homepageLeftAnimY2.play();
+				homepageRightAnimY2.play();
+
+				// FADE EVERYTHING IN
+				TweenMax.fromTo (homepageLogo, 2, { alpha: 0 }, { alpha: 1 });
+				TweenMax.fromTo (homepageLeftWrapper, 2, { alpha: 0 }, { alpha: 1 });
+				TweenMax.fromTo (homepageRightWrapper, 2, { alpha: 0 }, { alpha: 1 });
+				TweenMax.fromTo (homepageLeft2Wrapper, 2, { alpha: 0 }, { alpha: 1 });
+				TweenMax.fromTo (homepageRight2Wrapper, 2, { alpha: 0 }, { alpha: 1 });
+				TweenMax.fromTo (curveGroup, 2, { alpha: 0 }, { alpha: 1 });
+				TweenMax.fromTo (homepageParticleContainer, 2, { alpha: 0 }, { alpha: 1 });
+
+				// START ANIMATING THINGS
+				resizeHomepage();
+				momentHomepage.visible = true;
+
+				var animationTimer = setTimeout(destroyHomepage, 8000);
+			}
+
+			function destroyHomepage() {
+				TweenMax.to ( homepageLeftWrapper, 2, { alpha: 0 });
+				TweenMax.to ( homepageRightWrapper, 2, { alpha: 0 });
+				TweenMax.to ( homepageLeft2Wrapper, 2, { alpha: 0 });
+				TweenMax.to ( homepageRight2Wrapper, 2, { alpha: 0 });
+				TweenMax.to ( curveGroup, 2, { alpha: 0 });
+				TweenMax.to ( homepageLogo, 2, { alpha: 0 });
+				TweenMax.to ( homepageParticleContainer, 2, { alpha: 0,  onComplete: function () {
+					isHomepageActive = false;
+					TweenMax.set(["#visualizer2",],{display:"none"});
+				}});
+
+				var animationTimer = setTimeout(hideMoments, 2000);
+			}
+
+			function resizeHomepage(){
+				resizeCurves();
+
+				var posX = renderer.width/2;
+				var posY = renderer.height/2;
+				var scaleRatio = Math.max((window.innerWidth/1920), (window.innerHeight/1000));
+				var triPosX =  350 * scaleRatio;
+				var triPosY = 200 * scaleRatio;
+				// DON'T LET IT GET TOO CLOSE TO THE LOGO
+				if (triPosX < 350) {
+					triPosX = 350;
+				}
+				var triScale = scaleRatio + .5;
+
+				// POSITION THE MOVING ARROWS
+				TweenMax.set (homepageSwarmContainer1, { x: -triPosX, y: triPosY, scaleX: triScale, scaleY: triScale, rotation: (-210 * toRAD) });
+				TweenMax.set (homepageSwarmContainer2, { x: triPosX, y: -triPosY, scaleX: triScale, scaleY: triScale, rotation: (-30 * toRAD) });
+
+				// POSITION THE SIDE ANGLES
+				homepageLeftWrapper.position.x = -posX;
+				homepageLeftWrapper.position.y = posY;
+				TweenMax.set (homepageLeftWrapper, { scaleX: scaleRatio, scaleY: scaleRatio });
+
+				homepageLeft2Wrapper.position.x = -posX;
+				homepageLeft2Wrapper.position.y = posY;
+				TweenMax.set (homepageLeft2Wrapper, { scaleX: scaleRatio, scaleY: scaleRatio });
+
+				homepageRightWrapper.position.x = posX;
+				homepageRightWrapper.position.y = -posY;
+				TweenMax.set (homepageRightWrapper, { scaleX: scaleRatio, scaleY: scaleRatio, rotation: (180 * toRAD) });
+
+				homepageRight2Wrapper.position.x = posX;
+				homepageRight2Wrapper.position.y = -posY;
+				TweenMax.set (homepageRight2Wrapper, { scaleX: scaleRatio, scaleY: scaleRatio, rotation: (180 * toRAD) });
+			}
+
+
+
+
+			var ATUtil = {
+				randomRange : function(min, max) {
+					return min + Math.random() * (max - min);
+				},
+				randomInt : function(min,max){
+					return Math.floor(min + Math.random() * (max - min + 1));
+				},
+				map : function(value, min1, max1, min2, max2) {
+					return ATUtil.lerp(ATUtil.norm(value, min1, max1), min2, max2);
+				},
+				lerp : function(value, min, max){
+					return min + (max -min) * value;
+				},
+				norm : function(value , min, max){
+					return (value - min) / (max - min);
+				},
+				shuffle : function(o) {
+					for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+					return o;
+				},
+				clamp : function(value, min, max) {
+					return Math.max(Math.min(value, max), min);
+				}
+			};
+
+//curves
+			var CURVE_COUNT = 3;
+			var SEGMENT_COUNT = 6;
+			var curves = [];
+			var curvePts = []; //2D array: number of curves x number of segments
+			var xstep
+			var curveOpacity = 0;
+			var curveGroup;
+
+
+			function initCurves(){
+				//init curves
+				curveGroup = new PIXI.DisplayObjectContainer();
+				momentHomepage.addChild(curveGroup);
+
+				xstep = (renderer.width)/SEGMENT_COUNT;
+				for (var i = 0; i < CURVE_COUNT; i++) {
+					var curve = new PIXI.Graphics();
+					curveGroup.addChild(curve);
+					//curve.blendMode = PIXI.blendModes.MULTIPLY;
+					curves.push(curve);
+
+					//create random curve points
+					var thisCurvePts = [];
+					curvePts.push(thisCurvePts)
+
+					var xpos = -(renderer.width )/2;
+					for (var j = 0; j <= SEGMENT_COUNT; j++) {
+						var pt = getRandomPt(xpos);
+						thisCurvePts.push(pt);
+						xpos += xstep;
+					}
+				}
+
+				drawCurves();
+			}
+
+			function resizeCurves(){
+				//resize curves
+				if (curveGroup){
+					xstep = (renderer.width )/SEGMENT_COUNT;
+					for (var i = 0; i < CURVE_COUNT; i++) {
+						var thisCurvePts = curvePts[i];
+						var xpos = -(renderer.width )/2;
+						for (var j = 0; j <= SEGMENT_COUNT; j++) {
+							thisCurvePts[j].x = xpos;
+							xpos += xstep;
+						}
+					}
+				}
+			}
+
+
+//every frame - update curve points and redraw curves
+			function drawCurves(){
+
+				for (var i = 0; i < CURVE_COUNT; i++) {
+
+					var curve = curves[i];
+					var thisCurvePts = curvePts[i];
+
+					for (var j = 0; j <= SEGMENT_COUNT; j ++) {
+						thisCurvePts[j].y = simplexNoise.noise(noiseTime + j/8, i/8) *  200;
+					}
+
+					curve.clear();
+
+					//DO FILL?
+					if (curveOpacity > 0){
+						curve.beginFill(COLORS[i],curveOpacity);
+					}else{
+						//curve.lineStyle(10, COLORS[i],.8);
+						curve.lineStyle(1, 0xcccccc,1);
+					}
+
+					// move to the first point
+					curve.moveTo(thisCurvePts[0].x, thisCurvePts[0].y);
+
+					//draw through mid points
+					for (var j = 1; j <= SEGMENT_COUNT - 2; j ++)
+					{
+						var xc = (thisCurvePts[j].x + thisCurvePts[j + 1].x) / 2;
+						var yc = (thisCurvePts[j].y + thisCurvePts[j + 1].y) / 2;
+						curve.quadraticCurveTo(thisCurvePts[j].x, thisCurvePts[j].y, xc, yc);
+					}
+					// curve through the last two points
+					curve.quadraticCurveTo(thisCurvePts[j].x, thisCurvePts[j].y, thisCurvePts[j+1].x,thisCurvePts[j+1].y);
+
+					//FILL
+					if (curveOpacity > 0){
+						curve.lineTo(thisCurvePts[j+1].x, 300);
+						curve.lineTo(thisCurvePts[0].x, 300);
+						curve.lineTo(thisCurvePts[0].x, thisCurvePts[0].y)
+						curve.endFill();
+					}
+
+				};
+
+			}
+
+			function getRandomPt(xpos){
+				var yRange = renderer.height/2;
+				return new PIXI.Point(xpos,ATUtil.randomRange(-yRange,yRange));
+			}
+
+
+
+			function init(){
+
+				stage = new PIXI.Stage(0xf6f6f6);
+				renderer = new PIXI.autoDetectRenderer(800, 600,null,false,true);
+				$("#visualizer2").append(renderer.view);
+
+				var vizGroup = new PIXI.DisplayObjectContainer();
+				stage.addChild(vizGroup);
+
+				initBeast();
+
+				$( window ).resize(onResize);
+				$( window ).scroll(onScroll);
+				onResize();
+
+				requestAnimFrame(animate);
+				TweenMax.set(["#visualizer2"],{display:"none"});
+			}
+
+			function onScroll(){
+				updateViewportRect();
+			}
+
+			function animate() {
+				renderer.render(stage);
+				requestAnimationFrame( animate );
+
+				if(isHomepageActive) {
+					drawCurves();
+					noiseTime += 0.002;
+				}
+
+				drawBeast();
+			}
+
+			function onResize(){
+				renderer.resize(window.innerWidth,window.innerHeight);
+				resizeBeast();
+			}
+
+			init();
+
+			$scope.home = function(){
+				TweenMax.set(["#visualizer2"],{display:"block"});
+				explodeHomepage();
+				return false;
+			}
+		}
+	}
+);
 'use strict';
 
 // Configuring the Articles module
