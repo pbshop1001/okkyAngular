@@ -728,7 +728,7 @@ angular.module('animations').directive('aniHome',
 				TweenMax.to ( homepageLogo, 2, { alpha: 0 });
 				TweenMax.to ( homepageParticleContainer, 2, { alpha: 0,  onComplete: function () {
 					isHomepageActive = false;
-					TweenMax.set(["#visualizer2",],{display:"none"});
+					TweenMax.set(["#visualizer",],{display:"none"});
 				}});
 
 				var animationTimer = setTimeout(hideMoments, 2000);
@@ -849,8 +849,7 @@ angular.module('animations').directive('aniHome',
 					}
 				}
 			}
-
-
+			
 //every frame - update curve points and redraw curves
 			function drawCurves(){
 
@@ -893,9 +892,7 @@ angular.module('animations').directive('aniHome',
 						curve.lineTo(thisCurvePts[0].x, thisCurvePts[0].y)
 						curve.endFill();
 					}
-
 				};
-
 			}
 
 			function getRandomPt(xpos){
@@ -903,13 +900,10 @@ angular.module('animations').directive('aniHome',
 				return new PIXI.Point(xpos,ATUtil.randomRange(-yRange,yRange));
 			}
 
-
-
 			function init(){
-
 				stage = new PIXI.Stage(0xf6f6f6);
 				renderer = new PIXI.autoDetectRenderer(800, 600,null,false,true);
-				$("#visualizer2").append(renderer.view);
+				$("#visualizer").append(renderer.view);
 
 				var vizGroup = new PIXI.DisplayObjectContainer();
 				stage.addChild(vizGroup);
@@ -921,7 +915,7 @@ angular.module('animations').directive('aniHome',
 				onResize();
 
 				requestAnimFrame(animate);
-				TweenMax.set(["#visualizer2"],{display:"none"});
+				TweenMax.set(["#visualizer"],{display:"none"});
 			}
 
 			function onScroll(){
@@ -941,14 +935,17 @@ angular.module('animations').directive('aniHome',
 			}
 
 			function onResize(){
-				renderer.resize(window.innerWidth,window.innerHeight);
+				renderer.resize(window.innerWidth*0.9,window.innerHeight*0.9);
 				resizeBeast();
 			}
 
 			init();
 
 			$scope.home = function(){
-				TweenMax.set(["#visualizer2"],{display:"block"});
+				TweenMax.set(["#visualizer"],{display:"block"});
+				var target = $('#webAni');
+				var destination = target.offset().top
+				TweenLite.to($('#open-board-content'), 2, {scrollTo:{y:destination, autoKill: true}, ease:Power2.easeOut});
 				explodeHomepage();
 				return false;
 			}

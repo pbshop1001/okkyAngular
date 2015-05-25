@@ -1,55 +1,87 @@
-<section style="background-color: whitesmoke;" class="container" data-ng-controller="D2lLessonsController" data-ng-init="findOne(); loadGDocs();">
+<section style="background-color: whitesmoke;" data-ng-controller="D2lLessonsController" data-ng-init="findOne(); loadGDocs();">
 
-		<h1 data-ng-bind="d2lLesson.name"></h1>
+    <section class="hero">
+        <div class="container">
+            <h1 class="md-display-3" style="color:white; text-align:center;" data-ng-bind="d2lLesson.name"></h1>
 
-	<!--<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == d2lLesson.user._id))">-->
-		<!--<a class="btn btn-primary" href="/#!/d2l-lessons/{{d2lLesson._id}}/edit">-->
-			<!--<i class="glyphicon glyphicon-edit"></i>-->
-		<!--</a>-->
-		<!--<a class="btn btn-primary" data-ng-click="remove();">-->
-			<!--<i class="glyphicon glyphicon-trash"></i>-->
-		<!--</a>-->
-	<!--</div>-->
-	<!--<small>-->
-		<!--<em class="text-muted">-->
-			<!--Posted on-->
-			<!--<span data-ng-bind="d2lLesson.created | date:'mediumDate'"></span>-->
-			<!--by-->
-			<!--<span data-ng-bind="d2lLesson.user.displayName"></span>-->
-		<!--</em>-->
-	<!--</small>-->
-	<!--<h3 class="md-title">강의 소개</h3>-->
-	<!--<p class="md-body-1">{{d2lLesson.body}}</p>-->
+            <!--<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == d2lLesson.user._id))">-->
+            <!--<a class="btn btn-primary" href="/#!/d2l-lessons/{{d2lLesson._id}}/edit">-->
+            <!--<i class="glyphicon glyphicon-edit"></i>-->
+            <!--</a>-->
+            <!--<a class="btn btn-primary" data-ng-click="remove();">-->
+            <!--<i class="glyphicon glyphicon-trash"></i>-->
+            <!--</a>-->
+            <!--</div>-->
+            <!--<small>-->
+            <!--<em class="text-muted">-->
+            <!--Posted on-->
+            <!--<span data-ng-bind="d2lLesson.created | date:'mediumDate'"></span>-->
+            <!--by-->
+            <!--<span data-ng-bind="d2lLesson.user.displayName"></span>-->
+            <!--</em>-->
+            <!--</small>-->
+            <!--<h3 class="md-title">강의 소개</h3>-->
+            <!--<p class="md-body-1">{{d2lLesson.body}}</p>-->
 
-	<p class="md-caption">{{d2lLesson.body}}</p>
+            <p style="text-align:center; margin-bottom: 20px;" class="md-body-2">{{d2lLesson.body}}</p>
 
-	<md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-green"
-				   layout="column" layout-align="space-around start">
+            <div id="wistia_ocowx278d5" class="wistia_embed wistia-resp">&nbsp;</div>
+            <div layout="row" layout-align="center center">
+                <md-button class="md-primary md-raised">1x</md-button>
+                <md-button class="md-warn md-raised">Likes</md-button>
+                <md-button class="md-accent md-raised">Likes</md-button>
+                <md-button class="md-raised">Likes</md-button>
+            </div>
+        </div>
+        <!--<md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-green"-->
+                       <!--layout="column" layout-align="space-around start">-->
+            <!--<h3 class="md-title">Videos</h3>-->
+            <!-- -->
+        <!--</md-whiteframe>-->
+    </section>
 
-		<h3 class="md-title">Examples</h3>
-		<div layout="row" class="md-body-1">
-			<md-button class="md-raised md-primary" ng-repeat="ex in d2lLesson.example">
-				<a style="color:white" href="{{ex.link}}" target="_blank">{{ex.name}}</a>
-			</md-button>
-		</div>
-	</md-whiteframe>
+    <section class="lesson-content">
+        <div class="container">
+            <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-green"
+                           layout="column" layout-align="space-around start">
+                <h3 class="md-title">Angular 2 - Binding (es5)</h3>
+                <p class="md-body-1">
+                    Binding in Angular 2 works much the same way as binding in Angular 1, but there are some very important differences. John covers the differences and improvements you can look forward to as you start building your own Angular 2 components.
+                </p>
+            </md-whiteframe>
 
-	<md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-green"
-				   layout="column" layout-align="space-around start">
-		<h3 class="md-title">Videos</h3>
-		<div id="wistia_ocowx278d5" class="wistia_embed" style="width:640px;height:360px;">&nbsp;</div>
-	</md-whiteframe>
+            <md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-green"
+                           layout="column" layout-align="space-around start">
+                <h3 class="md-title">Related Lessons</h3>
+            </md-whiteframe>
+
+            <div layout="row" layout-sm="column" layout-align="space-between start">
+
+                <md-whiteframe flex="48" flex-sm="100"
+                               class="md-whiteframe-z2 meanT-home-card ob-underbar-green"
+                               layout="column" layout-align="space-around start">
+
+                    <h3 class="md-title">Documents</h3>
+                    <div ng-repeat="gdoc in gdocs" class="md-body-1">
+                        <md-button class="md-warn md-raised" ng-click="linkGDoc(gdoc)">{{gdoc.name}}</md-button>
+                    </div>
+                </md-whiteframe>
+
+                <md-whiteframe flex="48" flex-sm="100"
+                               class="md-whiteframe-z2 meanT-home-card ob-underbar-green"
+                               layout="column" layout-align="space-around start">
+                    <h3 class="md-title">Examples</h3>
+                    <div layout="column" class="md-body-1">
+                        <md-button class="md-raised md-primary" ng-repeat="ex in d2lLesson.example">
+                            <a style="color:white" href="{{ex.link}}" target="_blank">{{ex.name}}</a>
+                        </md-button>
+                    </div>
+                </md-whiteframe>
+            </div>
+        </div>
+    </section>
 
 
-	<md-whiteframe class="md-whiteframe-z2 meanT-home-card ob-underbar-green"
-				   layout="column" layout-align="space-around start">
-
-		<h3 class="md-title">Documents</h3>
-		<div ng-repeat="gdoc in gdocs" class="md-body-1">
-			<div>{{gdoc.name}}</div>
-			<md-button class="md-warn md-raised" style="font-size:0.8em" ng-click="linkGDoc(gdoc)">Open</md-button>
-		</div>
-	</md-whiteframe>
 
 
 

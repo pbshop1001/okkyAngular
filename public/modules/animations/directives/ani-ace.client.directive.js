@@ -614,9 +614,9 @@ angular.module('animations').directive('aniAce',
 			}
 
 			function onResize(){
-				renderer.resize(window.innerWidth,window.innerHeight);
-				vizGroup.x = renderer.width/5;
-				vizGroup.y = renderer.height/5;
+				renderer.resize(window.innerWidth*0.9,window.innerHeight*0.9);
+				//vizGroup.x = renderer.width/5;
+				//vizGroup.y = renderer.height/5;
 				resizeBeast();
 			}
 
@@ -624,6 +624,9 @@ angular.module('animations').directive('aniAce',
 
 			$scope.ace = function(){
 				TweenMax.set(["#visualizer"],{display:"block"});
+				var target = $('#webAni');
+				var destination = target.offset().top
+				TweenLite.to($('#open-board-content'), 2, {scrollTo:{y:destination, autoKill: true}, ease:Power2.easeOut});
 				explodeAce();
 				return false;
 			}
