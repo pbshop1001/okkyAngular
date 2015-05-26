@@ -1,4 +1,5 @@
 'use strict';
+// Hellow World
 
 // D2l lessons controller
 angular.module('d2l-lessons').controller('D2lLessonsController', D2lLessonsController);
@@ -6,11 +7,12 @@ angular.module('d2l-lessons').controller('D2lLessonsController', D2lLessonsContr
 	                              $mdDialog, $location, $window, Authentication,
 	                              D2lLessons, D2lClassesOwnership, D2lExamples,
 	                              GoogledocsByLesson) {
-		$scope.authentication = Authentication;
 
+		$scope.authentication = Authentication;
 		console.log('lesson ctrl')
-		var wistiaEmbed = Wistia.embed("ocowx278d5");
+
 		var contentType = true;
+
 		// Create new D2l lesson
 		$scope.create = function() {
 			console.log(this.class);
@@ -71,6 +73,7 @@ angular.module('d2l-lessons').controller('D2lLessonsController', D2lLessonsContr
 
 		// Find existing D2l lesson
 		$scope.findOne = function() {
+			var wistiaEmbed = Wistia.embed("ocowx278d5");
 			$scope.d2lLesson = D2lLessons.get({ 
 				d2lLessonId: $stateParams.d2lLessonId
 			});
@@ -133,7 +136,6 @@ angular.module('d2l-lessons').controller('D2lLessonsController', D2lLessonsContr
 			);
 
 			function D2lHwDialogCtrl(scope, $timeout, $mdDialog, D2lHws, D2lClassesOwnership, GDriveSelectResult){
-
 				scope.$on('handleEmit', function(event, args) {
 					//console.log('broadcast is invoked');
 					scope.project.gdocId=args.message;

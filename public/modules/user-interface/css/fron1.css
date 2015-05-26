@@ -40,13 +40,6 @@
     text-align: center;
 }
 
-.face:after {
-    content:'Uri[-_-]miuM';
-    font-family: 'Indie Flower';
-}
-.face:hover:after {
-    content:'Uri[^_^]miuM';
-}
 
 .testFont {
     font-family: "bebas-neue",sans-serif;

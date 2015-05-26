@@ -155,3 +155,12 @@
 @keyframes rotateOutNewspaper {
     to { transform: translateZ(-3000px) rotateZ(360deg); opacity: 0; }
 }
+
+.class-lesson-card{
+    background: #b9f6ca !important;
+    height:100%; width:100%
+}
+
+.class-lesson-card .lesson-num{
+    font-size:12px;
+}

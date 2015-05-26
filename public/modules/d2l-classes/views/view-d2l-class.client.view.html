@@ -1,85 +1,89 @@
 
-<section class="headerEnabled openboard-background" data-ng-controller="D2lClassesController" data-ng-init="findOne()">
-	<div layout="row" layout-align="center center">
-		<b><h2>{{d2lClass.prefix}} {{d2lClass.name}}</h2></b>
-	</div>
+<section class="openboard-background" data-ng-controller="D2lClassesController" data-ng-init="findOne()">
+	<section class="container">
+		<div layout="row" layout-align="center center">
+			<b><h2>{{d2lClass.prefix}} {{d2lClass.name}}</h2></b>
+		</div>
 
-	<div ng-show="classOwner" style="position: fixed; bottom:35px; right:35px">
-		<md-button class="green md-fab" ng-click="openAdminMenu()">
-			<md-icon md-svg-src="modules/d2l/img/flat-svg/settings.svg" class="ng-scope ng-isolate-scope md-default-theme" aria-hidden="true"></md-icon>
-		</md-button>
-	</div>
-
-	<!-- Important Date Class Board-->
-	<div>
-	<div layout="row" layout-sm="column">
-		<md-whiteframe flex="50" flex-sm="100" ng-if="calendarAvail" flex class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
-					   layout="column" layout-align="space-around start"
-				style="min-height: 350px;">
-			<h3 class="md-title">칼렌더</h3>
-			<iframe ng-src="{{calendar()}}"
-					style=" border-width:0"; width='100%'; height="250px" frameborder="0" scrolling="no"></iframe>
-		</md-whiteframe>
-		<class-board></class-board>
-	</div>
-	</div>
-
-	<!-- Class Lectures-->
-	<div class="md-whiteframe-z2 meanT-home-card ob-underbar-red" style="margin-bottom:30px;">
-		<h3 class="md-title"> Class Lectures </h3>
-		<md-grid-list
-				md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
-				md-row-height-gt-md="1:1" md-row-height="2:2"
-				md-gutter="12px" md-gutter-gt-sm="8px" >
-
-
-			<md-grid-tile ng-repeat="lesson in lessons" class="green">
-				<md-card  ng-click="toGo(lesson._id)">
-					<img src="modules/d2l-classes/img/intro.jpg" alt="Washed Out">
-					<md-card-content>
-						<a data-ng-href="#!/d2l-lessons/{{lesson._id}}" style="font-size:12px;">Lecture{{$index+1}}</a>
-						<p class="md-body-1">{{lesson.name}}</p>
-					</md-card-content>
-				</md-card>
-			</md-grid-tile>
-		</md-grid-list>
-	</div>
-
-	<!--List HW-->
-	<md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-red"
-				   layout="column" layout-align="space-around start">
-		<div ng-show="classOwner" style="position:inherit; margin-bottom: 5px;">
-			<md-button class="md-primary" ng-click="copyHWTemplate('1S1cucFhz96cGRHvXzgGqxuptNR-NgWKpIwI55RB67NU')">
-				<md-icon style="font-size:40px; width:40px; height:40px;" md-svg-src="modules/openboard/img/doc.svg"></md-icon>
-				Copy Assignment Template
+		<div ng-show="classOwner" style="position: fixed; bottom:35px; right:35px">
+			<md-button class="green md-fab" ng-click="openAdminMenu()">
+				<md-icon md-svg-src="modules/d2l/img/flat-svg/settings.svg" class="ng-scope ng-isolate-scope md-default-theme" aria-hidden="true"></md-icon>
 			</md-button>
-			<md-button class="md-primary md-raised" ng-click="showNewAssign()">New Assignment</md-button>
 		</div>
 
-		<h3 class="md-title">Class 자료</h3>
-		<div style="border-top: 5px solid #ffeb45; padding: 5px;">
-			<p class="md-caption">
-				아래 Document Link 를 클릭 하시면 자신의 구글 드라이브에 자료가 복사 됩니다.
-			</p>
-			<table st-table="hwsCopy" st-safe-src="hws" class="table table-striped">
-				<thead>
-				<tr>
-					<th st-sort="title">Title</th>
-					<th>Doc Link</th>
-				</tr>
-				<tr>
-					<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr ng-repeat="HW in hwsCopy">
-					<td>{{HW.title}}</td>
-					<td> <md-button class="md-warn md-raised" style="font-size:0.8em" ng-click="linkHW(HW)">Open</md-button></td>
-				</tr>
-				</tbody>
-			</table>
+		<!-- Important Date Class Board-->
+		<div style="margin-bottom: 15px;">
+			<div layout="row" layout-sm="column">
+				<md-whiteframe flex="50" flex-sm="100" ng-if="calendarAvail" flex class="md-whiteframe-z2 meanT-home-card ob-underbar-dark"
+							   layout="column" layout-align="space-around start"
+							   style="min-height: 350px;">
+					<h3 class="md-title">칼렌더</h3>
+					<iframe ng-src="{{calendar()}}"
+							style=" border-width:0"; width='100%'; height="250px" frameborder="0" scrolling="no"></iframe>
+				</md-whiteframe>
+				<class-board></class-board>
+			</div>
 		</div>
-	</md-whiteframe>
 
+		<!-- Class Lectures-->
+		<div class="md-whiteframe-z2 meanT-home-card ob-underbar-red" style="margin-bottom:30px;">
+			<h3 class="md-title"> Class Lectures </h3>
+			<md-grid-list
+					md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
+					md-row-height-gt-md="1:1" md-row-height="2:2"
+					md-gutter="12px" md-gutter-gt-sm="8px" >
+
+
+				<md-grid-tile ng-repeat="lesson in lessons">
+					<md-card  ng-click="toGo(lesson._id)" class="class-lesson-card">
+						<!--<img src="modules/d2l-classes/img/intro.jpg" alt="Washed Out">-->
+						<md-card-content>
+							<div class="lesson-num">Lecture{{$index+1}}</div>
+							<p class="md-body-1">{{lesson.name}}</p>
+						</md-card-content>
+					</md-card>
+				</md-grid-tile>
+			</md-grid-list>
+		</div>
+
+		<!--List HW-->
+		<md-whiteframe flex class="md-whiteframe-z2 meanT-home-card ob-underbar-red"
+					   layout="column" layout-align="start start" layout-fill
+                style="margin-bottom: 15px;">
+
+            <!-- Class HW Admin Menu-->
+			<div ng-show="classOwner" style="position:inherit; margin-bottom: 5px; width: 100%; text-align: right;">
+				<md-button class="md-primary" ng-click="copyHWTemplate('1S1cucFhz96cGRHvXzgGqxuptNR-NgWKpIwI55RB67NU')">
+					<md-icon style="font-size:40px; width:40px; height:40px;" md-svg-src="modules/openboard/img/doc.svg"></md-icon>
+					Copy Assignment Template
+				</md-button>
+				<md-button class="md-primary md-raised" ng-click="showNewAssign()">New Assignment</md-button>
+			</div>
+
+			<h3 class="md-title">Class 자료</h3>
+			<div style="border-top: 5px solid #ffeb45; padding: 5px; width: 100%;">
+				<p class="md-caption">
+					아래 Document Link 를 클릭 하시면 자신의 구글 드라이브에 자료가 복사 됩니다.
+				</p>
+				<table st-table="hwsCopy" st-safe-src="hws" class="table table-striped md-body-1">
+					<thead>
+					<tr>
+						<th st-sort="title">Title</th>
+						<th>Doc Link</th>
+					</tr>
+					<tr>
+						<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="HW in hwsCopy">
+						<td>{{HW.title}}</td>
+						<td> <md-button class="md-warn md-raised" style="font-size:0.8em" ng-click="linkHW(HW)">Open</md-button></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</md-whiteframe>
+	</section>
 	<div disqus="id" style="margin:auto; margin-left: 20px; margin-right:20px;	"></div>
 </section>
