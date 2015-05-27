@@ -15,8 +15,8 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
-				'public/lib/angular-material/angular-material.min.css',
-                'public/lib/nvd3/nv.d3.min.css',
+				'public/lib/angular-material/angular-material.css',
+				'public/lib/nvd3/nv.d3.min.css',
 				'public/lib/reveal.js/css/reveal.css',
 				'public/lib/highlightjs/styles/github.css',
 			],

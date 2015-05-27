@@ -150,6 +150,11 @@ ApplicationConfiguration.registerModule('gsap-editor');
 
 'use strict';
 
+// Use application configuration module to register a new module
+ApplicationConfiguration.registerModule('matrail-plugin');
+
+'use strict';
+
 // Use applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('mean-events');
 
@@ -6763,6 +6768,28 @@ function GsapEditorCtrl($scope, $http, $cacheFactory) {
 
 'use strict';
 
+angular.module('matrail-plugin').directive('toolbarCustom', toolbarCustom)
+
+	function toolbarCustom($window) {
+		return function postLink(scope, element, attrs) {
+				console.log('toolbarCustom Directive');
+			  var mdContent = $('#open-board-content');
+				angular.element(mdContent).bind("scroll", function() {
+					if (this.scrollTop >= 100) {
+						TweenLite.to('md-toolbar', 0.7, {minHeight:'39', x:0});
+						TweenLite.to('#toggleBtn', 0.7, {x:-10, y:-24, scale:0.7});
+					} else {
+						TweenLite.to('md-toolbar', 0.7, {minHeight:'65', x:0});
+						TweenLite.to('#toggleBtn', 0.7, {x:0, y:0, scale:1});
+					}
+					scope.$apply();
+				});
+
+			};
+	}
+
+'use strict';
+
 // Configuring the Articles module
 angular.module('mean-events').run(['Menus',
 	function(Menus) {
@@ -7029,6 +7056,14 @@ function MeanHomeController($scope, $state, $http, $mdDialog, Authentication, D2
 			targetEvent: ev
 		})
 	};
+
+	$scope.mouseEnter = function(target){
+		TweenLite.to(target.srcElement, 0.7, {scale:1.2})
+	}
+
+	$scope.mouseLeave = function(target){
+		TweenLite.to(target.srcElement, 0.7, {scale:1})
+	}
 }
 
 'use strict';

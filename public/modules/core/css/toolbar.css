@@ -1,0 +1,6 @@
+md-toolbar{
+    max-height:10px;
+}
+md-toolbar.toolbar-custom{
+    max-height:35px !important;
+}
