@@ -8,12 +8,14 @@ angular.module('animations').directive('meanAni', [
 			link: function postLink(scope, element, attrs) {
 
 				var renderer = PIXI.autoDetectRenderer(800, 600, {backgroundColor: 0x1099bb});
-				element.append(renderer.view);
+				var div = element.find('div');
+				div.append(renderer.view);
+
 
 				// create the root of the scene graph
 				var stage = new PIXI.Container();
-
 				var container = new PIXI.Container();
+
 
 				stage.addChild(container);
 
@@ -37,6 +39,10 @@ angular.module('animations').directive('meanAni', [
 					// render the root container
 					renderer.render(stage);
 				}
+
+				var canvas = element.find('canvas');
+				canvas.css('width', '100%');
+				canvas.css('float', 'left');
 			}
 		};
 	}
@@ -100,6 +106,10 @@ angular.module('animations').directive('meanAni', [
 					requestAnimationFrame(animate);
 				}
 
+				var canvas = element.find('canvas');
+				canvas.css('width', '100%');
+				canvas.css('float', 'left');
+
 			}
 		};
 	}
@@ -140,6 +150,10 @@ angular.module('animations').directive('meanAni', [
 					// render the root container
 					renderer.render(stage);
 				}
+
+				var canvas = element.find('canvas');
+				canvas.css('width', '100%');
+				canvas.css('float', 'left');
 			}
 		};
 	}
@@ -191,6 +205,10 @@ angular.module('animations').directive('meanAni', [
 					// render the root container
 					renderer.render(stage);
 				}
+
+				var canvas = element.find('canvas');
+				canvas.css('width', '100%');
+				canvas.css('float', 'left');
 			}
 		};
 	}
