@@ -3,8 +3,118 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-</head>
-<body>
+    <style>
+        #type-farm{
+            position: absolute;
+            top: 0px;
+            right: 80px;
+            width: 224px;
+            height: 204px;
+            z-index: 2;
+        }
+        .bg {
+            position: absolute;
+            top: 0px;
+            width: inherit;
+            height: inherit;
+            background-image: url(misc.png);
+            background-repeat: no-repeat;
+            background-position: -228px -46px;
+        }
 
+        .top-shadow {
+            position: absolute;
+            top: -3px;
+            width: inherit;
+            height: 3px;
+            -webkit-box-shadow: 0px 0px 5px 2px;
+            -moz-box-shadow: 0px 0px 5px 2px;
+            box-shadow: 0px 0px 5px 2px;
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+            opacity: 0.4;
+        }
+        #title{
+            display: none;
+            position: absolute;
+            top: 14px;
+            left: -89px;
+            height: 70px;
+            width: 400px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        #title > span {
+            color: #2d2520;
+            display: block;
+            margin: 0 0 1px 0;
+            font-family: "HeftyRegular", sans-serif;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 23px;
+        }
+        .line {
+            margin: -3px 0 0 0;
+            font-family: "Arvo", sans-serif;
+            font-weight: 400;
+            font-size: 8px;
+            line-height: 22px;
+        }
+
+        .line hr{
+            color: #2d2520;
+            border-color: #2d2520;
+            width: 45px;
+            margin: 0 8px 2px 0;
+        }
+
+        #choices{
+            position: absolute;
+            top: 85px;
+            left: 5px;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            width: 215px;
+            height: 110px;
+        }
+
+        li .arrow{
+            pointer-events: none;
+            width: 156px;
+            height: 40px;
+            margin-left: 19px;
+            background-image: url(misc.png);
+            background-repeat: no-repeat;
+            background-position: -545px -450px;
+        }
+
+    </style>
+</head>
+<body style="background-color:yellowgreen">
+    <div id="type-farm" style="display:block; opacity:1; transform: matrix(1,0,0,1,0,0)">
+        <div class="bg"></div>
+        <div class="top-shadow"></div>
+        <div id="title" style="display: block; opacity: 1;">
+            <span style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">WHAT TYPE</span>
+            <div class="line">
+                <hr style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                <span style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">OF</span>
+                <hr style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+            </div>
+            <span style="margin-top: -5px; opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">FARM?</span>
+        </div>
+
+        <ul id="choices">
+            <li style="display: block; opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                <div class="arrow"></div>
+                <div class="text"></div>
+            </li>
+            <li style="display: block; opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                <div class="arrow" style="background-position: -545px -408px;"></div>
+                <div class="text" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0); background-position: -554px -492px;"></div>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>

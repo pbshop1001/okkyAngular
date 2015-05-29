@@ -1,0 +1,46 @@
+<style>
+    .rendererView {
+        width: 100%;
+        height: 100%;
+        min-height: 620px;
+        min-width: 1024px;
+        display:block;
+    }
+    .intro-pixi{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        color: #efefef;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        overflow: hidden;
+    }
+</style>
+<section data-ng-controller="TestPixiController">
+	<!--<pixi-menu></pixi-menu>-->
+    <div class="rendererView">
+        <div class="intro-pixi">
+            <div style="position: absolute; top:65%; left:50%; transform: translate(-50%, -50%);">
+                <h1 class="md-display-4 title-pixi-app">
+                    Open Board
+                </h1>
+                <p class="md-headline title-pixi-app">오픈보드는 최신 웹 기술을 알려 드리는 <br/> 최초의 교육 사이트 입니다.</p>
+            </div>
+
+            <div class="nav-bar-pixi-app" style="display: block; opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                <div class="fondbell"></div>
+                <div class="right-menu">
+                    <ul class="right-menu-tools">
+                        <li><a data-page="characters" >OUR<br>MISSIONS</a></li>
+                        <li><a data-page="about-us" >ABOUT<br>US</a></li>
+                        <li><a data-page="screenings" >THE<br>SCREENINGS</a></li>
+                    </ul>
+                </div>
+            </div>
+            <main-menu></main-menu>
+        </div>
+    </div>
+
+
+</section>

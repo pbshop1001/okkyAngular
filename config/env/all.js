@@ -29,13 +29,10 @@ module.exports = {
 				'public/lib/angular-touch/angular-touch.js', 
 				'public/lib/angular-sanitize/angular-sanitize.js', 
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
-				//'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 
 				'public/lib/jquery/dist/jquery.js',
-
 				'public/lib/angular-aria/angular-aria.js',
-
 				'public/lib/angular-material/angular-material.js',
 
 
@@ -79,7 +76,7 @@ module.exports = {
 				'public/lib/string/lib/string.min.js',
         'public/lib/moment/min/moment-with-locales.min.js',
 
-                'public/third/prism/prism.js',
+                //'public/third/prism/prism.js',
 
                 'public/lib/nvd3/nv.d3.min.js',
                 'public/lib/angular-nvd3/dist/angular-nvd3.min.js',

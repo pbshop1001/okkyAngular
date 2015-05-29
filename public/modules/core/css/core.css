@@ -30,3 +30,7 @@ input, button, textarea, select {
 .without-container{
 /*	margin-top:51px;*/
 }
+
+.md-content{
+	overflow: inherit !important;
+}

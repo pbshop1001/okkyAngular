@@ -1,0 +1,77 @@
+.title-pixi-app{
+    color: gray;
+    font-weight: 600;
+}
+
+.nav-bar-pixi-app{
+    position: absolute;
+    bottom: 0px;
+    height: 55px;
+    width: 100%;
+    background-color: #2d2520;
+    z-index: 20;
+}
+
+.fondbell{
+    position: absolute;
+    width: 132px;
+    height: 56px;
+    top: -1px;
+    left: 50%;
+    margin: 0 0 0 -220px;
+    background-image: url("../img/logo1.png");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.right-menu{
+    position: absolute;
+    left: 50%;
+    margin: 0 0 0 -10px;
+}
+
+.right-menu hr{
+
+    position: absolute;
+    top: -7px;
+    left: 159px;
+    border: 0px;
+    width: 1px;
+    height: 40px;
+    background-color: white;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+    opacity: 0.2;
+
+
+}
+
+.right-menu hr:first-child{
+    left: 88px;
+}
+
+.right-menu .right-menu-tools {
+    margin: 12px 0 0 0px;
+    padding: 0;
+    list-style: none;}
+
+.right-menu .right-menu-tools li{
+    display: inline-block;
+    margin: 0 0 0 30px;
+    text-align: center;
+    letter-spacing: 2px;
+    cursor: pointer;
+    font-family: "Oswald", sans-serif;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 15px;
+}
+
+.right-menu .right-menu-tools li:first-child {
+    margin: 0;
+}
+
+.right-menu .right-menu-tools li a {
+    color: #e5d7b5;
+    outline: none;
+    text-decoration: none;
+}

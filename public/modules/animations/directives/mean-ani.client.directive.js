@@ -1,7 +1,14 @@
 'use strict';
 
-angular.module('animations').directive('meanAni', [
-	function() {
+angular.module('animations')
+	.directive('meanAni', meanAni)
+	.directive('meanAni2', meanAni2)
+	.directive('meanAni3', meanAni3)
+	.directive('meanAni4', meanAni4)
+	.directive('pixiMenu', pixiMenu)
+	.directive('mainMenu', mainMenu);
+
+	function meanAni() {
 		return {
 			template: '<div></div>',
 			restrict: 'E',
@@ -46,8 +53,8 @@ angular.module('animations').directive('meanAni', [
 			}
 		};
 	}
-]).directive('meanAni2', [
-	function() {
+
+	function meanAni2() {
 		return {
 			template: '<div></div>',
 			restrict: 'E',
@@ -55,6 +62,10 @@ angular.module('animations').directive('meanAni', [
 
 				var renderer = PIXI.autoDetectRenderer(800, 600);
 				element.append(renderer.view);
+
+				var canvas = element.find('canvas');
+				canvas.css('width', '100%');
+				canvas.css('float', 'left');
 
 				// create the root of the scene graph
 				var stage = new PIXI.Container();
@@ -106,21 +117,19 @@ angular.module('animations').directive('meanAni', [
 					requestAnimationFrame(animate);
 				}
 
-				var canvas = element.find('canvas');
-				canvas.css('width', '100%');
-				canvas.css('float', 'left');
+
 
 			}
 		};
 	}
-]).directive('meanAni3', [
-	function() {
+
+	function meanAni3() {
 		return {
 			template: '<div></div>',
 			restrict: 'E',
 			link: function postLink(scope, element, attrs) {
 
-				var renderer = PIXI.autoDetectRenderer(800, 600,{backgroundColor : 0x1099bb});
+				var renderer = PIXI.autoDetectRenderer(800, 600,{backgroundColor : 0x34495e});
 				element.append(renderer.view);
 
 				// create the root of the scene graph
@@ -157,8 +166,8 @@ angular.module('animations').directive('meanAni', [
 			}
 		};
 	}
-]).directive('meanAni4', [
-	function() {
+
+	function meanAni4() {
 		return {
 			template: '<div></div>',
 			restrict: 'E',
@@ -167,6 +176,9 @@ angular.module('animations').directive('meanAni', [
 				var renderer = PIXI.autoDetectRenderer(800, 600,{transparent: true});
 				element.append(renderer.view);
 
+				var canvas = element.find('canvas');
+				canvas.css('width', '100%');
+				canvas.css('float', 'left');
 				// create the root of the scene graph
 				var stage = new PIXI.Container();
 
@@ -205,11 +217,143 @@ angular.module('animations').directive('meanAni', [
 					// render the root container
 					renderer.render(stage);
 				}
-
-				var canvas = element.find('canvas');
-				canvas.css('width', '100%');
-				canvas.css('float', 'left');
 			}
 		};
 	}
-]);
+
+function pixiMenu(){
+	return {
+		template:'<div></div>',
+		restrict: 'E',
+		link: function postLink(scope, element, attrs){
+			var renderer = PIXI.autoDetectRenderer(150, 700,{backgroundColor: 0xf1c40f});
+			element.append(renderer.view);
+			var stage = new PIXI.Container();
+			var basicText = new PIXI.Text('Basic text in pixi');
+			basicText.x = 5;
+			basicText.y = 90;
+			stage.addChild(basicText);
+
+			var style = {
+				font : '13px Arial bold italic',
+				fill : '#F7EDCA',
+				stroke : '#4a1850',
+				strokeThickness : 5,
+				dropShadow : true,
+				dropShadowColor : '#000000',
+				dropShadowAngle : Math.PI / 6,
+				dropShadowDistance : 6,
+				wordWrap : true,
+				wordWrapWidth : 440
+			};
+			var richText = new PIXI.Text(' Rich text\n with a lot of options and\n across multiple lines',style);
+			richText.x = 5;
+			richText.y = 180;
+
+			stage.addChild(richText);
+
+			// start animating
+			animate();
+
+			function animate() {
+
+				requestAnimationFrame(animate);
+
+				// render the root container
+				renderer.render(stage);
+			}
+		}
+	}
+}
+
+function mainMenu(){
+	return {
+		template:'<div></div>',
+		restrict: 'E',
+		link: function postLink(scope, element, attrs){
+
+			var tilingSprite, renderer, stage, fish;
+
+			var richText;
+
+			$( window ).resize(onResize);
+			function onResize(){
+				renderer.resize(window.innerWidth,window.innerHeight-65);
+			}
+
+			function init() {
+				var viewWidth = 2560;
+				var viewHeight = 1600;
+				renderer = PIXI.autoDetectRenderer(viewWidth, viewHeight);
+				var div = element.find('div');
+				div.append(renderer.view);
+
+				// create an new instance of a pixi stage
+				stage = new PIXI.Container();
+				var texture = PIXI.Texture.fromImage('modules/admin-page/img/p2.jpeg');
+				//var tilingSprite = new PIXI.extras.TilingSprite(texture, renderer.width, renderer.height);
+
+				tilingSprite = new PIXI.extras.TilingSprite(texture, renderer.width, renderer.height);
+				stage.addChild(tilingSprite);
+
+				//var text = new PIXI.Text("Pixi.js can has text!", {font: "50px Arial", fill: "red"});
+				//text.setText("DDDD");
+				//tilingSprite.addChild(text);
+
+				fish = PIXI.Sprite.fromImage("modules/admin-page/img/mean.png");
+				fish.interactive = true;
+				//fish.position.set(230, 264);
+				fish.anchor.x = .5;
+				fish.anchor.y = .5;
+				fish.on('click', onClick);
+
+				function onClick(mouseData){
+					tilingSprite.tilePosition.x += 100;
+				//	richText.setText("You Clicked Fish!");
+					console.log("MOUSE Click!");
+				};
+
+				stage.addChild(fish);
+
+				var style = {
+					font : '23px Arial bold italic',
+					fill : '#F7EDCA',
+					stroke : '#4a1850',
+					strokeThickness : 5,
+					dropShadow : true,
+					dropShadowColor : '#000000',
+					dropShadowAngle : Math.PI / 6,
+					dropShadowDistance : 6,
+					wordWrap : true,
+					wordWrapWidth : 440
+				};
+
+				//richText = new PIXI.Text(' Rich text\n with a lot of options and\n across multiple lines',style);
+				//richText.x = 5;
+				//richText.y = 5;
+				//tilingSprite.addChild(richText);
+
+				requestAnimationFrame(animate);
+			}
+
+
+
+			init();
+			onResize();
+			function animate() {
+				//tilingSprite.tileScale.x = 2 + Math.sin(count);
+				//tilingSprite.tileScale.y = 2 + Math.cos(count);
+
+				tilingSprite.tilePosition.x -= 0.64;
+				tilingSprite.tilePosition.y -= 0.64;
+
+				fish.x =renderer.width/2;
+				fish.y =renderer.height*0.3;
+
+				// render the root container
+				renderer.render(stage);
+				requestAnimationFrame(animate);
+			}
+		}
+	}
+}
