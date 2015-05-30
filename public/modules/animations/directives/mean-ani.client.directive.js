@@ -228,8 +228,11 @@ function pixiMenu(){
 		link: function postLink(scope, element, attrs){
 			var renderer = PIXI.autoDetectRenderer(150, 700,{backgroundColor: 0xf1c40f});
 			element.append(renderer.view);
+			element.css('position','absolute');
+			element.css('left','0');
+
 			var stage = new PIXI.Container();
-			var basicText = new PIXI.Text('Basic text in pixi');
+			var basicText = new PIXI.Text('Basic text\n in pixi');
 			basicText.x = 5;
 			basicText.y = 90;
 			stage.addChild(basicText);
@@ -246,7 +249,7 @@ function pixiMenu(){
 				wordWrap : true,
 				wordWrapWidth : 440
 			};
-			var richText = new PIXI.Text(' Rich text\n with a lot of options and\n across multiple lines',style);
+			var richText = new PIXI.Text(' Best\n Web UI\n EVER!',style);
 			richText.x = 5;
 			richText.y = 180;
 
