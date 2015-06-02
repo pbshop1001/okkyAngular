@@ -1,0 +1,30 @@
+.statusBarSvg {
+    z-index: 9;
+    width: 200px;
+    height: 45px;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    background-color: #8e908c;
+    padding: 3px;
+    border-radius: 7px;
+}
+
+.healthContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #dff4ef;
+    border-radius: 7px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.healthBar {
+    width: 80%;
+    height: 100%;
+    padding: 3px;
+    margin: 0px;
+    background-color: #ffa347;
+    border-radius: 7px;
+}
