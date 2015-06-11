@@ -73,14 +73,19 @@ angular.module('d2l-lessons').controller('D2lLessonsController', D2lLessonsContr
 
 		// Find existing D2l lesson
 		$scope.findOne = function() {
-			var wistiaEmbed = Wistia.embed("ocowx278d5");
-			$scope.d2lLesson = D2lLessons.get({ 
+
+			$scope.d2lLesson = D2lLessons.get({
 				d2lLessonId: $stateParams.d2lLessonId
 			});
-			if($state.current.name === 'editD2lLesson')
+
+			if($state.current.name === 'editD2lLesson'){
 				$scope.d2lLesson.$promise.then(function(data){
 					$scope.d2lLesson.example = _.pluck(_.dropWhile(data.example, 'name link'),'_id');
 				});
+			} else if($state.current.name === 'viewD2lLesson'){
+				var wistiaEmbed = Wistia.embed("ocowx278d5");
+			}
+
 		};
 
 		// Load Class
@@ -129,9 +134,9 @@ angular.module('d2l-lessons').controller('D2lLessonsController', D2lLessonsContr
 				},
 				function(){
 					//$log.debug('created Assignment');
-					$scope.hws = D2lHwsByClass.get({classId: $scope.d2lClass._id},function(result){
-						$scope.hwsCopy = [].concat(result);
-					});
+					//$scope.hws = D2lHwsByClass.get({classId: $scope.d2lClass._id},function(result){
+					//	$scope.hwsCopy = [].concat(result);
+					//});
 				}
 			);
 
@@ -146,7 +151,7 @@ angular.module('d2l-lessons').controller('D2lLessonsController', D2lLessonsContr
 					scope.docs = "";
 					scope.project = '';
 					scope.projectForm = '';
-					args.message = '';
+					//args.message = '';
 					scope.$digest();
 					//console.log('B');;
 				};
