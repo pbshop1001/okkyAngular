@@ -61,11 +61,13 @@ function MeanHomeController($scope, $state, $http, $mdDialog, Authentication, D2
 		})
 	};
 
-	$scope.mouseEnter = function(target){
-		TweenLite.to(target.srcElement, 0.7, {scale:1.2})
-	}
 
-	$scope.mouseLeave = function(target){
-		TweenLite.to(target.srcElement, 0.7, {scale:1})
-	}
+	//$scope.mouseEnter = function(target){
+	//
+	//	TweenLite.to(target.srcElement, 0.7, {scale:1.2})
+	//}
+	//
+	//$scope.mouseLeave = function(target){
+	//	TweenLite.to(target.srcElement, 0.7, {scale:1})
+	//}
 }

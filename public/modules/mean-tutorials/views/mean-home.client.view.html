@@ -59,8 +59,8 @@
                     <md-grid-tile ng-repeat="lesson in courses"
                                   rowspan="1"
                                   colspan="1"
-                                  class="gray">
-                        <img ng-mouseenter="mouseEnter($event)" ng-mouseleave="mouseLeave($event)" style="width: 80%; height: 80%;" src="{{lesson.image}}">
+                                  class="gray" back-drop>
+                        <img style="width: 80%; height: 80%;" src="{{lesson.image}}">
                         <!--<md-icon style="width: 50%; height: 100%;" md-svg-src="modules/d2l-classes/img/svg/ninja.svg"></md-icon>-->
                         <md-grid-tile-footer class="class-footer">
                             <h3 class="class-footer-text">{{lesson.name}}</h3>
