@@ -1,5 +1,7 @@
 'use strict';
 
+// 6/11: create for backdrop for class contents
+//
 angular.module('mean-tutorials').directive('backDrop', ['$compile',
 	function($compile) {
 		return {
@@ -24,7 +26,6 @@ angular.module('mean-tutorials').directive('backDrop', ['$compile',
 				element.on('mouseleave', function(){
 					TweenMax.fromTo(backDrop, 0.5, {alpha:1, display:'block'}, {alpha:0, display:'none'});
 				});
-
 			}
 		};
 	}

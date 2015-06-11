@@ -6714,7 +6714,7 @@ angular.module('etc').directive('productDetail', [
 var CONFIG = {
 	//clientId: '574563539488-n0vrevgjp3606l20hfk4rqfk1dc8j3qb.apps.googleusercontent.com',
     clientId: '574563539488-pctm7fr21vcetcfpdf9hhaje9q5vepee.apps.googleusercontent.com',
-	developerKey: 'AIzaSyBEGA9BOSoo0DF69RNRh9MsMKDxaVlnT_U',
+	developerKey: 'AIzaSyCs0vMbPNaana-11VvKf6RnyQ5wU5L7X_o',
 	scopes: [
 		'https://www.googleapis.com/auth/drive',
 		'https://www.googleapis.com/auth/drive.appdata',
@@ -8046,6 +8046,8 @@ angular.module('mean-tutorials').controller('ProjectviewdashboardController', ['
 
 'use strict';
 
+// 6/11: create for backdrop for class contents
+//
 angular.module('mean-tutorials').directive('backDrop', ['$compile',
 	function($compile) {
 		return {
@@ -8070,7 +8072,6 @@ angular.module('mean-tutorials').directive('backDrop', ['$compile',
 				element.on('mouseleave', function(){
 					TweenMax.fromTo(backDrop, 0.5, {alpha:1, display:'block'}, {alpha:0, display:'none'});
 				});
-
 			}
 		};
 	}
