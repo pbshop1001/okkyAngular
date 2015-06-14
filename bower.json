@@ -18,7 +18,7 @@
     "bootstrap-sass-official": "latest",
     "lodash": "latest",
     "angular-smart-table": "~2.0.1",
-    "firebase": "latest",
+    "firebase": "~2.2.7",
     "angular-material": "master",
     "hammerjs": "~2.0.2",
     "components-font-awesome": "~4.2.0",
@@ -32,7 +32,8 @@
     "braintree-angular": "~1.2.1",
     "reveal.js": "~3.0.0",
     "angular-highlightjs": "~0.4.1",
-    "pixi": "*"
+    "pixi": "*",
+    "angularfire": "~1.1.1"
   },
   "resolutions": {
     "angular": "*"

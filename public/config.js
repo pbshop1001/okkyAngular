@@ -16,7 +16,8 @@ var ApplicationConfiguration = (function() {
             //'oc.lazyLoad',
             'nvd3',
             'braintree-angular',
-	          'hljs'
+	          'hljs',
+	          'firebase'
         ];
 
 	// Add a new vertical module

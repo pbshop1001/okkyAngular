@@ -81,7 +81,9 @@ module.exports = {
 				'public/lib/pixi/bin/pixi.js',
 				'public/3rd/particle-engine.js',
 				'public/3rd/simplexnoise.js',
-				'public/3rd/moments.js'
+				'public/3rd/moments.js',
+				'public/lib/firebase/firebase.js',
+				'public/lib/angularfire/dist/angularfire.min.js'
 
 			]
 		},

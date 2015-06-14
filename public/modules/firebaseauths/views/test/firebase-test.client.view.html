@@ -1,0 +1,26 @@
+<section ng-controller="fire1">
+	<!--<div class="md-body-1">-->
+		<!--<input type="text" ng-model="data.text"/>-->
+        <!--<h2 class="md-title"> You said: {{data.text}}</h2>-->
+	<!--</div>-->
+    <!--<ul>-->
+        <!--<li ng-repeat="message in messages">-->
+            <!--&lt;!&ndash; edit a message &ndash;&gt;-->
+            <!--<input ng-model="message.text" ng-change="messages.$save(message)" />-->
+            <!--&lt;!&ndash; delete a message &ndash;&gt;-->
+            <!--<button ng-click="messages.$remove(message)">Delete Message</button>-->
+        <!--</li>-->
+    <!--</ul>-->
+    <!--&lt;!&ndash; push a new message onto the array &ndash;&gt;-->
+    <!--<form ng-submit="addMessage()">-->
+        <!--<input ng-model="newMessageText" />-->
+        <!--<button type="submit">Add Message</button>-->
+    <!--</form>-->
+
+    <h2 class="md-title">
+        <ul>
+            <li ng-repeat="presence in presences">{{presence.status}} {{presence.username}}</li>
+        </ul>
+    </h2>
+    <md-button ng-click="logOut()">LogOut</md-button>
+</section>

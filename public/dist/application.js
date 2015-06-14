@@ -16,7 +16,8 @@ var ApplicationConfiguration = (function() {
             //'oc.lazyLoad',
             'nvd3',
             'braintree-angular',
-	          'hljs'
+	          'hljs',
+	          'firebase'
         ];
 
 	// Add a new vertical module
@@ -134,6 +135,10 @@ ApplicationConfiguration.registerModule('etc-products');
 // Use application configuration module to register a new module
 ApplicationConfiguration.registerModule('etc');
 
+'use strict';
+
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('firebaseauths');
 'use strict';
 
 // Use application configuration module to register a new module
@@ -6711,8 +6716,225 @@ angular.module('etc').directive('productDetail', [
 ]);
 'use strict';
 
+//Setting up route
+angular.module('firebaseauths').constant('FIREBASE_URI', 'https://pbshop.firebaseio.com/');
+
+angular.module('firebaseauths').config(['$stateProvider',
+	function($stateProvider) {
+		// Firebaseauths state routing
+		$stateProvider.
+		state('firebase-test', {
+			url: '/firebase-test',
+			templateUrl: 'modules/firebaseauths/views/test/firebase-test.client.view.html'
+		}).
+		state('listFirebaseauths', {
+			url: '/firebaseauths',
+			templateUrl: 'modules/firebaseauths/views/list-firebaseauths.client.view.html'
+		}).
+		state('createFirebaseauth', {
+			url: '/firebaseauths/create',
+			templateUrl: 'modules/firebaseauths/views/create-firebaseauth.client.view.html'
+		}).
+		state('viewFirebaseauth', {
+			url: '/firebaseauths/:firebaseauthId',
+			templateUrl: 'modules/firebaseauths/views/view-firebaseauth.client.view.html'
+		}).
+		state('editFirebaseauth', {
+			url: '/firebaseauths/:firebaseauthId/edit',
+			templateUrl: 'modules/firebaseauths/views/edit-firebaseauth.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+angular.module('firebaseauths').controller('fire1', AuthenticationController)
+
+function AuthenticationController($scope, $firebaseObject, $firebaseArray, $firebaseAuth, FIREBASE_URI, Authentication, FirebaseSchema) {
+
+	$scope.authentication = Authentication;
+	var userInfo = $scope.authentication.user
+	if(userInfo._id)
+		$scope.presences = FirebaseSchema.runCheckPresenceStatus();
+	else
+		console.log('required login');
+
+	$scope.logOut = FirebaseSchema.removeLogin;
+
+	//console.log($scope.authentication);
+	//var ref = new Firebase('https://pbshop.firebaseio.com/data');
+	//var ref2 = new Firebase("https://pbshop.firebaseio.com/messages");
+	//
+	//var syncObject = $firebaseObject(ref);
+	//syncObject.$bindTo($scope, "data");
+	//
+	//$scope.messages = $firebaseArray(ref2);
+	//
+	//$scope.addMessage = function(){
+	//	$scope.messages.$add({
+	//		text: $scope.newMessageText
+	//	});
+	//}
+	//
+	////var auth = $firebaseAuth(refAuth);
+	////auth.$authWithOAuthPopup("facebook").then(function(authData) {
+	////	console.log("Logged in as:", authData.uid);
+	////}).catch(function(error) {
+	////	console.log("Authentication failed:", error);
+	////});
+	//
+	//var amOnline = new Firebase(FIREBASE_URI+'.info/connected');
+	//var userRef = new Firebase(FIREBASE_URI+'presence/'+userInfo._id);
+	//var userRefs = new Firebase(FIREBASE_URI+'presence');
+	//
+	//$scope.presences = $firebaseArray(userRefs);
+	//
+	//amOnline.on('value', function(snapshot) {
+	//	if (snapshot.val()) {
+	//		userRef.onDisconnect().set('☆ offline');
+	//		if(userInfo._id)
+	//			userRef.set('★ online');
+	//	}
+	//});
+	//document.onIdle = function () {
+	//	userRef.set('☆ idle');
+	//}
+	//
+	//document.onAway = function () {
+	//	userRef.set('☄ away');
+	//}
+	//document.onBack = function (isIdle, isAway) {
+	//	userRef.set('★ online');
+	//}
+
+
+}
+
+'use strict';
+
+// Firebaseauths controller
+angular.module('firebaseauths').controller('FirebaseauthsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Firebaseauths',
+	function($scope, $stateParams, $location, Authentication, Firebaseauths) {
+		$scope.authentication = Authentication;
+
+		// Create new Firebaseauth
+		$scope.create = function() {
+			// Create new Firebaseauth object
+			var firebaseauth = new Firebaseauths ({
+				name: this.name
+			});
+
+			// Redirect after save
+			firebaseauth.$save(function(response) {
+				$location.path('firebaseauths/' + response._id);
+
+				// Clear form fields
+				$scope.name = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Remove existing Firebaseauth
+		$scope.remove = function(firebaseauth) {
+			if ( firebaseauth ) { 
+				firebaseauth.$remove();
+
+				for (var i in $scope.firebaseauths) {
+					if ($scope.firebaseauths [i] === firebaseauth) {
+						$scope.firebaseauths.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.firebaseauth.$remove(function() {
+					$location.path('firebaseauths');
+				});
+			}
+		};
+
+		// Update existing Firebaseauth
+		$scope.update = function() {
+			var firebaseauth = $scope.firebaseauth;
+
+			firebaseauth.$update(function() {
+				$location.path('firebaseauths/' + firebaseauth._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Find a list of Firebaseauths
+		$scope.find = function() {
+			$scope.firebaseauths = Firebaseauths.query();
+		};
+
+		// Find existing Firebaseauth
+		$scope.findOne = function() {
+			$scope.firebaseauth = Firebaseauths.get({ 
+				firebaseauthId: $stateParams.firebaseauthId
+			});
+		};
+	}
+]);
+'use strict';
+
+
+
+angular.module('firebaseauths').factory('FirebaseSchema', FirebaseSchema);
+
+function FirebaseSchema($firebaseObject, $firebaseArray, $firebaseAuth, FIREBASE_URI, Authentication) {
+
+	var userInfo = Authentication.user;
+	console.log(userInfo);
+
+	var myConnectionsRef = new Firebase(FIREBASE_URI+'users/'+userInfo._id+'/connections');
+	var lastOnlineRef = new Firebase(FIREBASE_URI+'presence/users/'+userInfo._id+'/lastOnline');
+	var connectedRef = new Firebase(FIREBASE_URI+'.info/connected');
+
+
+
+
+
+
+	return {
+		runCheckPresenceStatus: function() {
+			var syncPresences = $firebaseArray(myConnectionsRef);
+			connectedRef.on('value', function(snapshot) {
+				if (snapshot.val() === true) {
+					var con = myConnectionsRef.push(true)
+					con.onDisconnect().remove();
+					lastOnlineRef.onDisconnect().set(Firebase.ServerValue.TIMESTAMP)
+				}
+			});
+
+			return syncPresences;
+		},
+		removeLogin: function() {
+			console.log('dd');
+			//var myConnectionsRef = new Firebase(FIREBASE_URI+'users/'+userInfo._id+'/connections');
+			myConnectionsRef.remove();
+			//var con = myConnectionsRef.push(true);
+			//con.remove();
+			lastOnlineRef.set(Firebase.ServerValue.TIMESTAMP);
+		}
+	};
+}
+
+'use strict';
+
+//Firebaseauths service used to communicate Firebaseauths REST endpoints
+angular.module('firebaseauths').factory('Firebaseauths', ['$resource',
+	function($resource) {
+		return $resource('firebaseauths/:firebaseauthId', { firebaseauthId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);
+'use strict';
+
 var CONFIG = {
-	//clientId: '574563539488-n0vrevgjp3606l20hfk4rqfk1dc8j3qb.apps.googleusercontent.com',
     clientId: '574563539488-pctm7fr21vcetcfpdf9hhaje9q5vepee.apps.googleusercontent.com',
 	developerKey: 'AIzaSyCs0vMbPNaana-11VvKf6RnyQ5wU5L7X_o',
 	scopes: [
@@ -6722,6 +6944,7 @@ var CONFIG = {
 		'https://www.googleapis.com/auth/paymentssandbox.make_payments'
 	]
 };
+
 angular.module('g-drive').value('configGdrive', CONFIG);
 
 //Setting up route
@@ -6729,7 +6952,6 @@ angular.module('g-drive').config(['$stateProvider',
 	function($stateProvider) {
 	}
 ]);
-
 'use strict';
 function GDocs(selector) {
     var SCOPE_ = 'https://www.googleapis.com/drive/v2/';
