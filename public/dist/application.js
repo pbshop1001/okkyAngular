@@ -6880,45 +6880,66 @@ angular.module('firebaseauths').controller('FirebaseauthsController', ['$scope',
 
 
 angular.module('firebaseauths').factory('FirebaseSchema', FirebaseSchema);
+angular.module('firebaseauths').factory('FirebaseDoubleConn', FirebaseDoubleConn);
 
-function FirebaseSchema($firebaseObject, $firebaseArray, $firebaseAuth, FIREBASE_URI, Authentication) {
-
-	var userInfo = Authentication.user;
-	console.log(userInfo);
-
-	var myConnectionsRef = new Firebase(FIREBASE_URI+'users/'+userInfo._id+'/connections');
-	var lastOnlineRef = new Firebase(FIREBASE_URI+'presence/users/'+userInfo._id+'/lastOnline');
-	var connectedRef = new Firebase(FIREBASE_URI+'.info/connected');
-
-
-
-
-
-
+function FirebaseSchema($window, $firebaseObject, $firebaseArray, $firebaseAuth, FIREBASE_URI, Authentication) {
+	var userInfo;
+	var myConnectionsRef;
+	var lastOnlineRef;
+	var connectedRef;
+	var localConnection = false;
+	var syncPresences;
 	return {
 		runCheckPresenceStatus: function() {
-			var syncPresences = $firebaseArray(myConnectionsRef);
+			userInfo = Authentication.user;
+			myConnectionsRef = new Firebase(FIREBASE_URI+'users/'+userInfo._id+'/connections');
+			lastOnlineRef = new Firebase(FIREBASE_URI+'presence/users/'+userInfo._id+'/lastOnline');
+			connectedRef = new Firebase(FIREBASE_URI+'.info/connected');
+
+			syncPresences = $firebaseArray(myConnectionsRef);
 			connectedRef.on('value', function(snapshot) {
+				localConnection = true;
 				if (snapshot.val() === true) {
 					var con = myConnectionsRef.push(true)
 					con.onDisconnect().remove();
 					lastOnlineRef.onDisconnect().set(Firebase.ServerValue.TIMESTAMP)
 				}
 			});
+			myConnectionsRef.on('child_added', function(childSnapshot, prevChildKey) {
+				console.log('changed: ');
+				console.log(childSnapshot.val());
+				console.log(prevChildKey);
+
+				if(prevChildKey){
+					console.log('logOut');
+					alert('more than two connections');
+					$window.location.href = 'auth/signout';
+				}
+			})
 
 			return syncPresences;
 		},
 		removeLogin: function() {
-			console.log('dd');
-			//var myConnectionsRef = new Firebase(FIREBASE_URI+'users/'+userInfo._id+'/connections');
 			myConnectionsRef.remove();
-			//var con = myConnectionsRef.push(true);
-			//con.remove();
 			lastOnlineRef.set(Firebase.ServerValue.TIMESTAMP);
+			localConnection = false;
+		},
+		getConnection: function() {
+			return localConnection;
+		},
+		getNumConnection: function(){
+			if(syncPresences)
+				return syncPresences.length;
+			else
+				return 0;
 		}
 	};
 }
 
+
+function FirebaseDoubleConn($firebaseObject, $firebaseArray, $firebaseAuth, FIREBASE_URI, Authentication) {
+
+}
 'use strict';
 
 //Firebaseauths service used to communicate Firebaseauths REST endpoints
@@ -7653,10 +7674,27 @@ function MeanLoginCtrl($scope, Authentication, $mdDialog){
 	$scope.authentication = Authentication;
 }
 
-function MeanHomeController($scope, $state, $http, $mdDialog, Authentication, D2lClasses) {
+function MeanHomeController($scope, $state, $http, $mdDialog, Authentication, D2lClasses, FirebaseSchema) {
 
 	//Initialization
 	$scope.authentication = Authentication;
+	var connection = FirebaseSchema.getConnection();
+	var numConn = FirebaseSchema.getNumConnection();
+	console.log(numConn);
+
+
+	//FireBase User Online Status
+	var userInfo = $scope.authentication.user
+	if(userInfo._id && connection == false){
+		$scope.presences = FirebaseSchema.runCheckPresenceStatus();
+		console.log('fire');
+	}
+
+	else
+		console.log('required login');
+
+	$scope.logOut = FirebaseSchema.removeLogin;
+
 
 	//Course list
 	$scope.courses = D2lClasses.query();

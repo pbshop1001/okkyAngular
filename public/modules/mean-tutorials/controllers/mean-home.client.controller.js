@@ -8,10 +8,27 @@ function MeanLoginCtrl($scope, Authentication, $mdDialog){
 	$scope.authentication = Authentication;
 }
 
-function MeanHomeController($scope, $state, $http, $mdDialog, Authentication, D2lClasses) {
+function MeanHomeController($scope, $state, $http, $mdDialog, Authentication, D2lClasses, FirebaseSchema) {
 
 	//Initialization
 	$scope.authentication = Authentication;
+	var connection = FirebaseSchema.getConnection();
+	var numConn = FirebaseSchema.getNumConnection();
+	console.log(numConn);
+
+
+	//FireBase User Online Status
+	var userInfo = $scope.authentication.user
+	if(userInfo._id && connection == false){
+		$scope.presences = FirebaseSchema.runCheckPresenceStatus();
+		console.log('fire');
+	}
+
+	else
+		console.log('required login');
+
+	$scope.logOut = FirebaseSchema.removeLogin;
+
 
 	//Course list
 	$scope.courses = D2lClasses.query();
